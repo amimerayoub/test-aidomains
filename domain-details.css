@@ -1,0 +1,204 @@
+/* ============================================
+   Domain Details Page — Enhanced Premium UI
+   Uses core CSS vars from styles.css
+   ============================================ */
+
+/* ── Top Bar ──────────────────────────────────────────────────── */
+.dd-topbar{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(10,10,10,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:90;transition:background var(--transition)}
+[data-theme="light"] .dd-topbar{background:rgba(245,246,248,.88)}
+
+.dd-topbar-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.dd-topbar-center{flex:0 1 auto;text-align:center;overflow:hidden}
+.dd-topbar-right{flex:1;display:flex;justify-content:flex-end;align-items:center}
+
+.dd-back-btn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg-input);border:1px solid var(--glass-border);transition:var(--transition);cursor:pointer;flex-shrink:0;text-decoration:none;color:inherit}
+.dd-back-btn:hover{background:var(--glass-bg-hover);border-color:var(--glass-border-hover)}
+.dd-back-btn svg{width:15px;height:15px}
+
+.dd-topbar-brand{display:flex;align-items:center;gap:7px;font-family:var(--font-primary);font-size:.75rem;font-weight:700;color:var(--text-secondary);white-space:nowrap}
+
+.dd-topbar-domain{font-family:var(--font-primary);font-size:.8rem;font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px;display:inline-block}
+
+.dd-theme-btn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg-input);border:1px solid var(--glass-border);transition:var(--transition);cursor:pointer;padding:0;flex-shrink:0}
+.dd-theme-btn:hover{border-color:var(--glass-border-hover);background:var(--glass-bg-hover)}
+.dd-theme-btn svg{width:15px;height:15px;color:var(--text-secondary)}
+[data-theme="dark"] .dd-theme-btn .icon-sun{display:none}
+[data-theme="light"] .dd-theme-btn .icon-moon{display:none}
+
+/* ── Main ─────────────────────────────────────────────────────── */
+.dd-main{padding-top:70px;min-height:100vh;position:relative;z-index:1;max-width:1060px;margin:0 auto;padding-left:20px;padding-right:20px;padding-bottom:60px}
+
+/* ── Hero ─────────────────────────────────────────────────────── */
+.dd-hero{text-align:center;padding:24px 20px 20px;margin-bottom:4px}
+.dd-hero-icon{width:48px;height:48px;border-radius:14px;background:var(--glass-bg);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.dd-hero-icon svg{width:24px;height:24px;color:var(--text-secondary)}
+
+.dd-hero-domain{font-family:var(--font-primary);font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;margin:0 0 10px;letter-spacing:-.02em;line-height:1.1}
+.dd-hero-domain .dd-tld-hl{color:rgba(255,255,255,.35);font-weight:700}
+[data-theme="light"] .dd-hero-domain .dd-tld-hl{color:rgba(0,0,0,.3)}
+.dd-hero-domain::after{content:'';display:block;width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--text-tertiary),transparent);margin:10px auto 0;border-radius:2px}
+
+.dd-hero-meta{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+.dd-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:50px;font-size:.68rem;font-weight:700;letter-spacing:.3px}
+.dd-badge-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dd-badge-avail{background:rgba(74,222,128,.08);color:#4ade80;border:1px solid rgba(74,222,128,.18)}
+.dd-badge-avail .dd-badge-dot{background:#4ade80;box-shadow:0 0 6px rgba(74,222,128,.5)}
+.dd-badge-reg{background:rgba(248,113,113,.08);color:#f87171;border:1px solid rgba(248,113,113,.18)}
+.dd-badge-reg .dd-badge-dot{background:#f87171;box-shadow:0 0 6px rgba(248,113,113,.5)}
+.dd-badge-unk{background:var(--bg-input);color:var(--text-tertiary);border:1px solid var(--glass-border)}
+.dd-badge-unk .dd-badge-dot{background:var(--text-tertiary)}
+.dd-badge-tld{font-size:.7rem;font-weight:600;color:var(--text-tertiary);background:var(--bg-input);border:1px solid var(--glass-border);padding:3px 10px;border-radius:50px}
+.dd-badge-time{font-size:.65rem;color:var(--text-tertiary)}
+
+/* ── Hero Actions ─────────────────────────────────────────────── */
+.dd-hero-actions{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px}
+.btn-primary-orange{background:linear-gradient(90deg,#ff7a18,#ffb347);color:#000;font-weight:700;font-size:.8rem;padding:10px 20px;border-radius:var(--radius-sm);border:none;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 15px rgba(255,122,24,.3)}
+.btn-primary-orange:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,122,24,.4)}
+.btn-primary-orange:active{transform:scale(.97)}
+.btn-action-glass{background:var(--glass-bg);border:1px solid var(--glass-border);color:var(--text-secondary);font-weight:600;font-size:.75rem;padding:8px 16px;border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-primary)}
+.btn-action-glass:hover{background:var(--glass-bg-hover);border-color:var(--glass-border-hover);color:var(--text-primary)}
+.btn-action-glass:active{transform:scale(.97)}
+
+/* ── Progress ─────────────────────────────────────────────────── */
+.dd-progress{position:relative;margin-bottom:24px;height:30px;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-sm);overflow:hidden;display:flex;align-items:center}
+.dd-progress-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.1));border-radius:var(--radius-sm);width:0;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.dd-progress-text{position:relative;z-index:1;padding:0 14px;font-size:.72rem;font-weight:600;color:var(--text-secondary)}
+.dd-progress.done{display:none}
+
+/* ── Grid ─────────────────────────────────────────────────────── */
+.dd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:20px}
+
+/* ── Card ─────────────────────────────────────────────────────── */
+.dd-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);overflow:hidden;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:border-color var(--transition);animation:ddCardIn .35s ease-out both}
+.dd-card:hover{border-color:var(--glass-border-hover)}
+.dd-card-full{grid-column:1/-1}
+@keyframes ddCardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.dd-card-head{display:flex;align-items:center;gap:9px;padding:14px 18px;border-bottom:1px solid var(--glass-border)}
+.dd-card-head svg{width:16px;height:16px;color:var(--text-tertiary);flex-shrink:0}
+.dd-card-head h2{font-family:var(--font-primary);font-size:.8rem;font-weight:700;color:var(--text-primary);margin:0}
+
+.dd-card-content{padding:14px 18px}
+
+/* ── Data Row ─────────────────────────────────────────────────── */
+.dd-row{display:flex;align-items:baseline;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.025);gap:10px}
+.dd-row:last-child{border-bottom:none}
+.dd-lbl{font-size:.68rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.4px;flex-shrink:0}
+.dd-val{font-size:.82rem;font-weight:600;color:var(--text-primary);text-align:right;word-break:break-all;font-family:var(--font-primary)}
+.dd-val.mono{font-family:'Fira Code','Consolas',monospace;font-size:.75rem}
+[data-theme="light"] .dd-row{border-bottom-color:rgba(0,0,0,.04)}
+
+/* ── TLD Grid ─────────────────────────────────────────────────── */
+.dd-tld-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px}
+.dd-tld-chip{display:flex;align-items:center;justify-content:space-between;padding:9px 11px;background:var(--bg-input);border:1px solid var(--glass-border);border-radius:var(--radius-xs);transition:var(--transition);gap:6px}
+.dd-tld-chip:hover{border-color:var(--glass-border-hover)}
+.dd-tld-ext{font-family:var(--font-primary);font-size:.78rem;font-weight:700}
+.dd-tld-tag{font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:50px}
+.dd-tld-tag-avail{color:#4ade80;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.15)}
+.dd-tld-tag-taken{color:#f87171;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.12)}
+
+/* ── SEO Metric Cards ─────────────────────────────────────────── */
+.dd-metrics{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px}
+.dd-metric{display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 8px;background:var(--bg-input);border:1px solid var(--glass-border);border-radius:var(--radius-sm);transition:var(--transition);text-align:center}
+.dd-metric:hover{border-color:var(--glass-border-hover);background:var(--glass-bg-hover)}
+.dd-metric-icon{color:var(--text-tertiary)}
+.dd-metric-icon svg{width:16px;height:16px}
+.dd-metric-val{font-family:var(--font-primary);font-size:1rem;font-weight:800;color:var(--text-primary)}
+.dd-metric-lbl{font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text-tertiary)}
+
+/* ── Age Display ──────────────────────────────────────────────── */
+.dd-age-hero{text-align:center;padding:6px 0}
+.dd-age-num{font-family:var(--font-primary);font-size:2.4rem;font-weight:800;color:var(--text-primary);line-height:1}
+.dd-age-unit{font-size:.8rem;font-weight:600;color:var(--text-tertiary);margin-left:4px}
+.dd-age-sub{font-size:.75rem;color:var(--text-secondary);margin-top:4px}
+.dd-age-cat{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:50px;font-size:.65rem;font-weight:700;margin-top:8px}
+.dd-age-cat.mature{background:rgba(245,158,11,.08);color:#f59e0b;border:1px solid rgba(245,158,11,.15)}
+.dd-age-cat.established{background:rgba(16,185,129,.08);color:#10b981;border:1px solid rgba(16,185,129,.15)}
+.dd-age-cat.new{background:rgba(96,165,250,.08);color:#60a5fa;border:1px solid rgba(96,165,250,.15)}
+
+/* ── Reachability ─────────────────────────────────────────────── */
+.dd-reach-dot{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.dd-reach-indicator{width:10px;height:10px;border-radius:50%}
+.dd-reach-indicator.on{background:#4ade80;box-shadow:0 0 8px rgba(74,222,128,.5)}
+.dd-reach-indicator.off{background:#f87171;box-shadow:0 0 8px rgba(248,113,113,.5)}
+.dd-reach-lbl{font-size:.85rem;font-weight:700}
+
+/* ── Social Grid ──────────────────────────────────────────────── */
+.dd-social-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}
+.dd-social-item{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--bg-input);border:1px solid var(--glass-border);border-radius:var(--radius-xs);transition:var(--transition);cursor:default}
+.dd-social-item:hover{border-color:var(--glass-border-hover)}
+.dd-social-name{font-size:.72rem;font-weight:600;text-transform:capitalize;color:var(--text-secondary)}
+.dd-social-tag{font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:50px}
+.dd-social-tag.avail{color:#4ade80;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.12)}
+.dd-social-tag.taken{color:#f87171;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.1)}
+
+/* ── NS list ──────────────────────────────────────────────────── */
+.dd-ns{display:flex;flex-direction:column;gap:4px}
+.dd-ns-item{padding:6px 10px;background:var(--bg-input);border:1px solid var(--glass-border);border-radius:var(--radius-xs);font-family:'Fira Code','Consolas',monospace;font-size:.72rem;color:var(--text-secondary)}
+
+/* ── Backlink Table ───────────────────────────────────────────── */
+.dd-bl-table{width:100%;border-collapse:collapse}
+.dd-bl-table th{text-align:left;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-tertiary);padding:8px 10px;border-bottom:1px solid var(--glass-border)}
+.dd-bl-table td{font-size:.75rem;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.025);color:var(--text-secondary);vertical-align:top}
+.dd-bl-table tr:last-child td{border-bottom:none}
+.dd-bl-table a{color:var(--text-primary);text-decoration:none;font-weight:600;word-break:break-all}
+.dd-bl-table a:hover{text-decoration:underline}
+.dd-bl-da{display:inline-block;padding:2px 6px;border-radius:4px;font-size:.65rem;font-weight:700;min-width:24px;text-align:center}
+.dd-bl-da.hi{background:rgba(16,185,129,.1);color:#10b981}
+.dd-bl-da.mid{background:rgba(245,158,11,.1);color:#f59e0b}
+.dd-bl-da.lo{background:rgba(248,113,113,.08);color:#f87171}
+.dd-bl-type{font-size:.6rem;font-weight:600;padding:2px 6px;border-radius:4px}
+.dd-bl-type.dofollow{background:rgba(74,222,128,.08);color:#4ade80}
+.dd-bl-type.nofollow{background:rgba(248,113,113,.06);color:#f87171}
+
+/* ── Subdomain table ──────────────────────────────────────────── */
+.dd-sub-list{display:flex;flex-direction:column;gap:3px;margin-top:10px}
+.dd-sub-item{display:flex;justify-content:space-between;padding:6px 10px;background:var(--bg-input);border:1px solid var(--glass-border);border-radius:var(--radius-xs);font-family:'Fira Code','Consolas',monospace;font-size:.7rem}
+.dd-sub-host{color:var(--text-primary);font-weight:600}
+.dd-sub-ip{color:var(--text-tertiary)}
+
+/* ── Error ─────────────────────────────────────────────────────── */
+.dd-err{display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.1);border-radius:var(--radius-sm);font-size:.75rem;color:#f87171}
+.dd-err svg{width:14px;height:14px;flex-shrink:0}
+
+/* ── Skeleton ─────────────────────────────────────────────────── */
+.dd-skel{display:flex;flex-direction:column;gap:9px}
+.dd-skel-line{height:13px;border-radius:4px;width:100%;background:linear-gradient(90deg,var(--bg-input) 25%,rgba(255,255,255,.05) 50%,var(--bg-input) 75%);background-size:200% 100%;animation:ddShimmer 1.8s ease-in-out infinite}
+.dd-skel-line.short{width:55%}
+@keyframes ddShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── Export Bar ────────────────────────────────────────────────── */
+.dd-export-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.dd-export-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:var(--radius-sm);background:var(--glass-bg);border:1px solid var(--glass-border);font-size:.8rem;font-weight:700;color:var(--text-secondary);cursor:pointer;transition:var(--transition);font-family:var(--font-primary);backdrop-filter:blur(10px)}
+.dd-export-btn:hover{background:var(--glass-bg-hover);border-color:var(--glass-border-hover);color:var(--text-primary)}
+.dd-export-btn:active{transform:scale(.97)}
+.dd-export-btn svg{width:15px;height:15px}
+
+/* ── Module Status ────────────────────────────────────────────── */
+.dd-module-status{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.dd-mod{font-size:.6rem;font-weight:600;padding:3px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:.3px}
+.dd-mod-ok{background:rgba(74,222,128,.06);color:#4ade80;border:1px solid rgba(74,222,128,.1)}
+.dd-mod-fail{background:rgba(248,113,113,.06);color:#f87171;border:1px solid rgba(248,113,113,.1)}
+
+/* ── Page Error ───────────────────────────────────────────────── */
+.dd-page-err{text-align:center;padding:60px 20px}
+.dd-page-err svg{width:70px;height:70px;color:var(--text-tertiary);margin-bottom:14px;opacity:.25}
+.dd-page-err h2{font-family:var(--font-primary);font-size:1.1rem;margin-bottom:6px}
+.dd-page-err p{font-size:.82rem;color:var(--text-secondary)}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media(max-width:768px){
+  .dd-grid{grid-template-columns:1fr}
+  .dd-main{padding-left:12px;padding-right:12px}
+  .dd-tld-grid{grid-template-columns:repeat(2,1fr)}
+  .dd-metrics{grid-template-columns:repeat(2,1fr)}
+  .dd-social-grid{grid-template-columns:1fr}
+  .dd-topbar-brand span{display:none}
+  .dd-topbar-domain{max-width:160px}
+}
+@media(max-width:480px){
+  .dd-tld-grid{grid-template-columns:1fr}
+  .dd-metrics{grid-template-columns:1fr}
+  .dd-hero-domain{font-size:1.3rem}
+  .dd-export-bar{flex-direction:column}
+}

@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "name": "kasmi-domain-news",
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "js/*.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "components/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "services/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    { "src": "/domain/(.*)", "dest": "/domain.html?domain=$1" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

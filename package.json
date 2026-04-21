@@ -1,0 +1,16 @@
+{
+  "name": "kasmi-domain-news",
+  "version": "1.0.0",
+  "description": "AI Domain Generator and Analyzer",
+  "main": "index.html",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "express": "^4.19.0"
+  },
+  "devDependencies": {
+    "vercel": "latest"
+  }
+}
