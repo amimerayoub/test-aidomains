@@ -9,7 +9,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Domain Generator</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dark-theme.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -1068,34 +1068,127 @@
   <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="toastMsg">Done!</span></div>
 
   <!-- ===== API SETTINGS PANEL ===== -->
-  <div class="settings-overlay" id="settingsOverlay">
-    <div class="settings-panel" id="settingsPanel">
-      <div class="settings-header">
-        <h3 class="settings-title">API Settings</h3>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button class="btn-action-sm" id="btnGetApiKeys">Get API Keys</button>
-          <button class="settings-close" id="settingsClose">
-            <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="settings-body">
-        <div class="settings-section-label">AI Providers</div>
-        <div class="form-row"><label class="form-label">Gemini API Key</label><input type="password" class="input-primary" id="settingsGeminiKey" placeholder="AIza... (from ai.google.dev)" /></div>
-        <div class="form-row"><label class="form-label">Grok API Key (xAI)</label><input type="password" class="input-primary" id="settingsGrokKey" placeholder="xai-... (from x.ai)" /></div>
-        <div class="settings-section-label" style="margin-top:20px">News Sources (optional)</div>
-        <div class="settings-keys-grid">
-          <div class="form-row"><label class="form-label">MediaStack</label><input type="password" class="input-primary" id="settingsMediastackKey" placeholder="MediaStack API key" style="font-size:.78rem;padding:8px 10px" /></div>
-          <div class="form-row"><label class="form-label">GNews</label><input type="password" class="input-primary" id="settingsGnewsKey" placeholder="GNews API key" style="font-size:.78rem;padding:8px 10px" /></div>
-          <div class="form-row"><label class="form-label">NewsAPI</label><input type="password" class="input-primary" id="settingsNewsapiKey" placeholder="NewsAPI key" style="font-size:.78rem;padding:8px 10px" /></div>
-          <div class="form-row"><label class="form-label">Currents</label><input type="password" class="input-primary" id="settingsCurrentsKey" placeholder="Currents API key" style="font-size:.78rem;padding:8px 10px" /></div>
-        </div>
-      </div>
-      <div class="settings-footer">
-        <button class="btn-generate" id="btnSaveSettings" style="margin:0">Save All Keys</button>
+ 
+<div class="settings-overlay" id="settingsOverlay">
+  <div class="settings-panel" id="settingsPanel">
+
+    <div class="settings-header">
+      <h3 class="settings-title">API Settings</h3>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-action-sm" id="btnGetApiKeys">Get API Keys</button>
+        <button class="settings-close" id="settingsClose" type="button">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
     </div>
+
+    <!-- FIX: Wrap ALL inputs in a <form> to resolve password field warning -->
+    <form
+      id="settingsForm"
+      class="settings-body"
+      autocomplete="off"
+      onsubmit="return false;"
+    >
+      <!-- autocomplete="new-password" on each field prevents browser autofill on API key fields -->
+
+      <div class="settings-section-label">AI Providers</div>
+
+      <div class="form-row">
+        <label class="form-label" for="settingsGeminiKey">Gemini API Key</label>
+        <input
+          type="password"
+          class="input-primary"
+          id="settingsGeminiKey"
+          name="geminiKey"
+          placeholder="AIza... (from ai.google.dev)"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="form-row">
+        <label class="form-label" for="settingsGrokKey">Grok API Key (xAI)</label>
+        <input
+          type="password"
+          class="input-primary"
+          id="settingsGrokKey"
+          name="grokKey"
+          placeholder="xai-... (from x.ai)"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="settings-section-label" style="margin-top:20px">News Sources (optional)</div>
+
+      <div class="settings-keys-grid">
+        <div class="form-row">
+          <label class="form-label" for="settingsMediastackKey">MediaStack</label>
+          <input
+            type="password"
+            class="input-primary"
+            id="settingsMediastackKey"
+            name="mediastackKey"
+            placeholder="MediaStack API key"
+            autocomplete="new-password"
+            style="font-size:.78rem;padding:8px 10px"
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="settingsGnewsKey">GNews</label>
+          <input
+            type="password"
+            class="input-primary"
+            id="settingsGnewsKey"
+            name="gnewsKey"
+            placeholder="GNews API key"
+            autocomplete="new-password"
+            style="font-size:.78rem;padding:8px 10px"
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="settingsNewsapiKey">NewsAPI</label>
+          <input
+            type="password"
+            class="input-primary"
+            id="settingsNewsapiKey"
+            name="newsapiKey"
+            placeholder="NewsAPI key"
+            autocomplete="new-password"
+            style="font-size:.78rem;padding:8px 10px"
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="settingsCurrentsKey">Currents</label>
+          <input
+            type="password"
+            class="input-primary"
+            id="settingsCurrentsKey"
+            name="currentsKey"
+            placeholder="Currents API key"
+            autocomplete="new-password"
+            style="font-size:.78rem;padding:8px 10px"
+          />
+        </div>
+      </div>
+
+    </form>
+    <!-- END of <form> — all inputs are now properly contained -->
+
+    <div class="settings-footer">
+      <!-- This button is OUTSIDE the form intentionally — it calls a JS handler,
+           not a form submit. The form's onsubmit="return false;" prevents any
+           accidental page reloads. -->
+      <button class="btn-generate" id="btnSaveSettings" type="button" style="margin:0">
+        Save All Keys
+      </button>
+    </div>
+
   </div>
+</div>
 
   <!-- ===== GET API KEYS DIALOG ===== -->
   <div class="dialog-overlay" id="getKeysOverlay">
