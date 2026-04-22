@@ -118,6 +118,10 @@ function renderHero(domain, data) {
         <a href="https://www.google.com/search?q=${domain}" target="_blank" class="btn-action-glass-sm">Google</a>
         <a href="https://web.archive.org/web/*/${domain}" target="_blank" class="btn-action-glass-sm">Archive</a>
         <a href="https://www.spyfu.com/overview/domain?query=${domain}" target="_blank" class="btn-action-glass-sm">Analyze</a>
+        <a href="https://completedns.com/dns-history/${encodeURIComponent(domain)}" target="_blank" class="btn-action-glass-sm btn-accent-green">DNS</a>
+        <a href="https://www.whoxy.com/${encodeURIComponent(domain)}" target="_blank" class="btn-action-glass-sm btn-accent-orange">Whois+</a>
+        <a href="https://www.atom.com/domain-appraisal/${encodeURIComponent(domain)}" target="_blank" class="btn-action-glass-sm btn-accent-purple">Value</a>
+        <a href="https://dnshistory.org/historical-dns-records/soa/${encodeURIComponent(domain)}" target="_blank" class="btn-action-glass-sm btn-accent-red">History</a>
       `;
       actionsEl.appendChild(actionBtns);
     } else {
