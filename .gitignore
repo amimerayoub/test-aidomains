@@ -1,5 +1,1 @@
-node_modules/
-.vercel
-*.zip
-.DS_Store
-*.log
+(js/main.js and js/ui.js are source files, no build artifacts, dependencies, or temp files detected in changes)

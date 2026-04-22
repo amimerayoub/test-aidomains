@@ -23,30 +23,33 @@ function createDomainCard(domain, index = 0) {
   card.className = 'domain-card';
   card.style.animationDelay = (index * 0.035) + 's';
 
+  // Support both d.name and d.domain field names
+  const domainName = domain.name || domain.domain;
+  
   let sc = 'status-checking';
   let st = 'Checking...';
   if (domain.available === true) { sc = 'status-available'; st = 'Available'; }
   else if (domain.available === false) { sc = 'status-taken'; st = 'Taken'; }
   else if (domain.available === 'error') { sc = 'status-taken'; st = 'Check Failed'; }
-  const favActive = isFavorite(domain.name);
+  const favActive = isFavorite(domainName);
   const isAvail = domain.available === true;
 
   card.innerHTML = `
-    <button class="btn-fav${favActive ? ' active' : ''}" data-domain="${domain.name}" title="Add to Favorites">
+    <button class="btn-fav${favActive ? ' active' : ''}" data-domain="${domainName}" title="Add to Favorites">
       ${STAR_SVG}
       <span class="fav-pop"></span>
     </button>
-    <div class="domain-name" style="cursor:pointer" data-nav-domain="${domain.name}">${domain.name}</div>
-    <div class="domain-tlds" id="tlds-${domain.name.replace(/\./g,'-')}"></div>
+    <div class="domain-name" style="cursor:pointer" data-nav-domain="${domainName}">${domainName}</div>
+    <div class="domain-tlds" id="tlds-${domainName.replace(/\./g,'-')}"></div>
     <div class="domain-status ${sc}"><span class="status-dot"></span><span>${st}</span></div>
     <div class="card-actions"></div>`;
 
   // Card actions — Continue for available, Copy for others
   const actionsEl = card.querySelector('.card-actions');
   if (isAvail) {
-    actionsEl.appendChild(createContinueButton(domain.name));
+    actionsEl.appendChild(createContinueButton(domainName));
   } else {
-    const copyBtn = createCopyButton(domain.name);
+    const copyBtn = createCopyButton(domainName);
     actionsEl.appendChild(copyBtn);
   }
 
@@ -55,7 +58,7 @@ function createDomainCard(domain, index = 0) {
   if (nameEl) {
     nameEl.addEventListener('click', e => {
       e.stopPropagation();
-      navigateToDomain(domain.name);
+      navigateToDomain(domainName);
     });
   }
 
@@ -132,7 +135,8 @@ export function renderResults(domains, title, onCopy) {
 
 export function applyFilterSort(domains, onCopy) {
   let d = [...domains];
-  if (uiState.sort === 'name') d.sort((a, b) => a.name.localeCompare(b.name));
+  // Support both d.name and d.domain for sorting
+  if (uiState.sort === 'name') d.sort((a, b) => (a.name || a.domain).localeCompare(b.name || b.domain));
 
   const countEl = $('#resultsCount');
   if (countEl) countEl.textContent = d.length + ' domain' + (d.length !== 1 ? 's' : '');
@@ -149,8 +153,9 @@ export function applyFilterSort(domains, onCopy) {
   d.forEach((dom, i) => {
     const card = createDomainCard(dom, i);
     const copyBtn = card.querySelector('.btn-copy');
+    const domName = dom.name || dom.domain;
     if (copyBtn && onCopy) {
-      copyBtn.addEventListener('click', function () { onCopy(dom.name, this); });
+      copyBtn.addEventListener('click', function () { onCopy(domName, this); });
     }
     createActionMenu(card, dom);
     fragment.appendChild(card);
@@ -188,8 +193,9 @@ export function renderBulkResults(domains) {
     else if (a === true) { statusClass = 'bulk-available'; statusText = 'Available'; }
     else if (a === false) { statusClass = 'bulk-taken'; statusText = 'Taken'; }
     else { statusClass = 'bulk-taken'; statusText = 'Unknown'; }
-    item.innerHTML = `<span class="bulk-domain" style="cursor:pointer">${d.name}</span><span class="bulk-status ${statusClass}">${statusText}</span>`;
-    item.querySelector('.bulk-domain').addEventListener('click', () => navigateToDomain(d.name));
+    const domName = d.name || d.domain;
+    item.innerHTML = `<span class="bulk-domain" style="cursor:pointer">${domName}</span><span class="bulk-status ${statusClass}">${statusText}</span>`;
+    item.querySelector('.bulk-domain').addEventListener('click', () => navigateToDomain(domName));
     fragment.appendChild(item);
   });
   grid.appendChild(fragment);

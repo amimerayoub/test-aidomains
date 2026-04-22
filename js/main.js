@@ -138,6 +138,23 @@ function switchTool(tool, updateHistory = true) {
   if (window.updateExportButton) {
     window.updateExportButton();
   }
+  
+  // Restore generated domains when switching to newsdomain tool
+  if (tool === 'newsdomain') {
+    const savedGeneratedDomains = localStorage.getItem('generatedDomains');
+    if (savedGeneratedDomains) {
+      try {
+        const parsed = JSON.parse(savedGeneratedDomains);
+        if (parsed && parsed.length) {
+          console.log("Restored domains on switch:", parsed);
+          state.domains = parsed;
+          renderResults(parsed, 'Restored Generated Domains', copyText);
+        }
+      } catch (e) {
+        console.error('Error restoring generatedDomains:', e);
+      }
+    }
+  }
 }
 
 // ==================== GENERATION HANDLERS ====================
@@ -1644,6 +1661,18 @@ export async function initApp() {
       if (parsed && parsed.length) {
         state.domains = parsed;
         if (savedTool !== 'home' && savedTool !== 'analyzer' && savedTool !== 'emailtool') {
+          renderResults(parsed, 'Restored Generated Domains', copyText);
+        }
+      }
+    }
+    // Also restore generatedDomains (from Gen Domain News tool)
+    const savedGeneratedDomains = localStorage.getItem('generatedDomains');
+    if (savedGeneratedDomains) {
+      const parsed = JSON.parse(savedGeneratedDomains);
+      console.log("Restored domains:", parsed);
+      if (parsed && parsed.length) {
+        state.domains = parsed;
+        if (savedTool === 'newsdomain') {
           renderResults(parsed, 'Restored Generated Domains', copyText);
         }
       }
