@@ -67,15 +67,17 @@ function renderHero(domain, data) {
   const base = parts.slice(0, -1).join('.');
   const tld = '.' + parts[parts.length - 1];
 
-  // Domain name with highlighted TLD
+  // Domain name with highlighted TLD and gradient
   const heroEl = $('#heroDomain');
-  if (heroEl) heroEl.innerHTML = `${base}<span class="dd-tld-hl">${tld}</span>`;
+  if (heroEl) {
+    heroEl.innerHTML = `<span style="background: linear-gradient(90deg, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${base}</span><span class="dd-tld-hl">${tld}</span>`;
+  }
 
   // Topbar domain
   const topDom = $('#topbarDomain');
   if (topDom) topDom.textContent = domain;
 
-  // Status badge
+  // Status badge with enhanced glow
   const meta = $('#heroMeta');
   if (meta && data) {
     const status = data.overview?.status || 'unknown';
@@ -89,7 +91,7 @@ function renderHero(domain, data) {
     meta.innerHTML = html;
   }
 
-  // Update actions
+  // Update actions - clean action buttons
   const actionsEl = $('#heroActions');
   if (actionsEl) {
     if (data) {
@@ -97,25 +99,27 @@ function renderHero(domain, data) {
       actionsEl.innerHTML = '';
       const status = data.overview?.status || 'unknown';
       
+      // Primary CTA for available domains
       if (status === 'available') {
         const btn = createContinueButton(domain);
-        // Style the continue button inside the wrapper
         const innerBtn = btn.querySelector('.btn-continue');
         if (innerBtn) {
           innerBtn.className = 'btn-primary-orange';
           innerBtn.innerHTML = `Register Domain <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;margin-left:4px"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
         }
         actionsEl.appendChild(btn);
-      } else {
-        actionsEl.insertAdjacentHTML('beforeend', `<a href="https://who.is/whois/${domain}" target="_blank" class="btn-primary-orange">View Whois</a>`);
-        actionsEl.insertAdjacentHTML('beforeend', `<a href="https://www.spyfu.com/overview/domain?query=${domain}" target="_blank" class="btn-primary-orange">Analyze SEO</a>`);
       }
       
-      actionsEl.insertAdjacentHTML('beforeend', `<a href="https://who.is/whois/${domain}" target="_blank" class="btn-action-glass">Whois</a>`);
-      actionsEl.insertAdjacentHTML('beforeend', `<a href="https://www.google.com/search?q=${domain}" target="_blank" class="btn-action-glass">Google</a>`);
-      actionsEl.insertAdjacentHTML('beforeend', `<a href="https://web.archive.org/web/*/${domain}" target="_blank" class="btn-action-glass">Archive</a>`);
-      actionsEl.insertAdjacentHTML('beforeend', `<a href="https://www.spyfu.com/overview/domain?query=${domain}" target="_blank" class="btn-action-glass">SEO</a>`);
-      actionsEl.insertAdjacentHTML('beforeend', `<a href="https://tmsearch.uspto.gov/search/search-information" target="_blank" class="btn-action-glass">Trademark</a>`);
+      // Action buttons row
+      const actionBtns = document.createElement('div');
+      actionBtns.className = 'dd-hero-action-btns';
+      actionBtns.innerHTML = `
+        <a href="https://who.is/whois/${domain}" target="_blank" class="btn-action-glass-sm">Whois</a>
+        <a href="https://www.google.com/search?q=${domain}" target="_blank" class="btn-action-glass-sm">Google</a>
+        <a href="https://web.archive.org/web/*/${domain}" target="_blank" class="btn-action-glass-sm">Archive</a>
+        <a href="https://www.spyfu.com/overview/domain?query=${domain}" target="_blank" class="btn-action-glass-sm">Analyze</a>
+      `;
+      actionsEl.appendChild(actionBtns);
     } else {
       actionsEl.style.display = 'none';
       actionsEl.innerHTML = '';
@@ -243,25 +247,6 @@ function renderReach(data) {
   html += row('HTTPS', o.https ? 'Yes' : 'No');
   html += row('Response', o.response_ms ? o.response_ms + 'ms' : null);
   html += row('Server', o.server);
-  el.innerHTML = html;
-}
-
-// ─── Section: Social ────────────────────────────────────────────
-function renderSocial(data) {
-  const el = $('#socialBody');
-  if (!el) return;
-  const social = data.social;
-  if (!social) { el.innerHTML = errHtml('Social check unavailable'); return; }
-
-  const all = [...(social.available || []), ...(social.taken || [])].sort((a, b) => a.platform.localeCompare(b.platform));
-  if (!all.length) { el.innerHTML = errHtml('No social data'); return; }
-
-  let html = '<div class="dd-social-grid">';
-  all.forEach(s => {
-    const isAvail = s.available === true;
-    html += `<div class="dd-social-item"><span class="dd-social-name">${s.platform}</span><span class="dd-social-tag ${isAvail ? 'avail' : 'taken'}">${isAvail ? 'Available' : 'Taken'}</span></div>`;
-  });
-  html += '</div>';
   el.innerHTML = html;
 }
 
@@ -459,7 +444,6 @@ async function init() {
     }
 
     renderReach(apiData);
-    renderSocial(apiData);
     renderModules(apiData);
 
     setProgress(100, 'Complete');
