@@ -338,26 +338,6 @@ function renderModules(data) {
   el.innerHTML = html;
 }
 
-// ─── External Tools ─────────────────────────────────────────────
-const externalTools = [
-  { name: "CompleteDNS", url: "https://completedns.com/dns-history/", color: "#4CAF50" },
-  { name: "Whoxy", url: "https://www.whoxy.com/", color: "#FF9800" },
-  { name: "DnRater", url: "https://www.dnrater.com/", color: "#00BCD4" },
-  { name: "Atom", url: "https://www.atom.com/domain-appraisal/", color: "#9C27B0" },
-  { name: "DNSHistory", url: "https://dnshistory.org/historical-dns-records/soa/", color: "#F44336" }
-];
-
-function renderTools(domain) {
-  const el = $('#externalTools');
-  if (!el) return;
-  
-  el.innerHTML = externalTools.map(tool => `
-    <a href="${tool.url}${encodeURIComponent(domain)}" target="_blank" class="dd-tool-btn" style="--tool-color: ${tool.color}">
-      <span>${tool.name}</span>
-    </a>
-  `).join("");
-}
-
 // ─── Export ─────────────────────────────────────────────────────
 function exportJson(domain) {
   const blob = new Blob([JSON.stringify(apiData, null, 2)], { type: 'application/json' });
@@ -467,7 +447,6 @@ async function init() {
       }
     }
 
-    renderTools(domain);
     renderReach(apiData);
     renderModules(apiData);
 

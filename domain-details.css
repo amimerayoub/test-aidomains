@@ -179,16 +179,6 @@
 .dd-mod-ok{background:rgba(74,222,128,.06);color:#4ade80;border:1px solid rgba(74,222,128,.15)}
 .dd-mod-fail{background:rgba(248,113,113,.06);color:#f87171;border:1px solid rgba(248,113,113,.1)}
 
-/* ── External Tools Grid ───────────────────────────────────────── */
-.dd-tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
-.dd-tool-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);transition:0.2s;text-decoration:none;color:inherit;position:relative;overflow:hidden}
-.dd-tool-btn::before{content:'';width:3px;height:100%;background:var(--tool-color,#888);position:absolute;left:0;top:0;transition:0.2s}
-.dd-tool-btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.06)}
-.dd-tool-btn:hover::before{width:4px}
-.dd-tool-btn img{width:18px;height:18px;object-fit:contain;flex-shrink:0}
-.dd-tool-btn span{font-family:var(--font-primary);font-size:.75rem;font-weight:600;color:var(--text-secondary)}
-.dd-tool-btn:hover span{color:var(--text-primary)}
-
 /* ── Page Error ───────────────────────────────────────────────── */
 .dd-page-err{text-align:center;padding:60px 20px}
 .dd-page-err svg{width:70px;height:70px;color:var(--text-tertiary);margin-bottom:14px;opacity:.25}
