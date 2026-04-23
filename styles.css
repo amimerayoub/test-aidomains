@@ -237,8 +237,12 @@ input,select,textarea{font-family:inherit;color:var(--text-input)}
 .btn-fav.pop .fav-pop{animation:favPop .35s ease-out}
 @keyframes favPop{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(-50%,-50%) scale(1.5);opacity:0}}
 
-.domain-name{font-family:var(--font-primary);font-size:1rem;font-weight:700;margin-bottom:10px;word-break:break-all;padding-right:32px;cursor:pointer;transition:color .15s}
+.domain-name{font-family:var(--font-primary);font-size:1rem;font-weight:700;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:32px;cursor:pointer;transition:color .15s}
 .domain-name:hover{color:#60a5fa}
+.domain-metrics-row{display:flex;gap:12px;margin-bottom:10px}
+.dm-item{display:flex;flex-direction:column;gap:2px}
+.dm-label{font-size:.6rem;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px}
+.dm-val{font-size:.75rem;font-weight:600;color:var(--text-secondary)}
 .domain-status{display:flex;align-items:center;gap:6px;font-size:.75rem;margin-bottom:12px}
 .status-dot{width:6px;height:6px;border-radius:50%}
 .status-available{color:#4ade80;background:rgba(74,222,128,0.08);border-color:rgba(74,222,128,0.2)}
@@ -507,7 +511,9 @@ input,select,textarea{font-family:inherit;color:var(--text-input)}
   margin-bottom:6px;
   transition:color .15s;
   cursor:pointer;
-  word-break:break-all;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .dc-name:hover{color:#60a5fa}
 .dc-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
