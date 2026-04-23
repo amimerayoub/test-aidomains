@@ -21,6 +21,32 @@ const state = {
   smartMode: true
 };
 
+// Restore state from localStorage on init
+function restoreState() {
+  // Restore active tool from URL or localStorage
+  const urlParams = new URLSearchParams(window.location.search);
+  const toolParam = urlParams.get('tool');
+  if (toolParam) {
+    state.activeTool = toolParam;
+  } else {
+    const savedTool = localStorage.getItem('activeTool');
+    if (savedTool) state.activeTool = savedTool;
+  }
+  
+  // Restore generated domains from localStorage
+  const savedDomains = localStorage.getItem('generatedDomains');
+  if (savedDomains) {
+    try {
+      const parsed = JSON.parse(savedDomains);
+      if (parsed && parsed.length) {
+        state.domains = parsed;
+      }
+    } catch (e) {
+      console.error('Error restoring domains:', e);
+    }
+  }
+}
+
 // Gen Domain News state
 const genNewsState = {
   mode: 'GEO',       // GEO | BRANDABLE | PATTERN | HYBRID
@@ -1307,6 +1333,9 @@ function escapeHtml(str) {
 export async function initApp() {
   const loading = $('#loadingOverlay');
   if (loading) loading.classList.add('active');
+
+  // Restore state from localStorage first
+  restoreState();
 
   await loadData();
 

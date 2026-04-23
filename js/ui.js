@@ -4,8 +4,14 @@ import { createActionMenu, closeAllActionMenus } from '../components/action-menu
 import { createContinueButton, createCopyButton, closeActiveDropdown } from '../components/domain-dropdown.js';
 import { toggleFavorite, isFavorite } from './favorites.js';
 
-function navigateToDomain(domainName) {
-  localStorage.setItem('selected_domain', domainName);
+function navigateToDomain(domainName, domainData = null) {
+  // Store full domain data in sessionStorage for details page
+  const storedData = {
+    name: domainName,
+    data: domainData || { name: domainName },
+    timestamp: Date.now()
+  };
+  sessionStorage.setItem('selected_domain_data', JSON.stringify(storedData));
   window.location.href = 'domain.html?domain=' + encodeURIComponent(domainName);
 }
 
@@ -62,12 +68,12 @@ function createDomainCard(domain, index = 0) {
     actionsEl.appendChild(copyBtn);
   }
 
-  // Domain name click → navigate to details page
+  // Domain name click → navigate to details page with full domain data
   const nameEl = card.querySelector('.domain-name');
   if (nameEl) {
     nameEl.addEventListener('click', e => {
       e.stopPropagation();
-      navigateToDomain(domainName);
+      navigateToDomain(domainName, domain);
     });
   }
 
@@ -204,7 +210,7 @@ export function renderBulkResults(domains) {
     else { statusClass = 'bulk-taken'; statusText = 'Unknown'; }
     const domName = d.name || d.domain;
     item.innerHTML = `<span class="bulk-domain" style="cursor:pointer">${domName}</span><span class="bulk-status ${statusClass}">${statusText}</span>`;
-    item.querySelector('.bulk-domain').addEventListener('click', () => navigateToDomain(domName));
+    item.querySelector('.bulk-domain').addEventListener('click', () => navigateToDomain(domName, d));
     fragment.appendChild(item);
   });
   grid.appendChild(fragment);

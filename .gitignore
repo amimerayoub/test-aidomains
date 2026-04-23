@@ -1,1 +1,1 @@
-(js/main.js, js/ui.js, styles.css are source files, no build artifacts or dependencies detected)
+(public/site.webmanifest is a web manifest file, which is a source/config file, not a build artifact or temporary file)

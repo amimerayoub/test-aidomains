@@ -4,11 +4,29 @@ import { createContinueButton } from '../components/domain-dropdown.js';
 
 const $ = s => document.querySelector(s);
 let apiData = null;
+let cachedDomainData = null;
 
 // ─── URL param ──────────────────────────────────────────────────
 function getDomain() {
   const p = new URLSearchParams(window.location.search);
   return (p.get('domain') || p.get('d') || '').trim().toLowerCase();
+}
+
+// ─── Restore from sessionStorage ────────────────────────────────
+function restoreFromSessionStorage(domain) {
+  try {
+    const stored = sessionStorage.getItem('selected_domain_data');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (parsed && parsed.name === domain) {
+        cachedDomainData = parsed.data;
+        return true;
+      }
+    }
+  } catch (e) {
+    console.error('Error restoring from sessionStorage:', e);
+  }
+  return false;
 }
 
 // ─── Toast ──────────────────────────────────────────────────────
@@ -378,10 +396,28 @@ async function init() {
     return;
   }
 
+  // Try to restore from sessionStorage first for instant display
+  const restored = restoreFromSessionStorage(domain);
+  
   document.title = `${domain} — Domain Analysis`;
-  renderHero(domain, null);
-  setProgress(10, 'Connecting to analysis API...');
+  
+  if (restored && cachedDomainData) {
+    // Use cached data immediately for instant rendering
+    renderHero(domain, cachedDomainData);
+    setProgress(100, 'Analysis complete');
+    
+    // Then fetch fresh data in background
+    setTimeout(() => {
+      fetchFreshData(domain);
+    }, 100);
+  } else {
+    renderHero(domain, null);
+    setProgress(10, 'Connecting to analysis API...');
+    fetchFreshData(domain);
+  }
+}
 
+async function fetchFreshData(domain) {
   try {
     const url = `/api/domain-full?domain=${encodeURIComponent(domain)}`;
     setProgress(20, 'Fetching domain intelligence...');
