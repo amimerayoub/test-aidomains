@@ -78,7 +78,7 @@ function buildLetterGrid(container, letters, selected, type) {
 
 // ==================== NAVIGATION ====================
 function switchTool(tool, updateHistory = true) {
-  if (state.activeTool !== tool) clearResults();
+  // DO NOT clear results when navigating between pages - preserve state
   state.activeTool = tool;
   localStorage.setItem('activeTool', tool);
   
@@ -139,20 +139,30 @@ function switchTool(tool, updateHistory = true) {
     window.updateExportButton();
   }
   
-  // Restore generated domains when switching to newsdomain tool
-  if (tool === 'newsdomain') {
-    const savedGeneratedDomains = localStorage.getItem('generatedDomains');
-    if (savedGeneratedDomains) {
-      try {
-        const parsed = JSON.parse(savedGeneratedDomains);
-        if (parsed && parsed.length) {
-          console.log("Restored domains on switch:", parsed);
-          state.domains = parsed;
-          renderResults(parsed, 'Restored Generated Domains', copyText);
-        }
-      } catch (e) {
-        console.error('Error restoring generatedDomains:', e);
+  // Restore generated domains from localStorage for all generator tools
+  const savedGeneratedDomains = localStorage.getItem('generatedDomains');
+  const savedGeoDomains = localStorage.getItem('domains_geo');
+  
+  if (savedGeneratedDomains) {
+    try {
+      const parsed = JSON.parse(savedGeneratedDomains);
+      if (parsed && parsed.length) {
+        console.log("Restored domains on nav:", parsed);
+        state.domains = parsed;
+        renderResults(parsed, 'Generated Domains', copyText);
       }
+    } catch (e) {
+      console.error('Error restoring generatedDomains:', e);
+    }
+  } else if (savedGeoDomains && tool !== 'home' && tool !== 'analyzer' && tool !== 'emailtool') {
+    try {
+      const parsed = JSON.parse(savedGeoDomains);
+      if (parsed && parsed.length) {
+        state.domains = parsed;
+        renderResults(parsed, 'Generated Domains', copyText);
+      }
+    } catch (e) {
+      console.error('Error restoring domains_geo:', e);
     }
   }
 }
@@ -251,7 +261,9 @@ function handleGenerate(type) {
       }
 
       state.domains = domains;
+      // Persist to localStorage for all generator types
       localStorage.setItem('domains_geo', JSON.stringify(domains));
+      localStorage.setItem('generatedDomains', JSON.stringify(domains));
       renderResults(domains, titles[type] + ' Results', copyText);
 
       // Run real availability check

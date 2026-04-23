@@ -34,13 +34,22 @@ function createDomainCard(domain, index = 0) {
   const favActive = isFavorite(domainName);
   const isAvail = domain.available === true;
 
+  // Extract metrics for display
+  const score = domain.scores?.final || '-';
+  const age = domain.metrics?.age || '-';
+  const backlinks = domain.metrics?.backlinks ? formatNum(domain.metrics.backlinks) : '-';
+
   card.innerHTML = `
     <button class="btn-fav${favActive ? ' active' : ''}" data-domain="${domainName}" title="Add to Favorites">
       ${STAR_SVG}
       <span class="fav-pop"></span>
     </button>
     <div class="domain-name" style="cursor:pointer" data-nav-domain="${domainName}">${domainName}</div>
-    <div class="domain-tlds" id="tlds-${domainName.replace(/\./g,'-')}"></div>
+    <div class="domain-metrics-row">
+      <span class="dm-item"><span class="dm-label">Score</span><span class="dm-val">${score}</span></span>
+      <span class="dm-item"><span class="dm-label">Age</span><span class="dm-val">${age}</span></span>
+      <span class="dm-item"><span class="dm-label">Backlinks</span><span class="dm-val">${backlinks}</span></span>
+    </div>
     <div class="domain-status ${sc}"><span class="status-dot"></span><span>${st}</span></div>
     <div class="card-actions"></div>`;
 
@@ -301,6 +310,7 @@ const COPY_SVG_SM = `<svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" widt
 const BULB_SVG_SM = `<svg viewBox="0 0 24 24" fill="none"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343 5.657l-.707-.707m2.828 2.828l-.707.707M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
 
 function formatNum(n) {
+  if (n === null || n === undefined || n === '-' || n === '') return '-';
   if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
   if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
   return String(n);
