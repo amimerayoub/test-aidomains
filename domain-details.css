@@ -1,6 +1,6 @@
 /* ============================================
-   Domain Details Page — Dark Glass UI
-   Premium glassmorphism, consistent with main app
+   Domain Details Page — Dual-Theme Glass UI
+   Blue/Cyan Identity · Light + Dark
    ============================================ */
 
 /* ── Top Bar ──────────────────────────────────────────────────── */
@@ -10,7 +10,7 @@
   left: 0;
   right: 0;
   height: 54px;
-  background: rgba(10, 10, 10, 0.7);
+  background: var(--navbar-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
@@ -19,6 +19,7 @@
   justify-content: space-between;
   padding: 0 20px;
   z-index: 90;
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .dd-topbar-left  { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
@@ -43,8 +44,9 @@
 .dd-back-btn:hover {
   background: var(--glass-bg-hover);
   border-color: var(--border-hover);
-  box-shadow: 0 0 12px rgba(0, 255, 136, 0.08);
+  box-shadow: 0 0 12px var(--primary-glow);
 }
+.dd-back-btn:active { transform: scale(0.94); }
 .dd-back-btn svg { width: 15px; height: 15px; color: var(--text-muted); }
 
 .dd-topbar-brand {
@@ -84,8 +86,9 @@
 .dd-theme-btn:hover {
   background: var(--glass-bg-hover);
   border-color: var(--border-hover);
-  box-shadow: 0 0 12px rgba(0, 255, 136, 0.08);
+  box-shadow: 0 0 12px var(--primary-glow);
 }
+.dd-theme-btn:active { transform: scale(0.94); }
 .dd-theme-btn svg { width: 15px; height: 15px; color: var(--text-muted); }
 [data-theme="dark"] .dd-theme-btn .icon-sun { display: none; }
 [data-theme="light"] .dd-theme-btn .icon-moon { display: none; }
@@ -120,7 +123,8 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 14px;
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.06);
+  box-shadow: 0 0 20px var(--primary-glow);
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 .dd-hero-icon svg { width: 22px; height: 22px; color: var(--primary); }
 
@@ -156,6 +160,7 @@
   font-weight: 700;
   letter-spacing: .2px;
   border: 1px solid;
+  transition: background var(--transition), border-color var(--transition);
 }
 .dd-badge-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
@@ -164,14 +169,14 @@
   color: var(--success);
   border-color: var(--success-border);
 }
-.dd-badge-avail .dd-badge-dot { background: var(--success); box-shadow: 0 0 6px rgba(0, 255, 136, 0.5); }
+.dd-badge-avail .dd-badge-dot { background: var(--success); box-shadow: 0 0 6px var(--success-border); }
 
 .dd-badge-reg {
   background: var(--danger-bg);
   color: var(--danger);
   border-color: var(--danger-border);
 }
-.dd-badge-reg .dd-badge-dot { background: var(--danger); box-shadow: 0 0 6px rgba(255, 79, 79, 0.5); }
+.dd-badge-reg .dd-badge-dot { background: var(--danger); box-shadow: 0 0 6px var(--danger-border); }
 
 .dd-badge-unk { background: var(--bg-soft); color: var(--text-muted); border-color: var(--border); }
 .dd-badge-unk .dd-badge-dot { background: var(--text-faint); }
@@ -200,8 +205,8 @@
 .dd-hero-action-btns { display: flex; align-items: center; justify-content: center; gap: 7px; flex-wrap: wrap; }
 
 .btn-primary-orange {
-  background: var(--primary);
-  color: #050505;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: var(--primary-text);
   font-weight: 700;
   font-size: .85rem;
   padding: 10px 22px;
@@ -213,14 +218,14 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  box-shadow: 0 2px 12px rgba(0, 255, 136, 0.25);
+  box-shadow: 0 2px 12px var(--primary-glow);
 }
 .btn-primary-orange:hover {
-  background: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.35);
+  box-shadow: 0 4px 20px var(--primary-glow), 0 0 30px var(--primary-glow);
+  filter: brightness(1.08);
 }
-.btn-primary-orange:active { transform: translateY(0); }
+.btn-primary-orange:active { transform: translateY(0) scale(0.97); }
 
 .btn-action-glass {
   background: var(--glass-bg);
@@ -244,8 +249,9 @@
   background: var(--glass-bg-hover);
   border-color: var(--border-hover);
   color: var(--text-main);
-  box-shadow: 0 0 12px rgba(0, 255, 136, 0.06);
+  box-shadow: 0 0 12px var(--primary-glow);
 }
+.btn-action-glass:active { transform: scale(0.97); }
 
 .btn-action-glass-sm {
   background: var(--glass-bg);
@@ -268,6 +274,7 @@
   border-color: var(--border-hover);
   color: var(--text-main);
 }
+.btn-action-glass-sm:active { transform: scale(0.96); }
 
 .btn-action-glass-sm.btn-accent-green { border-left: 3px solid var(--success); }
 .btn-action-glass-sm.btn-accent-orange { border-left: 3px solid var(--warning); }
@@ -287,11 +294,12 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  transition: background var(--transition), border-color var(--transition);
 }
 .dd-progress-fill {
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  background: linear-gradient(90deg, rgba(0, 255, 136, 0.08), rgba(0, 255, 136, 0.18));
+  background: linear-gradient(90deg, var(--primary-light), var(--primary-glow));
   border-radius: var(--radius-sm);
   width: 0;
   transition: width .5s ease;
@@ -323,13 +331,13 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: border-color var(--transition), box-shadow var(--transition), transform .2s ease;
+  transition: border-color var(--transition), box-shadow var(--transition), transform .2s ease, background var(--transition);
   animation: ddCardIn .35s ease both;
   box-shadow: var(--shadow-xs);
 }
 .dd-card:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 136, 0.04);
+  box-shadow: var(--shadow-md), 0 0 20px var(--primary-glow);
   transform: translateY(-2px);
 }
 .dd-card-full { grid-column: 1 / -1; }
@@ -345,7 +353,8 @@
   gap: 9px;
   padding: 13px 16px;
   border-bottom: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-soft);
+  transition: background var(--transition), border-color var(--transition);
 }
 .dd-card-head svg { width: 15px; height: 15px; color: var(--primary); flex-shrink: 0; }
 .dd-card-head h2 { font-size: .8rem; font-weight: 700; color: var(--text-main); margin: 0; }
@@ -360,6 +369,7 @@
   padding: 8px 0;
   border-bottom: 1px solid var(--border);
   gap: 12px;
+  transition: border-color var(--transition);
 }
 .dd-row:last-child { border-bottom: none; }
 .dd-lbl {
@@ -397,7 +407,7 @@
 .dd-tld-chip:hover {
   border-color: var(--border-hover);
   background: var(--glass-bg-hover);
-  box-shadow: 0 0 10px rgba(0, 255, 136, 0.04);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
 .dd-tld-ext { font-size: .78rem; font-weight: 700; color: var(--text-main); }
 .dd-tld-tag { font-size: .6rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; border: 1px solid; }
@@ -422,7 +432,7 @@
 .dd-metric:hover {
   background: var(--glass-bg-hover);
   border-color: var(--border-hover);
-  box-shadow: 0 0 10px rgba(0, 255, 136, 0.04);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
 .dd-metric-icon { color: var(--primary); }
 .dd-metric-icon svg { width: 15px; height: 15px; }
@@ -453,8 +463,8 @@
 /* ── Reachability ─────────────────────────────────────────────── */
 .dd-reach-dot { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .dd-reach-indicator { width: 10px; height: 10px; border-radius: 50%; }
-.dd-reach-indicator.on { background: var(--success); box-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
-.dd-reach-indicator.off { background: var(--danger); box-shadow: 0 0 10px rgba(255, 79, 79, 0.4); }
+.dd-reach-indicator.on { background: var(--success); box-shadow: 0 0 10px var(--success-border); }
+.dd-reach-indicator.off { background: var(--danger); box-shadow: 0 0 10px var(--danger-border); }
 .dd-reach-lbl { font-size: .88rem; font-weight: 700; color: var(--text-main); }
 
 /* ── NS List ──────────────────────────────────────────────────── */
@@ -485,7 +495,8 @@
   color: var(--text-muted);
   padding: 8px 10px;
   border-bottom: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-soft);
+  transition: background var(--transition), border-color var(--transition);
 }
 .dd-bl-table td {
   font-size: .76rem;
@@ -493,9 +504,10 @@
   border-bottom: 1px solid var(--border);
   color: var(--text-secondary);
   vertical-align: top;
+  transition: background var(--transition), border-color var(--transition);
 }
 .dd-bl-table tr:last-child td { border-bottom: none; }
-.dd-bl-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+.dd-bl-table tr:hover td { background: var(--bg-soft); }
 .dd-bl-table a {
   color: var(--text-main);
   text-decoration: none;
@@ -563,7 +575,7 @@
   height: 13px;
   border-radius: 4px;
   width: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background: linear-gradient(90deg, var(--bg-soft) 25%, var(--bg-soft2) 50%, var(--bg-soft) 75%);
   background-size: 200% 100%;
   animation: ddShimmer 1.8s ease-in-out infinite;
 }
@@ -600,7 +612,7 @@
   background: var(--glass-bg-hover);
   border-color: var(--border-hover);
   color: var(--text-main);
-  box-shadow: 0 0 14px rgba(0, 255, 136, 0.06);
+  box-shadow: 0 0 14px var(--primary-glow);
 }
 .dd-export-btn:active { transform: scale(.97); }
 .dd-export-btn svg { width: 14px; height: 14px; }
@@ -623,7 +635,7 @@
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  background: rgba(10, 10, 10, 0.85);
+  background: var(--toast-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
@@ -635,7 +647,7 @@
   font-size: .78rem;
   font-weight: 600;
   color: var(--text-main);
-  box-shadow: 0 4px 24px rgba(0, 255, 136, 0.1);
+  box-shadow: var(--shadow-md), 0 0 20px var(--primary-glow);
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;
@@ -647,6 +659,11 @@
   transform: translateX(-50%) translateY(0);
 }
 .toast svg { width: 16px; height: 16px; color: var(--primary); flex-shrink: 0; }
+
+/* ── Light Mode — SVG & topbar brand adjust ──────────────────── */
+[data-theme="light"] .dd-topbar-brand svg rect { fill: #0284c7; fill-opacity: 0.1; }
+[data-theme="light"] .dd-topbar-brand svg path { stroke: #0284c7; }
+[data-theme="light"] .dd-hero-icon { box-shadow: 0 0 20px rgba(2, 132, 199, 0.1); }
 
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 768px) {
