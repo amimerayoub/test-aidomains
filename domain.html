@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Domain Analysis — AI Domain Generator</title>
+  <meta name="description" content="Full domain analysis including availability, WHOIS, DNS, age, backlinks, and TLD checks." />
+  <link rel="stylesheet" href="dark-theme.css" />
+  <link rel="stylesheet" href="domain-details.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body class="dark">
+  <!-- Background -->
+  <div class="bg-animation">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+    <div class="floating-shape shape-5"></div>
+  </div>
+
+  <!-- Top Bar -->
+  <header class="dd-topbar" id="topbar">
+    <div class="dd-topbar-left">
+      <a href="index.html" class="dd-back-btn" id="ddBackBtn" title="Back to Dashboard">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="dd-topbar-brand">
+        <svg viewBox="0 0 36 36" fill="none" style="width:22px;height:22px"><rect width="36" height="36" rx="10" fill="white" fill-opacity="0.08"/><path d="M10 13h16M10 18h12M10 23h8" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <span>AI Domains</span>
+      </div>
+    </div>
+    <div class="dd-topbar-center" id="topbarCenter">
+      <span class="dd-topbar-domain" id="topbarDomain"></span>
+    </div>
+    <div class="dd-topbar-right">
+      <button class="dd-theme-btn" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="dd-main">
+
+    <!-- Hero Header -->
+    <div class="dd-hero" id="ddHero">
+      <div class="dd-hero-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h1 class="dd-hero-domain" id="heroDomain">Loading...</h1>
+      <div class="dd-hero-meta" id="heroMeta"></div>
+      <div class="dd-hero-actions" id="heroActions" style="display:none; margin-top: 16px;"></div>
+    </div>
+
+    <!-- Progress -->
+    <div class="dd-progress" id="progressBar">
+      <div class="dd-progress-fill" id="progressFill"></div>
+      <span class="dd-progress-text" id="progressText">Analyzing domain...</span>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="dd-grid" id="contentGrid">
+
+      <!-- 1. Overview -->
+      <section class="dd-card" id="secOverview">
+        <div class="dd-card-head">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="currentColor" stroke-width="1.8"/></svg>
+          <h2>Domain Overview</h2>
+        </div>
+        <div class="dd-card-content" id="overviewBody"><div class="dd-skel"><div class="dd-skel-line"></div><div class="dd-skel-line short"></div><div class="dd-skel-line"></div></div></div>
+      </section>
+
+      <!-- 2. TLD Availability -->
+      <section class="dd-card" id="secTld">
+        <div class="dd-card-head">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M9 14l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2>TLD Availability</h2>
+        </div>
+        <div class="dd-card-content" id="tldBody"><div class="dd-skel"><div class="dd-skel-line"></div><div class="dd-skel-line short"></div></div></div>
+      </section>
+
+      <!-- 3. SEO + Tech -->
+      <section class="dd-card" id="secSeo">
+        <div class="dd-card-head">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <h2>SEO & Backlinks</h2>
+        </div>
+        <div class="dd-card-content" id="seoBody"><div class="dd-skel"><div class="dd-skel-line"></div><div class="dd-skel-line short"></div><div class="dd-skel-line"></div></div></div>
+      </section>
+
+      <!-- 4. Domain Info -->
+      <section class="dd-card" id="secInfo">
+        <div class="dd-card-head">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.8"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <h2>Registration Info</h2>
+        </div>
+        <div class="dd-card-content" id="infoBody"><div class="dd-skel"><div class="dd-skel-line"></div><div class="dd-skel-line short"></div><div class="dd-skel-line"></div></div></div>
+      </section>
+
+      <!-- 5. Domain Age -->
+      <section class="dd-card" id="secAge">
+        <div class="dd-card-head">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <h2>Domain Age</h2>
+        </div>
+        <div class="dd-card-content" id="ageBody"><div class="dd-skel"><div class="dd-skel-line"></div><div class="dd-skel-line short"></div></div></div>
+      </section>
+
+      <!-- 6. Reachability -->
+      <section class="dd-card" id="secReach">
+        <div class="dd-card-head">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2>Reachability</h2>
+        </div>
+        <div class="dd-card-content" id="reachBody"><div class="dd-skel"><div class="dd-skel-line"></div><div class="dd-skel-line short"></div></div></div>
+      </section>
+
+      <!-- 7. DNS History -->
+      <section class="dd-card dd-card-full" id="secDns">
+        <div class="dd-card-head">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2>DNS & Subdomains</h2>
+        </div>
+        <div class="dd-card-content" id="dnsBody"><div class="dd-skel"><div class="dd-skel-line"></div><div class="dd-skel-line short"></div><div class="dd-skel-line"></div></div></div>
+      </section>
+
+      <!-- 9. Top Backlinks -->
+      <section class="dd-card dd-card-full" id="secBacklinks">
+        <div class="dd-card-head">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <h2>Top Backlinks</h2>
+        </div>
+        <div class="dd-card-content" id="backlinksBody"><div class="dd-skel"><div class="dd-skel-line"></div><div class="dd-skel-line short"></div></div></div>
+      </section>
+    </div>
+
+    <!-- Export -->
+    <div class="dd-export-bar" id="exportBar" style="display:none">
+      <button class="dd-export-btn" id="btnExportJson">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.8"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.8"/></svg>
+        Export JSON
+      </button>
+      <button class="dd-export-btn" id="btnExportCsv">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.8"/><path d="M14 2v6h6M8 13h3M8 17h3M13 13h3M13 17h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Export CSV
+      </button>
+    </div>
+
+    <!-- Module Status -->
+    <div class="dd-module-status" id="moduleStatus" style="display:none"></div>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="toastMsg">Done!</span></div>
+
+  <script type="module" src="js/domainDetails.js"></script>
+</body>
+</html>

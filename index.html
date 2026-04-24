@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Domain Generator</title>
+  <link rel="stylesheet" href="dark-theme.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body class="dark">
+  <!-- Background -->
+  <div class="bg-animation">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+    <div class="floating-shape shape-5"></div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <svg viewBox="0 0 36 36" fill="none" class="logo-svg">
+          <rect width="36" height="36" rx="10" fill="white" fill-opacity="0.08"/>
+          <path d="M10 13h16M10 18h12M10 23h8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">AI Domains</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="#" class="nav-item active" data-tool="home">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9,22 9,12 15,12 15,22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Home</span>
+      </a>
+
+      <div class="nav-divider"></div>
+      <div class="nav-section-label">Generators</div>
+      <a href="#" class="nav-item" data-tool="geo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>Geo Domains</span>
+      </a>
+      <a href="#" class="nav-item" data-tool="keyword">
+    <!-- SVG 1 -->
+    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M3 7h12M3 12h8M3 17h5"/>
+      <circle cx="18.5" cy="16.5" r="3.5"/>
+      <path d="M21 19l2 2"/>
+    </svg>
+    <span>Keyword Domains</span>
+  </a>
+      <a href="#" class="nav-item" data-tool="pattern">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>Pattern Domains</span>
+      </a>
+      <a href="#" class="nav-item" data-tool="brandable">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>Brandable Names</span>
+      </a>
+      <a href="#" class="nav-item" data-tool="numeric">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 17V7M4 7h6M4 12h4M4 17h8M14 17l4-10M14 7h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Numeric Domains</span>
+      </a>
+     <a href="#" class="nav-item" data-tool="suggestor">
+    <!-- SVG 2 -->
+    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M9 21h6M12 21v-3"/>
+      <path d="M8.5 17h7a4 4 0 1 0-8 0z"/>
+    </svg>
+    <span>Domain Suggestor</span>
+  </a>
+     <a href="#" class="nav-item" data-tool="wordlist">
+    <!-- SVG 3 -->
+    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M20 12H10C8.9 12 8 12.9 8 14V17C8 18.1 7.1 19 6 19H3"/>
+      <path d="M17 9L20 12L17 15"/>
+      <path d="M3 5H6C7.1 5 8 5.9 8 7V10C8 11.1 8.9 12 10 12H20"/>
+    </svg>
+    <span>WordList Combiner</span>
+  </a>
+
+      <a href="#" class="nav-item" data-tool="newsdomain">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Gen Domain News</span>
+      </a>
+
+      <div class="nav-divider"></div>
+      <div class="nav-section-label">Analyzer</div>
+       <a href="#" class="nav-item" data-tool="analyzer">
+    <!-- SVG 2 -->
+    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M9 4a4 4 0 0 0-1 7.9V13a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1.1A4 4 0 0 0 13 4z"/>
+  <path d="M9.5 15v1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5V15"/>
+  <path d="M10.5 17.5V19M13.5 17.5V19"/>
+  <path d="M9 8.5h.01M13 8.5h.01"/>
+  <path d="M18 12h1.5M19 8l-1 .8M19 16l-1-.8"/>    </svg>
+    <span>Smart Analyzer</span>
+  </a>
+
+
+      <div class="nav-divider"></div>
+      <div class="nav-section-label">Domain Tools</div>
+      <a href="#" class="nav-item" data-tool="bulkcheck">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M9 14l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Bulk Checker</span>
+      </a>
+      <a href="#" class="nav-item" data-tool="extractor">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.8"/><path d="M14 2v6h6M10 13l4 4-4 4M14 17h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Domain Extractor</span>
+      </a>
+
+      <div class="nav-divider"></div>
+      <div class="nav-section-label">Useful Tools</div>
+      <a href="#" class="nav-item" data-tool="texttools">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Text Tools</span>
+      </a>
+      <a href="#" class="nav-item" data-tool="emailextractor">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M22 4L12 13 2 4" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>Email Extractor</span>
+      </a>
+      <a href="#" class="nav-item" data-tool="emailtool">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Smart Email</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="mode-toggle">
+        <span class="mode-label">Mode</span>
+        <button class="mode-btn active" data-mode="smart">Smart</button>
+        <button class="mode-btn" data-mode="fast">Fast</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="top-navbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="navbar-title" id="navbarTitle">Geo Domain Generator</div>
+      <div class="navbar-right">
+        <button class="btn-fav-header" id="btnFavHeader" title="Favorites">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span class="fav-counter" id="favCounter">0</span>
+        </button>
+        <button class="settings-btn" id="settingsBtn" title="API Settings">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== HOME PANEL ===== -->
+    <div class="tool-panel active" id="home-panel">
+      <div class="panel-container">
+        <div class="panel-hero">
+          <h1>AI Domain Generator Platform</h1>
+          <p>Your all-in-one solution for generating, analyzing, and monetizing premium domain names</p>
+        </div>
+
+        <!-- Quick Start Section -->
+        <div class="overview-section glass" style="margin-bottom:20px">
+          <div class="overview-header">
+            <svg viewBox="0 0 24 24" fill="none" style="width:20px;height:20px;color:var(--accent)"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h2>Quick Start</h2>
+          </div>
+          <p class="overview-desc">Start generating domains in seconds with our powerful tools</p>
+          <div class="tools-grid">
+            <div class="tool-card glass">
+              <h4>Geo Domains</h4>
+              <p>Generate City + Service combinations ranked by population</p>
+              <button class="btn-action-sm tool-overview-btn" data-tool="geo">Use Tool</button>
+            </div>
+            <div class="tool-card glass">
+              <h4>Keyword Domains</h4>
+              <p>Combine keywords with smart prefixes and suffixes</p>
+              <button class="btn-action-sm tool-overview-btn" data-tool="keyword">Use Tool</button>
+            </div>
+            <div class="tool-card glass">
+              <h4>Brandable Names</h4>
+              <p>Create unique startup-ready brandable names</p>
+              <button class="btn-action-sm tool-overview-btn" data-tool="brandable">Use Tool</button>
+            </div>
+            <div class="tool-card glass">
+              <h4>Pattern Domains</h4>
+              <p>Generate pronounceable CVC/CVVC pattern names</p>
+              <button class="btn-action-sm tool-overview-btn" data-tool="pattern">Use Tool</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="overview-section glass" style="margin-bottom:20px">
+          <div class="overview-header">
+            <svg viewBox="0 0 24 24" fill="none" style="width:20px;height:20px;color:var(--accent)"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="2"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="2"/><path d="M9 14l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h2>Key Features</h2>
+          </div>
+          <div class="features-grid">
+            <div class="feature-card glass">
+              <svg viewBox="0 0 24 24" fill="none" style="width:24px;height:24px;color:var(--accent)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>
+              <h4>Multiple Generators</h4>
+              <p>Geo, Keyword, Pattern, Brandable, Numeric, and more generation modes</p>
+            </div>
+            <div class="feature-card glass">
+              <svg viewBox="0 0 24 24" fill="none" style="width:24px;height:24px;color:var(--accent)"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h4>Smart Analysis</h4>
+              <p>Analyze domains with SEO metrics, age, backlinks, CPC scoring</p>
+            </div>
+            <div class="feature-card glass">
+              <svg viewBox="0 0 24 24" fill="none" style="width:24px;height:24px;color:var(--accent)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h4>Email Outreach</h4>
+              <p>Send personalized outreach campaigns with dynamic variables</p>
+            </div>
+            <div class="feature-card glass">
+              <svg viewBox="0 0 24 24" fill="none" style="width:24px;height:24px;color:var(--accent)"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h4>News-Based Generation</h4>
+              <p>AI analyzes real-time news trends to generate relevant domains</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="overview-section glass" style="margin-bottom:20px">
+          <div class="overview-header">
+            <svg viewBox="0 0 24 24" fill="none" style="width:20px;height:20px;color:var(--accent)"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343 5.657l-.707-.707m2.828 2.828l-.707.707M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h2>How It Works</h2>
+          </div>
+          <ol class="overview-steps">
+            <li><strong>Add API keys</strong> in Settings panel (Gemini/Grok required for AI features)</li>
+            <li><strong>Choose a generator</strong> from the sidebar navigation</li>
+            <li><strong>Configure options</strong> and generate domain suggestions</li>
+            <li><strong>Check availability</strong> for promising domains</li>
+            <li><strong>Take action</strong> — buy domains or send outreach emails</li>
+          </ol>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="overview-cta glass">
+          <h3>Ready to Get Started?</h3>
+          <p>Explore all available tools or start generating domains now</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn-generate" id="btnHomeStartGenerating">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Start Generating
+            </button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GEO PANEL ===== -->
+    <div class="tool-panel" id="geo-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Geo Domain Generator</h1><p>Generate high-value City + Service domain combinations ranked by population</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Service / Keyword</label><input type="text" class="input-primary" id="geoKeyword" placeholder="e.g. lawyer, roofing, plumber" /></div>
+          <div class="form-row"><label class="form-label">Location Type</label><div class="custom-select" id="geoLocationType"><button class="custom-select-trigger"><span class="selected-text">US Cities</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option active" data-value="us-cities">US Cities</div><div class="select-option" data-value="us-states">US States</div><div class="select-option" data-value="uk-cities">UK Cities</div><div class="select-option" data-value="canada-cities">Canada Cities</div><div class="select-option" data-value="australia-cities">Australia Cities</div></div></div></div>
+          <div class="form-row"><label class="form-label">Custom Location (optional)</label><input type="text" class="input-primary" id="geoCustom" placeholder="e.g. Miami, London, Toronto" /></div>
+          <div class="form-row"><label class="form-label">Sort By</label><div class="custom-select" id="geoSortBy"><button class="custom-select-trigger"><span class="selected-text">Population</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option active" data-value="population">Population</div><div class="select-option" data-value="cpc">CPC Potential</div><div class="select-option" data-value="shortest">Shortest First</div></div></div></div>
+          <div class="quick-niches"><span>Quick:</span><button class="niche-pill" data-niche="lawyer">Lawyer</button><button class="niche-pill" data-niche="roofing">Roofing</button><button class="niche-pill" data-niche="plumber">Plumber</button><button class="niche-pill" data-niche="dentist">Dentist</button><button class="niche-pill" data-niche="insurance">Insurance</button><button class="niche-pill" data-niche="realtor">Realtor</button><button class="niche-pill" data-niche="contractor">Contractor</button></div>
+          <button class="btn-generate" id="btnGeoGenerate"><svg viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Generate Geo Domains</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== KEYWORD PANEL ===== -->
+    <div class="tool-panel" id="keyword-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Keyword Domain Generator</h1><p>Combine keywords with smart prefixes and suffixes from curated data</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Keyword(s)</label><input type="text" class="input-primary" id="kwInput" placeholder="e.g. cloud, data, AI" /></div>
+          <div class="form-row"><label class="form-label">Category</label><div class="custom-select" id="kwCategory"><button class="custom-select-trigger"><span class="selected-text">All Categories</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option active" data-value="all">All Categories</div><div class="select-option" data-value="Tech">&#x1F5A5;&#xFE0F; Tech</div><div class="select-option" data-value="Artificial Intelligence">&#x1F916; AI</div><div class="select-option" data-value="Crypto">&#x20BF; Crypto</div><div class="select-option" data-value="Finance">&#x1F4B0; Finance</div><div class="select-option" data-value="RealEstate">&#x1F3E0; Real Estate</div><div class="select-option" data-value="Health & Fitness">&#x1F4AA; Health</div><div class="select-option" data-value="Gaming">&#x1F3AE; Gaming</div><div class="select-option" data-value="Travel">&#x2708;&#xFE0F; Travel</div></div></div></div>
+          <div class="options-grid"><label class="checkbox-label"><input type="checkbox" id="kwPrefix" checked/><span class="checkmark"></span>Prefix</label><label class="checkbox-label"><input type="checkbox" id="kwSuffix" checked/><span class="checkmark"></span>Suffix</label><label class="checkbox-label"><input type="checkbox" id="kwCategoryKws" checked/><span class="checkmark"></span>Category Keywords</label><label class="checkbox-label"><input type="checkbox" id="kwCombine" checked/><span class="checkmark"></span>Combine Keywords</label></div>
+          <button class="btn-generate" id="btnKwGenerate"><svg viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Generate Keyword Domains</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PATTERN PANEL ===== -->
+    <div class="tool-panel" id="pattern-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Pattern Domain Generator</h1><p>Generate domains using consonant/vowel patterns like CVCVC</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Pattern</label><input type="text" class="input-primary" id="patternInput" placeholder="e.g. CVCVC, CVC, CVCCV" value="CVCVC" /><span class="form-hint">C = Consonant, V = Vowel</span></div>
+          <div class="pattern-grids-section"><div class="pattern-grids"><div class="pattern-grid"><h4>Consonants</h4><div class="letter-grid" id="consonantGrid"></div></div><div class="pattern-grid"><h4>Vowels</h4><div class="letter-grid" id="vowelGrid"></div></div></div></div>
+          <div class="form-row"><label class="form-label">TLD</label><div class="custom-select" id="patternTld"><button class="custom-select-trigger"><span class="selected-text">.com</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option active" data-value=".com">.com</div><div class="select-option" data-value=".io">.io</div><div class="select-option" data-value=".co">.co</div><div class="select-option" data-value=".ai">.ai</div><div class="select-option" data-value=".app">.app</div><div class="select-option" data-value=".net">.net</div></div></div></div>
+          <button class="btn-generate" id="btnPatternGenerate"><svg viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Generate Pattern Domains</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BRANDABLE PANEL ===== -->
+    <div class="tool-panel" id="brandable-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Brandable Name Generator</h1><p>Create unique startup-ready names using curated brandable data</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Base Keyword (optional)</label><input type="text" class="input-primary" id="brandInput" placeholder="e.g. swift, nova, pulse" /></div>
+          <div class="form-row"><label class="form-label">Max Length</label><div class="range-group"><input type="range" id="brandLength" min="4" max="14" value="10" /><span class="range-value" id="brandLengthValue">10 letters</span></div></div>
+          <div class="options-grid"><label class="checkbox-label"><input type="checkbox" id="brPrefix" checked/><span class="checkmark"></span>Prefix + Keyword</label><label class="checkbox-label"><input type="checkbox" id="brSuffix" checked/><span class="checkmark"></span>Keyword + Suffix</label><label class="checkbox-label"><input type="checkbox" id="brBoth" checked/><span class="checkmark"></span>Prefix + Keyword + Suffix</label><label class="checkbox-label"><input type="checkbox" id="brRandom" checked/><span class="checkmark"></span>Random Combinations</label></div>
+          <button class="btn-generate" id="btnBrandGenerate"><svg viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Generate Brand Names</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== NUMERIC PANEL ===== -->
+    <div class="tool-panel" id="numeric-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Numeric Domain Generator</h1><p>Find valuable numeric &amp; alphanumeric domain names</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Base Keyword (optional)</label><input type="text" class="input-primary" id="numKeyword" placeholder="e.g. AI, cloud, data" /></div>
+          <div class="form-row"><label class="form-label">Number Pattern</label><div class="custom-select" id="numPattern"><button class="custom-select-trigger"><span class="selected-text">Random</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option active" data-value="random">Random</div><div class="select-option" data-value="palindrome">Palindrome (121, 12321)</div><div class="select-option" data-value="repeating">Repeating (777, 8888)</div><div class="select-option" data-value="sequential">Sequential (1234, 5678)</div><div class="select-option" data-value="year">Year (2025, 2026)</div></div></div></div>
+          <div class="form-row"><label class="form-label">Number Length</label><div class="length-selector" id="numLengthSelector"><button class="len-btn" data-len="3">3</button><button class="len-btn active" data-len="4">4</button><button class="len-btn" data-len="5">5</button><button class="len-btn" data-len="6">6</button></div></div>
+          <div class="options-grid"><label class="checkbox-label"><input type="checkbox" id="numPure" checked/><span class="checkmark"></span>Pure Numbers</label><label class="checkbox-label"><input type="checkbox" id="numHybrid" checked/><span class="checkmark"></span>Keyword + Number</label><label class="checkbox-label"><input type="checkbox" id="numReverse"/><span class="checkmark"></span>Number + Keyword</label></div>
+          <button class="btn-generate" id="btnNumGenerate"><svg viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Generate Numeric Domains</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SUGGESTOR PANEL ===== -->
+    <div class="tool-panel" id="suggestor-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Domain Suggestor</h1><p>Describe your business and get intelligent domain suggestions</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Describe Your Business</label><textarea class="textarea-primary" id="suggestInput" rows="4" placeholder="e.g. An AI-powered marketing platform that helps small businesses automate their campaigns..."></textarea></div>
+          <div class="form-row"><label class="form-label">Max Results</label><div class="custom-select" id="suggestMax"><button class="custom-select-trigger"><span class="selected-text">20 domains</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option" data-value="10">10 domains</div><div class="select-option active" data-value="20">20 domains</div><div class="select-option" data-value="50">50 domains</div></div></div></div>
+          <button class="btn-generate" id="btnSuggestGenerate"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Get Smart Suggestions</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== WORDLIST PANEL ===== -->
+    <div class="tool-panel" id="wordlist-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>WordList Domain Combiner</h1><p>Combine two word lists to discover unique domain names</p></div>
+        <div class="input-card glass">
+          <div class="wordlist-cols"><div class="form-row"><label class="form-label">List A</label><textarea class="textarea-primary" id="wordListA" rows="8" placeholder="tech&#10;data&#10;cloud&#10;ai&#10;smart"></textarea></div><div class="wordlist-separator"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="form-row"><label class="form-label">List B</label><textarea class="textarea-primary" id="wordListB" rows="8" placeholder="hub&#10;lab&#10;box&#10;flow&#10;core"></textarea></div></div>
+          <div class="form-row"><label class="form-label">Separator</label><div class="custom-select" id="wordlistSep"><button class="custom-select-trigger"><span class="selected-text">None</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option active" data-value="">None</div><div class="select-option" data-value="-">Dash (-)</div><div class="select-option" data-value="_">Underscore (_)</div></div></div></div>
+          <button class="btn-generate" id="btnWordlistGenerate"><svg viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Combine &amp; Generate</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BULK CHECKER PANEL ===== -->
+    <div class="tool-panel" id="bulkcheck-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Bulk Domain Checker</h1><p>Check availability for multiple domains at once</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Domains (one per line)</label><textarea class="textarea-primary" id="bulkInput" rows="10" placeholder="google.com&#10;myawesomestartup.com&#10;aibot.io&#10;cloudhub.app&#10;dataflow.com"></textarea></div>
+          <button class="btn-generate" id="btnBulkCheck"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="2"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="2"/><path d="M9 14l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Check Domains</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DOMAIN EXTRACTOR PANEL ===== -->
+    <div class="tool-panel" id="extractor-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Domain Extractor</h1><p>Extract domain-like patterns from any text</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Paste Text</label><textarea class="textarea-primary" id="extractInput" rows="8" placeholder="Paste any text containing domain names...&#10;Example: Visit us at example.com or contact@startup.io. Our partner sites are api.service.co and app.platform.ai"></textarea></div>
+          <button class="btn-generate" id="btnExtract"><svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2"/><path d="M10 13l4 4-4 4M14 17h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Extract Domains</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TEXT TOOLS PANEL ===== -->
+    <div class="tool-panel" id="texttools-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Text Tools</h1><p>Convert, transform, and prepare domain keywords</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Input Text</label><textarea class="textarea-primary" id="textInput" rows="5" placeholder="Enter text to transform...&#10;e.g. My Awesome Domain Name"></textarea></div>
+          <div class="text-tools-grid">
+            <button class="tool-btn" data-action="lowercase">lowercase</button>
+            <button class="tool-btn" data-action="uppercase">UPPERCASE</button>
+            <button class="tool-btn" data-action="titlecase">Title Case</button>
+            <button class="tool-btn" data-action="nospace">Remove Spaces</button>
+            <button class="tool-btn" data-action="slug">Slug Generator</button>
+            <button class="tool-btn" data-action="reverse">Reverse</button>
+            <button class="tool-btn" data-action="camelCase">camelCase</button>
+            <button class="tool-btn" data-action="kebab-case">kebab-case</button>
+          </div>
+          <div class="form-row" style="margin-top:16px"><label class="form-label">Output</label><textarea class="textarea-primary" id="textOutput" rows="4" readonly placeholder="Result appears here..."></textarea></div>
+          <button class="btn-generate btn-copy-all" id="btnCopyText" style="display:none"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg>Copy Result</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== EMAIL EXTRACTOR PANEL ===== -->
+    <div class="tool-panel" id="emailextractor-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Email Extractor</h1><p>Extract email addresses from text or HTML content</p></div>
+        <div class="input-card glass">
+          <div class="form-row"><label class="form-label">Paste Text or HTML</label><textarea class="textarea-primary" id="emailInput" rows="8" placeholder="Paste text containing emails...&#10;Example: Contact john@example.com or support@company.co.uk"></textarea></div>
+          <button class="btn-generate" id="btnExtractEmail"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M22 4L12 13 2 4" stroke="currentColor" stroke-width="2"/></svg>Extract Emails</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SMART EMAIL TOOL PANEL ===== -->
+    <div class="tool-panel" id="emailtool-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Smart Email Tool</h1><p>Send personalized outreach campaigns with smart automation</p></div>
+        <!-- ===== CAMPAIGN MANAGER SECTION ===== -->
+        <div class="email-section" style="margin-top:20px;border-top:1px solid var(--glass-border);padding-top:20px">
+          <div class="email-section-header">
+            <svg viewBox="0 0 24 24" fill="none" style="width:18px;height:18px;color:var(--accent)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Campaign Manager</h3>
+          </div>
+          
+          <div class="campaign-manager-actions" style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
+            <div class="custom-select" id="campaignSelector" style="min-width: 200px; display: none;">
+              <button class="custom-select-trigger"><span class="selected-text" id="campaignSelectorText">Select Campaign</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+              <div class="custom-select-dropdown" id="campaignSelectorDropdown">
+                <!-- Options injected by JS -->
+              </div>
+            </div>
+            <button class="btn-generate" id="btnCreateCampaign" style="padding:10px 18px;font-size:.82rem">
+              <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Create Campaign
+            </button>
+            <button class="btn-action-sm" id="btnViewCampaigns" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>
+              View Campaigns
+            </button>
+          </div>
+          
+          <!-- Campaign List Preview -->
+          <div class="campaign-list-preview glass" id="campaignListPreview" style="display:none">
+            <div class="campaign-preview-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-size:.75rem;font-weight:600;color:var(--text-tertiary)">Recent Campaigns</span>
+              <span class="campaign-count" id="campaignCountBadge" style="font-size:.7rem;background:var(--bg-input);padding:2px 8px;border-radius:10px">0</span>
+            </div>
+            <div id="campaignQuickList" style="display:flex;flex-direction:column;gap:6px"></div>
+          </div>
+        </div>
+
+        <!-- ===== EMAIL WORKFLOW (shown after campaign selected) ===== -->
+        <!-- Step 1: Email Source -->
+        <div class="email-section">
+          <div class="email-section-header">
+            <span class="email-step-num">1</span>
+            <h3>Email Source</h3>
+          </div>
+
+          <!-- Tabs -->
+          <div class="analyzer-tabs email-tabs">
+            <button class="analyzer-tab active" data-etab="epaste">
+              <svg viewBox="0 0 24 24" fill="none" style="width:13px;height:13px"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M22 4L12 13 2 4" stroke="currentColor" stroke-width="2"/></svg>
+              Paste
+            </button>
+            <button class="analyzer-tab" data-etab="eupload">
+              <svg viewBox="0 0 24 24" fill="none" style="width:13px;height:13px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="17,8 12,3 7,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Upload CSV
+            </button>
+          </div>
+
+          <!-- Paste Tab -->
+          <div class="analyzer-tab-content active" id="tab-epaste">
+            <textarea class="analyzer-textarea" id="emailPasteInput" rows="5" placeholder="Paste emails (one per line)&#10;Formats: email | email, domain | email, name, domain&#10;Example: john@company.com, John Doe, company.com"></textarea>
+            <div class="analyzer-textarea-actions">
+              <button class="btn-action-sm" id="btnClearEmails">
+                <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Upload Tab -->
+          <div class="analyzer-tab-content" id="tab-eupload">
+            <div class="csv-drop-zone" id="emailDropZone">
+              <input type="file" id="emailFileInput" accept=".csv,.tsv,.txt" style="display:none" />
+              <svg viewBox="0 0 24 24" fill="none" class="csv-drop-icon"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><polyline points="17,8 12,3 7,8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <p class="csv-drop-title">Drop your CSV file here</p>
+              <span class="csv-drop-subtitle">or click to browse (.csv, .tsv, .txt)</span>
+            </div>
+            <div class="csv-file-info" id="emailFileInfo" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;color:var(--text-secondary)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2"/></svg>
+              <span class="csv-filename" id="emailFileName"></span>
+              <span class="csv-row-count" id="emailRowCount"></span>
+              <button class="btn-action-sm csv-remove-btn" id="emailRemoveBtn">
+                <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Parsed contacts summary -->
+          <div class="email-contact-summary" id="emailContactSummary" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;color:#4ade80"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="emailContactCount"></span>
+            <button class="btn-action-sm" id="btnClearContacts" style="margin-left:auto">Clear All</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Subject Lines -->
+        <div class="email-section">
+          <div class="email-section-header">
+            <span class="email-step-num">2</span>
+            <h3>Subject Lines</h3>
+            <button class="btn-action-sm" id="btnAddSubject">
+              <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Add
+            </button>
+          </div>
+          <div class="email-variations" id="subjectVariations">
+            <div class="email-var-input">
+              <input type="text" class="email-var-field" id="subjectInput1" placeholder="e.g. Quick question about {{domain}}" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Message -->
+        <div class="email-section">
+          <div class="email-section-header">
+            <span class="email-step-num">3</span>
+            <h3>Message</h3>
+            <button class="btn-action-sm" id="btnAddMessage">
+              <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Add
+            </button>
+          </div>
+          <div class="email-variations" id="messageVariations">
+            <div class="email-var-input">
+              <textarea class="email-msg-field" id="messageInput1" rows="5" placeholder="Hi {{name}},&#10;&#10;I noticed {{domain}} and wanted to reach out...&#10;&#10;Variables: {{domain}}, {{email}}, {{name}}"></textarea>
+            </div>
+          </div>
+          <!-- Variable chips -->
+          <div class="email-var-chips">
+            <span class="var-chip" data-var="{{domain}}">{{domain}}</span>
+            <span class="var-chip" data-var="{{email}}">{{email}}</span>
+            <span class="var-chip" data-var="{{name}}">{{name}}</span>
+            <span class="var-chip" data-var="{{price}}">{{price}}</span>
+            <span class="var-chip" data-var="{{cpc}}">{{cpc}}</span>
+            <span class="var-chip" data-var="{{backlinks}}">{{backlinks}}</span>
+          </div>
+        </div>
+
+        <!-- Step 4: Preview -->
+        <div class="email-section">
+          <div class="email-section-header">
+            <span class="email-step-num">4</span>
+            <h3>Live Preview</h3>
+          </div>
+          <div class="email-preview" id="emailPreview">
+            <div class="email-preview-subject">
+              <span class="email-preview-label">Subject:</span>
+              <span id="previewSubject">Add subjects above to preview</span>
+            </div>
+            <div class="email-preview-body" id="previewBody">
+              Add a message above to see the preview here...
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Settings -->
+        <div class="email-section">
+          <div class="email-section-header">
+            <span class="email-step-num">5</span>
+            <h3>Settings</h3>
+          </div>
+          <div class="email-settings-grid">
+            <!-- Anti-Spam Toggle -->
+            <div class="email-setting-item">
+              <span class="email-setting-label">Anti-Spam Mode</span>
+              <label class="email-toggle">
+                <input type="checkbox" id="antiSpamToggle" checked />
+                <span class="email-toggle-slider"></span>
+              </label>
+            </div>
+            <!-- Timing Slider -->
+            <div class="email-setting-item">
+              <span class="email-setting-label">Sending Speed</span>
+              <div class="email-timing">
+                <button class="timing-btn" data-speed="fast">Fast</button>
+                <button class="timing-btn active" data-speed="normal">Normal</button>
+                <button class="timing-btn" data-speed="safe">Safe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campaign Controls -->
+        <div class="email-campaign-controls">
+          <button class="btn-generate" id="btnStartCampaign">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M22 4L12 13 2 4" stroke="currentColor" stroke-width="2"/></svg>
+            Send via Gmail
+          </button>
+          <div class="campaign-extra-btns" style="display:none">
+            <button class="btn-action-sm" id="btnPauseCampaign">⏸ Pause</button>
+            <button class="btn-action-sm" id="btnResumeCampaign" style="display:none">▶ Resume</button>
+            <button class="btn-action-sm" id="btnStopCampaign" style="color:#f87171">⏹ Stop</button>
+          </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="email-stats-bar" id="emailStatsBar" style="display:none">
+          <div class="email-stat">
+            <span class="email-stat-value" id="emailStatTotal">0</span>
+            <span class="email-stat-label">Total</span>
+          </div>
+          <div class="email-stat">
+            <span class="email-stat-value sent" id="emailStatSent">0</span>
+            <span class="email-stat-label">Sent</span>
+          </div>
+          <div class="email-stat">
+            <span class="email-stat-value pending" id="emailStatPending">0</span>
+            <span class="email-stat-label">Pending</span>
+          </div>
+          <div class="email-stat">
+            <span class="email-stat-value failed" id="emailStatFailed">0</span>
+            <span class="email-stat-label">Failed</span>
+          </div>
+          <!-- Progress bar -->
+          <div class="email-progress-wrap">
+            <div class="email-progress-bar">
+              <div class="email-progress-fill" id="emailProgressFill" style="width:0%"></div>
+            </div>
+            <span class="email-progress-pct" id="emailProgressPct">0%</span>
+          </div>
+        </div>
+
+        <!-- Email Table -->
+        <div class="email-table-wrap" id="emailTableWrap" style="display:none">
+          <table class="email-table">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Domain</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Last Action</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="emailTableBody"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== CAMPAIGN FORM MODAL ===== -->
+    <div class="modal-overlay" id="campaignModalOverlay" style="display:none">
+      <div class="modal-content glass" style="max-width:520px;width:90%">
+        <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--glass-border)">
+          <h3 id="campaignModalTitle" style="font-family:var(--font-primary);font-size:1rem;font-weight:700">Create Campaign</h3>
+          <button class="btn-action-sm" id="btnCloseCampaignModal" style="width:28px;height:28px;padding:0;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        
+        <form id="campaignForm" style="display:flex;flex-direction:column;gap:12px">
+          <input type="hidden" id="campaignId" />
+          
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">Campaign Name *</label>
+            <input type="text" id="campaignName" class="email-var-field" placeholder="e.g. Tech Startups Outreach" required style="width:100%" />
+          </div>
+          
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">Domain *</label>
+            <input type="text" id="campaignDomain" class="email-var-field" placeholder="e.g. example.com" required style="width:100%" />
+          </div>
+          
+
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div>
+              <label style="display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">Price (USD)</label>
+              <input type="text" id="campaignPrice" class="email-var-field" placeholder="e.g. $2,500" style="width:100%" />
+            </div>
+            <div>
+              <label style="display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">Backlinks</label>
+              <input type="text" id="campaignBacklinks" class="email-var-field" placeholder="e.g. 150" style="width:100%" />
+            </div>
+          </div>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div>
+              <label style="display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">CPC</label>
+              <input type="text" id="campaignCpc" class="email-var-field" placeholder="e.g. $3.50" style="width:100%" />
+            </div>
+            <div>
+              <label style="display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">Status</label>
+              <select id="campaignStatus" class="email-var-field" style="width:100%">
+                <option value="draft">Draft</option>
+                <option value="active">Active</option>
+                <option value="sent">Sent</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+          </div>
+          
+          <div>
+            <label style="display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px">Notes</label>
+            <textarea id="campaignNotes" class="email-msg-field" placeholder="Additional notes about this campaign..." rows="3" style="width:100%;resize:vertical"></textarea>
+          </div>
+          
+          <div style="display:flex;gap:10px;margin-top:8px">
+            <button type="submit" class="btn-generate" style="flex:1;padding:10px 18px;font-size:.82rem">
+              <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2"/><path d="M17 21v-8H7v8M7 3v5h8" stroke="currentColor" stroke-width="2"/></svg>
+              Save Campaign
+            </button>
+            <button type="button" class="btn-action-sm" id="btnCancelCampaign" style="padding:10px 18px">Cancel</button>
+          </div>
+        </form>
+        
+        <div id="saveNotification" style="display:none;margin-top:10px;padding:8px 12px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:var(--radius-sm);font-size:.75rem;font-weight:600;color:#4ade80;text-align:center">
+          <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px;vertical-align:middle;margin-right:6px"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Saved locally
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CAMPAIGN DETAILS MODAL ===== -->
+    <div class="modal-overlay" id="campaignDetailsModal" style="display:none">
+      <div class="modal-content glass" style="max-width:600px;width:90%">
+        <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--glass-border)">
+          <h3 style="font-family:var(--font-primary);font-size:1rem;font-weight:700">Campaign Details</h3>
+          <button class="btn-action-sm" id="btnCloseDetailsModal" style="width:28px;height:28px;padding:0;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        
+        <div id="campaignDetailsContent" style="display:flex;flex-direction:column;gap:14px">
+          <!-- Campaign Info -->
+          <div class="glass" style="padding:14px;border-radius:var(--radius-md);border:1px solid var(--glass-border)">
+            <h4 id="detailCampaignName" style="font-family:var(--font-primary);font-size:.95rem;font-weight:700;margin-bottom:8px"></h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.8rem">
+              <div>
+                <span style="color:var(--text-tertiary);font-size:.7rem">Domain</span>
+                <p id="detailDomain" style="font-weight:600;color:var(--text-primary)"></p>
+              </div>
+              <div>
+                <span style="color:var(--text-tertiary);font-size:.7rem">Emails</span>
+                <p id="detailEmailCount" style="font-weight:600;color:var(--text-primary)"></p>
+              </div>
+              <div>
+                <span style="color:var(--text-tertiary);font-size:.7rem">Price</span>
+                <p id="detailPrice" style="font-weight:600;color:var(--accent)"></p>
+              </div>
+              <div>
+                <span style="color:var(--text-tertiary);font-size:.7rem">Status</span>
+                <p id="detailStatus" style="font-weight:600"></p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Metrics -->
+          <div class="glass" style="padding:14px;border-radius:var(--radius-md);border:1px solid var(--glass-border)">
+            <h4 style="font-family:var(--font-primary);font-size:.85rem;font-weight:700;margin-bottom:10px">Domain Metrics</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div style="padding:10px;background:var(--bg-input);border-radius:var(--radius-sm);text-align:center">
+                <span style="font-size:.65rem;color:var(--text-tertiary);text-transform:uppercase">Backlinks</span>
+                <p id="detailBacklinks" style="font-size:1.1rem;font-weight:800;color:var(--text-primary);margin-top:4px">-</p>
+              </div>
+              <div style="padding:10px;background:var(--bg-input);border-radius:var(--radius-sm);text-align:center">
+                <span style="font-size:.65rem;color:var(--text-tertiary);text-transform:uppercase">CPC</span>
+                <p id="detailCpc" style="font-size:1.1rem;font-weight:800;color:var(--text-primary);margin-top:4px">-</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Email Preview -->
+          <div class="glass" style="padding:14px;border-radius:var(--radius-md);border:1px solid var(--glass-border)">
+            <h4 style="font-family:var(--font-primary);font-size:.85rem;font-weight:700;margin-bottom:10px">Email Preview</h4>
+            <div style="background:var(--bg-input);border-radius:var(--radius-sm);padding:12px">
+              <div style="font-size:.75rem;color:var(--text-tertiary);margin-bottom:6px">Subject:</div>
+              <div id="previewSubjectLine" style="font-weight:600;margin-bottom:10px"></div>
+              <div style="font-size:.75rem;color:var(--text-tertiary);margin-bottom:6px">Body:</div>
+              <div id="previewEmailBody" style="font-size:.82rem;line-height:1.6;white-space:pre-wrap;color:var(--text-secondary)"></div>
+            </div>
+          </div>
+          
+          <!-- Notes -->
+          <div id="detailNotesWrap" style="display:none">
+            <h4 style="font-family:var(--font-primary);font-size:.85rem;font-weight:700;margin-bottom:8px">Notes</h4>
+            <p id="detailNotes" style="font-size:.8rem;line-height:1.6;color:var(--text-secondary);background:var(--bg-input);padding:10px;border-radius:var(--radius-sm)"></p>
+          </div>
+          
+          <!-- Actions -->
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+            <button class="btn-generate" id="btnSendGmail" style="flex:1;min-width:140px;padding:10px 18px;font-size:.82rem">
+              <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M22 4L12 13 2 4" stroke="currentColor" stroke-width="2"/></svg>
+              Send via Gmail
+            </button>
+            <button class="btn-action-sm" id="btnEditCampaign" style="padding:10px 18px">
+              <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="2"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"/></svg>
+              Edit
+            </button>
+            <button class="btn-action-sm" id="btnDeleteCampaign" style="padding:10px 18px;color:#f87171">
+              <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CAMPAIGNS LIST MODAL ===== -->
+    <div class="modal-overlay" id="campaignsListModal" style="display:none">
+      <div class="modal-content glass" style="max-width:700px;width:90%;max-height:80vh;overflow-y:auto">
+        <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--glass-border);position:sticky;top:0;background:var(--bg-secondary);z-index:10">
+          <h3 style="font-family:var(--font-primary);font-size:1rem;font-weight:700">All Campaigns</h3>
+          <button class="btn-action-sm" id="btnCloseListModal" style="width:28px;height:28px;padding:0;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        
+        <div id="campaignsListContent" style="display:flex;flex-direction:column;gap:8px">
+          <!-- Campaign items will be rendered here -->
+        </div>
+        
+        <div id="noCampaignsMsg" style="display:none;text-align:center;padding:40px 20px">
+          <svg viewBox="0 0 24 24" fill="none" style="width:40px;height:40px;color:var(--text-tertiary);margin:0 auto 12px"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p style="color:var(--text-secondary);font-size:.85rem;margin-bottom:12px">No campaigns yet</p>
+          <button class="btn-generate" id="btnCreateFirstCampaign" style="padding:8px 16px;font-size:.8rem">
+            <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Create Your First Campaign
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- ===== GEN DOMAIN NEWS PANEL ===== -->
+    <div class="tool-panel" id="newsdomain-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Gen Domain News</h1><p>Fetch real-time news trends → AI generates premium domain name suggestions</p></div>
+
+        <!-- API Setup -->
+        <div class="input-card glass" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <div>
+            <div style="font-weight:600;font-size:.85rem;margin-bottom:2px">API Configuration</div>
+            <div style="font-size:.75rem;color:var(--text-tertiary)">Gemini or Grok required</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-action-sm" id="btnHowToGetKeysInline" style="background:var(--bg-input)">
+              <svg viewBox="0 0 24 24" fill="none" style="width:13px;height:13px"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              How to get API keys
+            </button>
+            <button class="btn-action-sm" id="btnOpenApiSettingsInline" style="background:var(--bg-input)">
+              <svg viewBox="0 0 24 24" fill="none" style="width:13px;height:13px"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="2"/></svg>
+              Open API Settings
+            </button>
+          </div>
+        </div>
+
+        <!-- Generation Mode Selector -->
+        <div class="input-card glass" style="margin-bottom:14px">
+          <div class="form-row"><label class="form-label">Generation Mode</label></div>
+          <div id="genModeSelector" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+            <button class="gen-mode-btn active" data-mode="GEO" id="genModeGeo">
+              <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>
+              GEO
+            </button>
+            <button class="gen-mode-btn" data-mode="BRANDABLE" id="genModeBrandable">
+              <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.8"/></svg>
+              BRANDABLE
+            </button>
+            <button class="gen-mode-btn" data-mode="PATTERN" id="genModePattern">
+              <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg>
+              PATTERN
+            </button>
+            <button class="gen-mode-btn" data-mode="HYBRID" id="genModeHybrid">
+              <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              HYBRID
+            </button>
+          </div>
+          <div id="genModeHint" style="font-size:.78rem;color:var(--text-tertiary);background:var(--bg-input);border-radius:8px;padding:8px 12px;margin-bottom:4px">
+            🌍 <strong>GEO:</strong> City + Keyword combinations — great for local service domains
+          </div>
+        </div>
+
+        <!-- AI Provider Selector -->
+        <div class="input-card glass" style="margin-bottom:14px">
+          <div class="form-row"><label class="form-label">AI Provider</label></div>
+          <div id="aiProviderSelector" style="display:flex;gap:8px;margin-bottom:10px">
+            <button class="ai-provider-btn active" data-provider="auto" id="aiProvAuto">Auto</button>
+            <button class="ai-provider-btn" data-provider="gemini" id="aiProvGemini">Gemini</button>
+            <button class="ai-provider-btn" data-provider="grok" id="aiProvGrok">Grok (xAI)</button>
+          </div>
+          <div id="aiProviderHint" style="font-size:.78rem;color:var(--text-tertiary);background:var(--bg-input);border-radius:8px;padding:8px 12px">
+            Auto: tries Gemini first, switches to Grok automatically if unavailable
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div class="input-card glass" style="margin-bottom:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+            <div class="form-row"><label class="form-label">Time Range</label>
+              <div class="custom-select" id="genNewsTimeRange"><button class="custom-select-trigger"><span class="selected-text">Week</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option" data-value="24h">Last 24h</div><div class="select-option active" data-value="week">This Week</div><div class="select-option" data-value="month">This Month</div></div></div>
+            </div>
+            <div class="form-row"><label class="form-label">TLD</label>
+              <div class="custom-select" id="genNewsTld"><button class="custom-select-trigger"><span class="selected-text">.com</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option active" data-value=".com">.com</div><div class="select-option" data-value=".net">.net</div><div class="select-option" data-value=".io">.io</div><div class="select-option" data-value=".ai">.ai</div><div class="select-option" data-value=".co">.co</div><div class="select-option" data-value=".org">.org</div></div></div>
+            </div>
+            <div class="form-row"><label class="form-label">Max Words</label>
+              <div class="custom-select" id="genNewsMaxWords"><button class="custom-select-trigger"><span class="selected-text">2</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option" data-value="1">1 word</div><div class="select-option active" data-value="2">2 words</div><div class="select-option" data-value="3">3 words</div></div></div>
+            </div>
+          </div>
+          <div class="form-row"><label class="form-label">Keyword Filter (optional)</label><input type="text" class="input-primary" id="genNewsQuery" placeholder="e.g. AI, crypto, health..." style="font-size:.82rem;padding:8px 12px" /></div>
+          <div class="form-row"><label class="form-label">Number of Domains</label>
+            <div class="custom-select limit-select" id="genNewsCount"><button class="custom-select-trigger"><span class="selected-text">10</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="custom-select-dropdown"><div class="select-option" data-value="5">5</div><div class="select-option active" data-value="10">10</div><div class="select-option" data-value="20">20</div></div></div>
+          </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button class="btn-generate" id="btnGenDomains"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Generate Domain Suggestions</button>
+
+        <!-- Results -->
+        <div class="gen-news-results" id="genNewsResults" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ===== SMART DOMAIN ANALYZER PANEL ===== -->
+    <div class="tool-panel" id="analyzer-panel">
+      <div class="panel-container">
+        <div class="panel-hero"><h1>Smart Domain Analyzer</h1><p>Upload CSV or paste domains — auto-detects mode for instant analysis</p></div>
+
+        <!-- Input Tabs -->
+        <div class="analyzer-tabs">
+          <button class="analyzer-tab active" data-tab="paste">
+            <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="8" y="2" width="8" height="4" rx="1" stroke="currentColor" stroke-width="2"/><path d="M9 14l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Paste Text
+          </button>
+          <button class="analyzer-tab" data-tab="upload">
+            <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="17,8 12,3 7,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Upload CSV
+          </button>
+        </div>
+
+        <!-- Tab: Paste Text -->
+        <div class="analyzer-tab-content active" id="tab-paste">
+          <div class="analyzer-input">
+            <textarea class="analyzer-textarea" id="analyzerInput" rows="6" placeholder="Paste domains (one per line)&#10;Or paste CSV/TSV with metrics: domain, LE, BL, DP, CPC, TF, CF, WBY, ABY, SG..."></textarea>
+            <div class="analyzer-textarea-actions">
+              <button class="btn-action-sm" id="btnPasteExample">
+                <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Paste Example
+              </button>
+              <button class="btn-action-sm" id="btnClearInput">
+                <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Upload CSV -->
+        <div class="analyzer-tab-content" id="tab-upload">
+          <div class="csv-drop-zone" id="csvDropZone">
+            <input type="file" id="csvFileInput" accept=".csv,.tsv,.txt" style="display:none" />
+            <svg viewBox="0 0 24 24" fill="none" class="csv-drop-icon"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><polyline points="17,8 12,3 7,8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <p class="csv-drop-title">Drop your CSV file here</p>
+            <span class="csv-drop-subtitle">or click to browse (.csv, .tsv, .txt)</span>
+            <span class="csv-drop-subtitle" style="margin-top:4px;opacity:.5">Auto-detects headers and metrics</span>
+          </div>
+          <div class="csv-file-info" id="csvFileInfo" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;color:var(--text-secondary)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="2"/></svg>
+            <span class="csv-filename" id="csvFileName"></span>
+            <span class="csv-row-count" id="csvRowCount"></span>
+            <button class="btn-action-sm csv-remove-btn" id="csvRemoveBtn">
+              <svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mode Indicator -->
+        <div class="analyzer-mode-indicator" id="analyzerModeIndicator" style="display:none">
+          <span class="mode-badge" id="analyzerModeBadge"></span>
+          <span class="analyzer-domain-count" id="analyzerDomainCount"></span>
+        </div>
+
+        <div class="analyzer-options">
+          <div class="custom-select" id="analyzerSort">
+            <button class="custom-select-trigger"><span class="selected-text">Score ↓</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="custom-select-dropdown">
+              <div class="select-option active" data-value="score">Score ↓</div>
+              <div class="select-option" data-value="name">Name A-Z</div>
+              <div class="select-option" data-value="cpc">CPC ↓</div>
+              <div class="select-option" data-value="age">Age ↓</div>
+            </div>
+          </div>
+          <div class="custom-select" id="analyzerClassFilter">
+            <button class="custom-select-trigger"><span class="selected-text">All Classes</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="custom-select-dropdown">
+              <div class="select-option active" data-value="all">All Classes</div>
+              <div class="select-option" data-value="Elite">🔥 Elite (90+)</div>
+              <div class="select-option" data-value="High Value">💰 High Value (75-89)</div>
+              <div class="select-option" data-value="Good Flip">⚡ Good Flip (60-74)</div>
+              <div class="select-option" data-value="Low Quality">❌ Low Quality (&lt;60)</div>
+            </div>
+          </div>
+        </div>
+        <div class="analyzer-filters" id="analyzerFilters" style="display:none">
+          <label>Filters:</label>
+          <label class="checkbox-label"><input type="checkbox" id="filterAvailable" checked/><span class="checkmark"></span>Available Only</label>
+          <label>Min CPC:</label><input type="number" class="filter-input" id="filterMinCpc" value="0" min="0" step="1" />
+          <label>Min Age:</label><input type="number" class="filter-input" id="filterMinAge" value="0" min="0" />
+          <label>Min Score:</label><input type="number" class="filter-input" id="filterMinScore" value="0" min="0" max="100" />
+        </div>
+        <button class="btn-generate" id="btnAnalyze"><svg viewBox="0 0 24 24" fill="none"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343 5.657l-.707-.707m2.828 2.828l-.707.707M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Analyze Domains</button>
+        <div class="analyzer-results" id="analyzerResults" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ===== RESULTS ===== -->
+    <section class="results-section visible" id="resultsSection">
+      <div class="results-header">
+        <div class="results-info">
+          <h2 id="resultsTitle">Generated Domains</h2>
+          <span class="results-count" id="resultsCount">0 domains</span>
+        </div>
+        <div class="results-controls" id="resultsControls">
+          <div class="dropdown-wrapper" style="position:relative" id="exportDropdownWrap">
+            <button class="btn-action-sm" id="btnExportToggle" style="padding: 6px 12px; font-size: 0.75rem; border-radius: 6px;" disabled>
+              <svg viewBox="0 0 24 24" fill="none" style="width: 14px; height: 14px; margin-right: 4px;"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Export
+            </button>
+            <div class="custom-select-dropdown" id="exportMenu" style="display:none; position:absolute; top:100%; right:0; margin-top:5px; z-index:100; min-width: 180px;">
+              <div class="select-option" id="btnExportAll">Export All Domains</div>
+              <div class="select-option" id="btnExportAvail">Export Available Only</div>
+            </div>
+          </div>
+          <div class="custom-select select-sort-wrapper" id="resultsSort">
+            <button class="custom-select-trigger"><span class="selected-text">Default</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="custom-select-dropdown"><div class="select-option active" data-value="default">Default</div><div class="select-option" data-value="name">Name A-Z</div></div>
+          </div>
+          <div class="custom-select limit-select" id="resultLimit">
+            <button class="custom-select-trigger"><span class="selected-text">50</span><svg class="select-arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="custom-select-dropdown"><div class="select-option" data-value="20">20</div><div class="select-option active" data-value="50">50</div><div class="select-option" data-value="100">100</div><div class="select-option" data-value="200">200</div></div>
+          </div>
+        </div>
+      </div>
+      <div id="resultsLoading" class="results-loading" style="display:none">
+        <div class="results-spinner"></div>
+        <span>Generating domains...</span>
+      </div>
+      <div class="results-grid" id="resultsGrid"></div>
+      <div class="results-empty" id="resultsEmpty">
+        <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="50" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/><path d="M45 60l10 10 20-20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>No results yet</p>
+        <span>Select a tool and generate your first domains</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="toastMsg">Done!</span></div>
+
+  <!-- ===== API SETTINGS PANEL ===== -->
+ 
+<div class="settings-overlay" id="settingsOverlay">
+  <div class="settings-panel" id="settingsPanel">
+
+    <div class="settings-header">
+      <h3 class="settings-title">API Settings</h3>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-action-sm" id="btnGetApiKeys">Get API Keys</button>
+        <button class="settings-close" id="settingsClose" type="button">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- FIX: Wrap ALL inputs in a <form> to resolve password field warning -->
+    <form
+      id="settingsForm"
+      class="settings-body"
+      autocomplete="off"
+      onsubmit="return false;"
+    >
+      <!-- autocomplete="new-password" on each field prevents browser autofill on API key fields -->
+
+      <div class="settings-section-label">AI Providers</div>
+
+      <div class="form-row">
+        <label class="form-label" for="settingsGeminiKey">Gemini API Key</label>
+        <input
+          type="password"
+          class="input-primary"
+          id="settingsGeminiKey"
+          name="geminiKey"
+          placeholder="AIza... (from ai.google.dev)"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="form-row">
+        <label class="form-label" for="settingsGrokKey">Grok API Key (xAI)</label>
+        <input
+          type="password"
+          class="input-primary"
+          id="settingsGrokKey"
+          name="grokKey"
+          placeholder="xai-... (from x.ai)"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="settings-section-label" style="margin-top:20px">News Sources (optional)</div>
+
+      <div class="settings-keys-grid">
+        <div class="form-row">
+          <label class="form-label" for="settingsMediastackKey">MediaStack</label>
+          <input
+            type="password"
+            class="input-primary"
+            id="settingsMediastackKey"
+            name="mediastackKey"
+            placeholder="MediaStack API key"
+            autocomplete="new-password"
+            style="font-size:.78rem;padding:8px 10px"
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="settingsGnewsKey">GNews</label>
+          <input
+            type="password"
+            class="input-primary"
+            id="settingsGnewsKey"
+            name="gnewsKey"
+            placeholder="GNews API key"
+            autocomplete="new-password"
+            style="font-size:.78rem;padding:8px 10px"
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="settingsNewsapiKey">NewsAPI</label>
+          <input
+            type="password"
+            class="input-primary"
+            id="settingsNewsapiKey"
+            name="newsapiKey"
+            placeholder="NewsAPI key"
+            autocomplete="new-password"
+            style="font-size:.78rem;padding:8px 10px"
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="settingsCurrentsKey">Currents</label>
+          <input
+            type="password"
+            class="input-primary"
+            id="settingsCurrentsKey"
+            name="currentsKey"
+            placeholder="Currents API key"
+            autocomplete="new-password"
+            style="font-size:.78rem;padding:8px 10px"
+          />
+        </div>
+      </div>
+
+    </form>
+    <!-- END of <form> — all inputs are now properly contained -->
+
+    <div class="settings-footer">
+      <!-- This button is OUTSIDE the form intentionally — it calls a JS handler,
+           not a form submit. The form's onsubmit="return false;" prevents any
+           accidental page reloads. -->
+      <button class="btn-generate" id="btnSaveSettings" type="button" style="margin:0">
+        Save All Keys
+      </button>
+    </div>
+
+  </div>
+</div>
+
+  <!-- ===== GET API KEYS DIALOG ===== -->
+  <div class="dialog-overlay" id="getKeysOverlay">
+    <div class="dialog-box" id="getKeysDialog">
+      <div class="dialog-header">
+        <h4 class="dialog-title">Get API Keys</h4>
+        <button class="settings-close" id="getKeysClose">
+          <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <a href="https://ai.google.dev" target="_blank" rel="noopener" class="api-key-link-item">
+          <div class="akl-name">Gemini</div>
+          <div class="akl-desc">Google AI — required for domain generation. Free tier available.</div>
+          <div class="akl-url">ai.google.dev</div>
+        </a>
+        <a href="https://x.ai" target="_blank" rel="noopener" class="api-key-link-item">
+          <div class="akl-name">Grok (xAI)</div>
+          <div class="akl-desc">xAI language model — alternative AI provider for generation.</div>
+          <div class="akl-url">x.ai</div>
+        </a>
+        <a href="https://mediastack.com" target="_blank" rel="noopener" class="api-key-link-item">
+          <div class="akl-name">MediaStack</div>
+          <div class="akl-desc">Real-time news API — improves domain generation quality.</div>
+          <div class="akl-url">mediastack.com</div>
+        </a>
+        <a href="https://gnews.io" target="_blank" rel="noopener" class="api-key-link-item">
+          <div class="akl-name">GNews</div>
+          <div class="akl-desc">Global news aggregator — feeds trend data for generation.</div>
+          <div class="akl-url">gnews.io</div>
+        </a>
+        <a href="https://newsapi.org" target="_blank" rel="noopener" class="api-key-link-item">
+          <div class="akl-name">NewsAPI</div>
+          <div class="akl-desc">News headlines across thousands of sources worldwide.</div>
+          <div class="akl-url">newsapi.org</div>
+        </a>
+        <a href="https://currentsapi.services" target="_blank" rel="noopener" class="api-key-link-item">
+          <div class="akl-name">Currents</div>
+          <div class="akl-desc">Latest news and articles with category filtering.</div>
+          <div class="akl-url">currentsapi.services</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"></div><span>Loading data...</span></div>
+
+  <script type="module">import { initApp } from './js/main.js'; initApp();</script>
+</body>
+</html>

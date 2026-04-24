@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell *)",
+      "Bash(mkdir *)",
+      "Bash(del *)",
+      "Bash(python *)",
+      "Bash(tasklist *)",
+      "Bash(taskkill *)",
+      "Bash(netstat *)",
+      "Bash(findstr *)"
+    ]
+  },
+  "$version": 3
+}

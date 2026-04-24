@@ -1,0 +1,476 @@
+// ui.js — Rendering results, cards, animations, filters
+// STATE PERSISTENCE FIX: navigateToDomain() now saves domain before navigation
+import { $, $$ } from './utils.js';
+import { createActionMenu, closeAllActionMenus } from '../components/action-menu.js';
+import { createContinueButton, createCopyButton, closeActiveDropdown } from '../components/domain-dropdown.js';
+import { toggleFavorite, isFavorite } from './favorites.js';
+
+// ── Navigate to domain details — SAVE STATE FIRST ─────────────
+function navigateToDomain(domainName) {
+  // Save in both sessionStorage (tab-isolated, preferred) and localStorage (fallback)
+  try { sessionStorage.setItem('aiDomains_selected', domainName); } catch (e) {}
+  try { localStorage.setItem('selected_domain', domainName); } catch (e) {}
+  window.location.href = 'domain.html?domain=' + encodeURIComponent(domainName);
+}
+
+export const uiState = {
+  filter: 'all',
+  sort: 'relevance'
+};
+
+export function getUiState() { return uiState; }
+
+const STAR_SVG = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87L16.18 21L12 17.77 7.82 21 9 14.14 4 9.27l5.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`;
+
+function createDomainCard(domain, index = 0) {
+  const card = document.createElement('div');
+  card.className = 'domain-card';
+  card.style.animationDelay = (index * 0.035) + 's';
+
+  const domainName = domain.name || domain.domain;
+
+  let sc = 'status-checking';
+  let st = 'Checking...';
+  if (domain.available === true) { sc = 'status-available'; st = 'Available'; }
+  else if (domain.available === false) { sc = 'status-taken'; st = 'Taken'; }
+  else if (domain.available === 'error') { sc = 'status-taken'; st = 'Check Failed'; }
+  const favActive = isFavorite(domainName);
+  const isAvail = domain.available === true;
+
+  card.innerHTML = `
+    <button class="btn-fav${favActive ? ' active' : ''}" data-domain="${domainName}" title="Add to Favorites">
+      ${STAR_SVG}
+      <span class="fav-pop"></span>
+    </button>
+    <div class="domain-name" style="cursor:pointer" data-nav-domain="${domainName}">${domainName}</div>
+    <div class="domain-tlds" id="tlds-${domainName.replace(/\./g,'-')}"></div>
+    <div class="domain-status ${sc}"><span class="status-dot"></span><span>${st}</span></div>
+    <div class="card-actions"></div>`;
+
+  const actionsEl = card.querySelector('.card-actions');
+  if (isAvail) {
+    actionsEl.appendChild(createContinueButton(domainName));
+  } else {
+    const copyBtn = createCopyButton(domainName);
+    actionsEl.appendChild(copyBtn);
+  }
+
+  const nameEl = card.querySelector('.domain-name');
+  if (nameEl) {
+    nameEl.addEventListener('click', e => {
+      e.stopPropagation();
+      navigateToDomain(domainName);
+    });
+  }
+
+  const favBtn = card.querySelector('.btn-fav');
+  if (favBtn) {
+    favBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const added = toggleFavorite(domain);
+      favBtn.classList.toggle('active', added);
+    });
+  }
+
+  return card;
+}
+
+export function clearResults() {
+  const grid = $('#resultsGrid');
+  if (grid) {
+    grid.style.transition = 'opacity 0.15s';
+    grid.style.opacity = '0';
+    setTimeout(() => {
+      grid.innerHTML = '';
+      grid.style.opacity = '1';
+    }, 150);
+  }
+  closeAllActionMenus();
+  const count = $('#resultsCount'); if (count) count.textContent = '0 domains';
+  const empty = $('#resultsEmpty'); if (empty) empty.style.display = 'block';
+  const loading = $('#resultsLoading'); if (loading) loading.classList.remove('active');
+  uiState.sort = 'default';
+}
+
+export function showLoading(show) {
+  const loading = $('#resultsLoading');
+  const empty = $('#resultsEmpty');
+  const grid = $('#resultsGrid');
+  if (loading) loading.classList.toggle('active', show);
+  if (empty && show) empty.style.display = 'none';
+  if (grid && show) { grid.innerHTML = ''; grid.style.opacity = '0'; }
+}
+
+export function renderResults(domains, title, onCopy) {
+  const titleEl = $('#resultsTitle');
+  const countEl = $('#resultsCount');
+  const emptyEl = $('#resultsEmpty');
+  const loadingEl = $('#resultsLoading');
+
+  if (titleEl) titleEl.textContent = title || 'Generated Domains';
+  if (loadingEl) loadingEl.classList.remove('active');
+
+  closeAllActionMenus();
+
+  if (!domains || !domains.length) {
+    if (emptyEl) emptyEl.style.display = 'block';
+    const grid = $('#resultsGrid');
+    if (grid) { grid.innerHTML = ''; grid.style.opacity = '1'; }
+    if (countEl) countEl.textContent = '0 domains';
+    return;
+  }
+
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (countEl) countEl.textContent = domains.length + ' domain' + (domains.length !== 1 ? 's' : '');
+
+  applyFilterSort(domains, onCopy);
+}
+
+export function applyFilterSort(domains, onCopy) {
+  let d = [...domains];
+  if (uiState.sort === 'name') d.sort((a, b) => (a.name || a.domain).localeCompare(b.name || b.domain));
+
+  const countEl = $('#resultsCount');
+  if (countEl) countEl.textContent = d.length + ' domain' + (d.length !== 1 ? 's' : '');
+
+  closeAllActionMenus();
+
+  const grid = $('#resultsGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  grid.style.opacity = '0';
+  grid.style.transition = 'opacity 0.2s';
+  const fragment = document.createDocumentFragment();
+
+  d.forEach((dom, i) => {
+    const card = createDomainCard(dom, i);
+    const copyBtn = card.querySelector('.btn-copy');
+    const domName = dom.name || dom.domain;
+    if (copyBtn && onCopy) {
+      copyBtn.addEventListener('click', function () { onCopy(domName, this); });
+    }
+    createActionMenu(card, dom);
+    fragment.appendChild(card);
+  });
+
+  grid.appendChild(fragment);
+  requestAnimationFrame(() => { grid.style.opacity = '1'; });
+
+  const rs = $('#resultsSection');
+  if (rs) rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+export function renderBulkResults(domains) {
+  const grid = $('#resultsGrid');
+  const emptyEl = $('#resultsEmpty');
+  const loadingEl = $('#resultsLoading');
+  const titleEl = $('#resultsTitle');
+  const countEl = $('#resultsCount');
+
+  if (loadingEl) loadingEl.classList.remove('active');
+  if (titleEl) titleEl.textContent = 'Bulk Check Results';
+  if (countEl) countEl.textContent = domains.length + ' domains checked';
+  if (emptyEl) emptyEl.style.display = domains.length ? 'none' : 'block';
+
+  if (!grid) return;
+  grid.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+  domains.forEach((d, i) => {
+    const item = document.createElement('div');
+    item.className = 'bulk-result-item';
+    item.style.animationDelay = (i * 0.03) + 's';
+    const a = d.available;
+    let statusClass, statusText;
+    if (a === 'checking') { statusClass = 'bulk-checking'; statusText = 'Checking...'; }
+    else if (a === true) { statusClass = 'bulk-available'; statusText = 'Available'; }
+    else if (a === false) { statusClass = 'bulk-taken'; statusText = 'Taken'; }
+    else { statusClass = 'bulk-taken'; statusText = 'Unknown'; }
+    const domName = d.name || d.domain;
+    item.innerHTML = `<span class="bulk-domain" style="cursor:pointer">${domName}</span><span class="bulk-status ${statusClass}">${statusText}</span>`;
+    item.querySelector('.bulk-domain').addEventListener('click', () => navigateToDomain(domName));
+    fragment.appendChild(item);
+  });
+  grid.appendChild(fragment);
+  grid.style.opacity = '1';
+}
+
+export function renderExtractedResults(items, type, onCopyAll) {
+  const grid = $('#resultsGrid');
+  const emptyEl = $('#resultsEmpty');
+  const loadingEl = $('#resultsLoading');
+  const titleEl = $('#resultsTitle');
+  const countEl = $('#resultsCount');
+
+  if (loadingEl) loadingEl.classList.remove('active');
+  if (titleEl) titleEl.textContent = type === 'domain' ? 'Extracted Domains' : 'Extracted Emails';
+  if (countEl) countEl.textContent = items.length + ' ' + (type === 'domain' ? 'domains' : 'emails') + ' found';
+  if (emptyEl) emptyEl.style.display = items.length ? 'none' : 'block';
+
+  if (!grid || !items.length) return;
+  grid.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+
+  if (onCopyAll) {
+    const copyAllBtn = document.createElement('button');
+    copyAllBtn.className = 'btn-generate';
+    copyAllBtn.style.marginBottom = '14px';
+    copyAllBtn.style.maxWidth = '200px';
+    copyAllBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg>Copy All';
+    copyAllBtn.addEventListener('click', function () { onCopyAll(this); });
+    fragment.appendChild(copyAllBtn);
+  }
+
+  items.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.className = 'extracted-item';
+    el.style.animationDelay = (i * 0.03) + 's';
+    el.innerHTML = `<span>${item}</span><button class="btn-copy btn-copy-sm"><svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg></button>`;
+    el.querySelector('.btn-copy').addEventListener('click', function () {
+      navigator.clipboard.writeText(item).then(() => {
+        this.classList.add('copied');
+        this.innerHTML = '✓';
+        setTimeout(() => { this.classList.remove('copied'); }, 1500);
+      });
+    });
+    fragment.appendChild(el);
+  });
+
+  grid.appendChild(fragment);
+  grid.style.opacity = '1';
+}
+
+export function showFilterControls(show) {
+  const sort = $('#resultsSort');
+  const limit = $('#resultLimit');
+  if (sort) sort.style.display = show ? '' : 'none';
+  if (limit) limit.style.display = show ? '' : 'none';
+}
+
+export function toast(msg) {
+  const t = $('#toast');
+  const m = $('#toastMsg');
+  if (!t || !m) return;
+  m.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+export function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    if (btn) {
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Copied!';
+      toast('Copied: ' + text);
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg> Copy';
+      }, 2000);
+    } else {
+      toast('Copied: ' + text);
+    }
+  }).catch(() => toast('Copied: ' + text));
+}
+
+export function setButtonState(btn, disabled) {
+  if (!btn) return;
+  btn.disabled = disabled;
+  btn.style.opacity = disabled ? '0.5' : '1';
+  btn.style.pointerEvents = disabled ? 'none' : '';
+}
+
+// ============================================================
+// SMART DOMAIN ANALYZER RENDERING
+// ============================================================
+
+const STAR_SVG_SM = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87L16.18 21L12 17.77 7.82 21 9 14.14 4 9.27l5.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`;
+
+function formatNum(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+  return String(n);
+}
+
+export function renderAnalyzerResults(domains) {
+  const container = $('#analyzerResults');
+  if (!container) return;
+  container.style.display = '';
+
+  if (!domains || !domains.length) {
+    container.innerHTML = `<div class="results-empty" style="display:block"><svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="50" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/><path d="M45 60l10 10 20-20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p>No matching domains</p><span>Try adjusting your filters</span></div>`;
+    const countEl = $('#analyzerDomainCount');
+    if (countEl) countEl.textContent = '0 matching';
+    return;
+  }
+
+  const countEl = $('#analyzerDomainCount');
+  if (countEl) countEl.textContent = domains.length + ' of ' + (window._analyzerTotal || domains.length) + ' domains';
+
+  const hasAdvanced = domains[0]?.scores;
+  if (hasAdvanced) {
+    renderAnalyzerTable(container, domains);
+  } else {
+    renderAnalyzerCards(container, domains);
+  }
+}
+
+function renderAnalyzerTable(container, domains) {
+  let html = '<div class="domain-list">';
+
+  domains.forEach((d, i) => {
+    const s = d.scores;
+    const m = d.metrics;
+    const c = d.classification;
+    const favActive = isFavorite(d.name);
+    const smartLabels = (d.smartLabels || []).slice(0, 3);
+    const scoreColor = s.final >= 90 ? '#d97706' : s.final >= 75 ? '#16a34a' : s.final >= 60 ? '#2563eb' : '#94a3b8';
+
+    html += `<div class="domain-card-row" data-idx="${i}" style="animation-delay:${i * 0.03}s">
+      <div class="dc-identity">
+        <div class="dc-name" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}'>${d.name}</div>
+        <div class="dc-meta">
+          <span class="dc-status ${d.available === true ? 'dc-avail' : d.available === 'checking' ? 'dc-checking' : 'dc-taken'}">
+            <span class="dc-status-dot"></span>${d.available === true ? 'Available' : d.available === 'checking' ? 'Checking...' : 'Registered'}
+          </span>
+          ${smartLabels.map(l => `<span class="dc-tag">${l}</span>`).join('')}
+        </div>
+      </div>
+      <div class="dc-score-block">
+        <div class="dc-score-ring" style="border-color:${scoreColor}">
+          <span class="dc-score-val" style="color:${scoreColor}">${s.final}</span>
+        </div>
+        <span class="dc-score-label">Score</span>
+      </div>
+      <div class="dc-class">
+        <div class="dc-class-badge ${c.cls}">
+          <span class="dc-class-emoji">${c.emoji}</span>
+          <span class="dc-class-label">${c.label}</span>
+        </div>
+      </div>
+      <div class="dc-metrics">
+        <div class="dc-metric-card metric-age"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="dc-metric-val">${m.age ? m.age + 'y' : '—'}</span><span class="dc-metric-label">Age</span></div>
+        <div class="dc-metric-card metric-dp"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 16l4-4 4 4 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="dc-metric-val">${m.dp ? formatNum(m.dp) : '—'}</span><span class="dc-metric-label">DP</span></div>
+        <div class="dc-metric-card metric-tf"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M12 2l8 4v6c0 5.25-3.5 8.25-8 10-4.5-1.75-8-4.75-8-10V6l8-4z" stroke="currentColor" stroke-width="2"/></svg></span><span class="dc-metric-val">${m.tf || '—'}</span><span class="dc-metric-label">TF</span></div>
+        <div class="dc-metric-card metric-cpc"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2"/></svg></span><span class="dc-metric-val">${m.cpc ? '$' + m.cpc : '—'}</span><span class="dc-metric-label">CPC</span></div>
+        <div class="dc-metric-card"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="dc-metric-val">${m.bl ? formatNum(m.bl) : '—'}</span><span class="dc-metric-label">BL</span></div>
+        <div class="dc-metric-card"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="dc-metric-val">${m.le || '—'}</span><span class="dc-metric-label">LE</span></div>
+      </div>
+      <div class="dc-actions">
+        <button class="dc-action-btn dc-fav${favActive ? ' active' : ''}" data-domain="${d.name}" title="Favorite">
+          <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87L16.18 21L12 17.77 7.82 21 9 14.14 4 9.27l5.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="dc-action-btn dc-copy" data-domain="${d.name}" title="Copy">
+          <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+        <button class="dc-action-btn dc-analyse" data-action="analyse" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}' title="Analyse">
+          <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343 5.657l-.707-.707m2.828 2.828l-.707.707M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        ${d.available === true ? `<div class="dc-continue-slot" data-continue-domain="${d.name}"></div>` : ''}
+      </div>
+    </div>`;
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
+
+  container.querySelectorAll('.dc-copy').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const domain = btn.dataset.domain;
+      navigator.clipboard.writeText(domain).then(() => {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1200);
+      });
+    });
+  });
+
+  container.querySelectorAll('.dc-fav').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const domain = domains.find(d => d.name === btn.dataset.domain);
+      if (domain) {
+        const added = toggleFavorite(domain);
+        btn.classList.toggle('active', added);
+      }
+    });
+  });
+
+  container.querySelectorAll('.dc-analyse').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      let domainData;
+      try { domainData = JSON.parse(btn.dataset.domain); } catch { return; }
+      document.dispatchEvent(new CustomEvent('send-to-analyzer', { detail: { domain: domainData.name } }));
+    });
+  });
+
+  container.querySelectorAll('.dc-name').forEach(cell => {
+    cell.addEventListener('click', e => {
+      e.stopPropagation();
+      let domainData;
+      try { domainData = JSON.parse(cell.dataset.domain); } catch { return; }
+      navigateToDomain(domainData.name);
+    });
+  });
+
+  container.querySelectorAll('.dc-continue-slot').forEach(slot => {
+    const domain = slot.dataset.continueDomain;
+    if (domain) slot.appendChild(createContinueButton(domain));
+  });
+}
+
+function renderAnalyzerCards(container, domains) {
+  container.innerHTML = `<div class="results-grid" id="analyzerGrid"></div>`;
+  const grid = $('#analyzerGrid');
+  grid.style.opacity = '0';
+  const fragment = document.createDocumentFragment();
+
+  domains.forEach((d, i) => {
+    const card = document.createElement('div');
+    card.className = 'domain-card';
+    card.style.animationDelay = (i * 0.035) + 's';
+
+    let sc = 'status-checking';
+    let st = 'Checking...';
+    if (d.available === true) { sc = 'status-available'; st = 'Available'; }
+    else if (d.available === false) { sc = 'status-taken'; st = 'Taken'; }
+    const favActive = isFavorite(d.name);
+    const isAvail = d.available === true;
+
+    card.innerHTML = `
+      <button class="btn-fav${favActive ? ' active' : ''}" data-domain="${d.name}" title="Add to Favorites">
+        ${STAR_SVG_SM}<span class="fav-pop"></span>
+      </button>
+      <div class="domain-name" style="cursor:pointer">${d.name}</div>
+      <div class="domain-status ${sc}"><span class="status-dot"></span><span>${st}</span></div>
+      <div class="card-actions"></div>`;
+
+    const actionsEl = card.querySelector('.card-actions');
+    if (isAvail) {
+      actionsEl.appendChild(createContinueButton(d.name));
+    } else {
+      const copyBtn = createCopyButton(d.name);
+      actionsEl.appendChild(copyBtn);
+      copyBtn.addEventListener('click', function () { copyText(d.name, this); });
+    }
+
+    const favBtn = card.querySelector('.btn-fav');
+    if (favBtn) {
+      favBtn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const added = toggleFavorite(d);
+        favBtn.classList.toggle('active', added);
+      });
+    }
+
+    const nameEl = card.querySelector('.domain-name');
+    if (nameEl) nameEl.addEventListener('click', () => navigateToDomain(d.name));
+
+    createActionMenu(card, d);
+    fragment.appendChild(card);
+  });
+
+  grid.appendChild(fragment);
+  requestAnimationFrame(() => { grid.style.opacity = '1'; });
+}
