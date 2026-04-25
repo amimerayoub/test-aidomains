@@ -880,7 +880,7 @@ input, select, textarea { font-family: inherit; color: var(--text-main); backgro
 /* ============================================================
    RESULTS SECTION
    ============================================================ */
-.results-section { padding: 24px 24px; max-width: 1140px; margin: 0 auto; display: none; }
+.results-section { padding: 24px 24px; width: 100%; max-width: calc(100vw - var(--sidebar-w) - 48px); margin: 0 auto; display: none; }
 .results-section.visible { display: block; }
 
 .results-header {
