@@ -292,26 +292,57 @@ function formatNum(n) {
 }
 
 export function renderAnalyzerResults(domains) {
-  const container = $('#analyzerResults');
-  if (!container) return;
-  container.style.display = '';
+  const grid = $('#resultsGrid');
+  const emptyEl = $('#resultsEmpty');
+  const countEl = $('#resultsCount');
+  const titleEl = $('#resultsTitle');
+
+  if (titleEl) titleEl.textContent = 'Analysis Results';
+  
+  closeAllActionMenus();
 
   if (!domains || !domains.length) {
-    container.innerHTML = `<div class="results-empty" style="display:block"><svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="50" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/><path d="M45 60l10 10 20-20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p>No matching domains</p><span>Try adjusting your filters</span></div>`;
-    const countEl = $('#analyzerDomainCount');
-    if (countEl) countEl.textContent = '0 matching';
+    if (emptyEl) emptyEl.style.display = 'block';
+    if (grid) { grid.innerHTML = ''; grid.style.opacity = '1'; }
+    if (countEl) countEl.textContent = '0 domains';
+    const anaCountEl = $('#analyzerDomainCount');
+    if (anaCountEl) anaCountEl.textContent = '0 matching';
     return;
   }
 
-  const countEl = $('#analyzerDomainCount');
-  if (countEl) countEl.textContent = domains.length + ' of ' + (window._analyzerTotal || domains.length) + ' domains';
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (countEl) countEl.textContent = domains.length + ' domain' + (domains.length !== 1 ? 's' : '');
+  
+  const anaCountEl = $('#analyzerDomainCount');
+  if (anaCountEl) anaCountEl.textContent = domains.length + ' of ' + (window._analyzerTotal || domains.length) + ' domains';
+
+  if (!grid) return;
+  grid.style.opacity = '0';
+  grid.style.transition = 'opacity 0.2s';
+  grid.innerHTML = '';
 
   const hasAdvanced = domains[0]?.scores;
   if (hasAdvanced) {
-    renderAnalyzerTable(container, domains);
+    renderAnalyzerTable(grid, domains);
   } else {
-    renderAnalyzerCards(container, domains);
+    // Basic cards with analyzer specific event handlers
+    const fragment = document.createDocumentFragment();
+    domains.forEach((d, i) => {
+      const card = createDomainCard(d, i);
+      const copyBtn = card.querySelector('.btn-copy');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () { copyText(d.name || d.domain, this); });
+      }
+      createActionMenu(card, d);
+      fragment.appendChild(card);
+    });
+    grid.appendChild(fragment);
   }
+  
+  requestAnimationFrame(() => { grid.style.opacity = '1'; });
+  
+  const rs = $('#resultsSection');
+  if (rs) rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function renderAnalyzerTable(container, domains) {
@@ -323,49 +354,35 @@ function renderAnalyzerTable(container, domains) {
     const c = d.classification;
     const favActive = isFavorite(d.name);
     const smartLabels = (d.smartLabels || []).slice(0, 3);
-    const scoreColor = s.final >= 90 ? '#d97706' : s.final >= 75 ? '#16a34a' : s.final >= 60 ? '#2563eb' : '#94a3b8';
+    const scoreColor = s.final >= 90 ? '#d97706' : s.final >= 75 ? '#16a34a' : s.final >= 60 ? '#3B82F6' : '#94a3b8';
 
-    html += `<div class="domain-card-row" data-idx="${i}" style="animation-delay:${i * 0.03}s">
-      <div class="dc-identity">
-        <div class="dc-name" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}'>${d.name}</div>
-        <div class="dc-meta">
-          <span class="dc-status ${d.available === true ? 'dc-avail' : d.available === 'checking' ? 'dc-checking' : 'dc-taken'}">
-            <span class="dc-status-dot"></span>${d.available === true ? 'Available' : d.available === 'checking' ? 'Checking...' : 'Registered'}
-          </span>
-          ${smartLabels.map(l => `<span class="dc-tag">${l}</span>`).join('')}
+    html += `<div class="domain-card-row" data-idx="${i}" style="animation-delay:${i * 0.025}s">
+      <div class="dc-panel-left">
+        <p class="dc-name" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}'>${d.name}</p>
+        <span class="dc-badge ${d.available === true ? 'dc-avail' : d.available === 'checking' ? 'dc-checking' : 'dc-taken'}"><span class="dc-badge-dot"></span>${d.available === true ? 'Available' : d.available === 'checking' ? 'Checking...' : 'Registered'}</span>
+        <div class="dc-score-circle" style="border-color:${scoreColor}">
+          <span class="dc-score-num" style="color:${scoreColor}">${s.final}</span>
         </div>
+        <span class="dc-score-lbl">SCORE</span>
+        <div class="dc-tags-row">${smartLabels.map(l => `<span class="dc-tag">${l}</span>`).join('')}</div>
       </div>
-      <div class="dc-score-block">
-        <div class="dc-score-ring" style="border-color:${scoreColor}">
-          <span class="dc-score-val" style="color:${scoreColor}">${s.final}</span>
+      <div class="dc-panel-right">
+        <div class="dc-metrics-bar">
+          <div class="dc-metric metric-age"><span class="dc-metric-ico">⏱</span><span class="dc-metric-val">${m.age ? m.age + 'y' : '—'}</span><span class="dc-metric-lbl">AGE</span></div>
+          <div class="dc-metric metric-dp"><span class="dc-metric-ico">📊</span><span class="dc-metric-val">${m.dp ? formatNum(m.dp) : '—'}</span><span class="dc-metric-lbl">DP</span></div>
+          <div class="dc-metric metric-tf"><span class="dc-metric-ico">🛡</span><span class="dc-metric-val">${m.tf || '—'}</span><span class="dc-metric-lbl">TF</span></div>
+          <div class="dc-metric metric-cpc"><span class="dc-metric-ico">💲</span><span class="dc-metric-val">${m.cpc ? '$' + m.cpc : '—'}</span><span class="dc-metric-lbl">CPC</span></div>
+          <div class="dc-metric metric-bl"><span class="dc-metric-ico">🔗</span><span class="dc-metric-val">${m.bl ? formatNum(m.bl) : '—'}</span><span class="dc-metric-lbl">BL</span></div>
+          <div class="dc-metric metric-le"><span class="dc-metric-ico">🔤</span><span class="dc-metric-val">${m.le || '—'}</span><span class="dc-metric-lbl">LE</span></div>
         </div>
-        <span class="dc-score-label">Score</span>
-      </div>
-      <div class="dc-class">
-        <div class="dc-class-badge ${c.cls}">
-          <span class="dc-class-emoji">${c.emoji}</span>
-          <span class="dc-class-label">${c.label}</span>
+        <div class="dc-actions-bar">
+          <div class="dc-class-badge ${c.cls}"><span class="dc-class-emoji">${c.emoji}</span> <span class="dc-class-label">${c.label}</span></div>
+          <div class="dc-actions-spacer"></div>
+          <button class="dc-action-btn dc-fav${favActive ? ' active' : ''}" data-domain="${d.name}" title="Favorite"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87L16.18 21 12 17.77 7.82 21 9 14.14l-5-4.87 5.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+          <button class="dc-action-btn dc-copy" data-domain="${d.name}" title="Copy"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg></button>
+          <button class="dc-action-btn dc-analyse" data-action="analyse" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}' title="Analyse"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+          ${d.available === true ? `<div class="dc-continue-slot" data-continue-domain="${d.name}"></div>` : ''}
         </div>
-      </div>
-      <div class="dc-metrics">
-        <div class="dc-metric-card metric-age"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="dc-metric-val">${m.age ? m.age + 'y' : '—'}</span><span class="dc-metric-label">Age</span></div>
-        <div class="dc-metric-card metric-dp"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 16l4-4 4 4 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="dc-metric-val">${m.dp ? formatNum(m.dp) : '—'}</span><span class="dc-metric-label">DP</span></div>
-        <div class="dc-metric-card metric-tf"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M12 2l8 4v6c0 5.25-3.5 8.25-8 10-4.5-1.75-8-4.75-8-10V6l8-4z" stroke="currentColor" stroke-width="2"/></svg></span><span class="dc-metric-val">${m.tf || '—'}</span><span class="dc-metric-label">TF</span></div>
-        <div class="dc-metric-card metric-cpc"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2"/></svg></span><span class="dc-metric-val">${m.cpc ? '$' + m.cpc : '—'}</span><span class="dc-metric-label">CPC</span></div>
-        <div class="dc-metric-card"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="dc-metric-val">${m.bl ? formatNum(m.bl) : '—'}</span><span class="dc-metric-label">BL</span></div>
-        <div class="dc-metric-card"><span class="dc-metric-icon"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="dc-metric-val">${m.le || '—'}</span><span class="dc-metric-label">LE</span></div>
-      </div>
-      <div class="dc-actions">
-        <button class="dc-action-btn dc-fav${favActive ? ' active' : ''}" data-domain="${d.name}" title="Favorite">
-          <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87L16.18 21L12 17.77 7.82 21 9 14.14 4 9.27l5.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="dc-action-btn dc-copy" data-domain="${d.name}" title="Copy">
-          <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg>
-        </button>
-        <button class="dc-action-btn dc-analyse" data-action="analyse" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}' title="Analyse">
-          <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343 5.657l-.707-.707m2.828 2.828l-.707.707M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-        ${d.available === true ? `<div class="dc-continue-slot" data-continue-domain="${d.name}"></div>` : ''}
       </div>
     </div>`;
   });

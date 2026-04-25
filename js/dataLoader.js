@@ -11,14 +11,17 @@ const FALLBACK = {
     "australia-cities": { "Sydney": 5259764, "Melbourne": 4976157, "Brisbane": 2514184, "Perth": 2086622, "Adelaide": 1345563, "GoldCoast": 679127, "Canberra": 426711, "Newcastle": 322278, "Hobart": 233042, "Cairns": 153075 }
   },
   KEYWORD_CATEGORIES: {
-    "Tech": ["cloud", "data", "code", "dev", "api", "server", "stack", "hub", "lab", "tech", "soft", "app", "web", "net", "sys", "bot", "ai", "ml"],
-    "Artificial Intelligence": ["ai", "gpt", "llm", "neural", "chatbot", "copilot", "openai", "transformer", "algorithm", "model", "deep", "learn", "smart", "brain", "cognitive", "mind", "logic"],
-    "Crypto": ["nft", "defi", "coin", "token", "blockchain", "bitcoin", "ethereum", "crypto", "chain", "hash", "mint", "swap", "dex", "yield", "stake", "vault", "ledger", "node"],
-    "Finance": ["pay", "cash", "fund", "bank", "invest", "loan", "credit", "wealth", "trade", "capital", "finance", "money", "asset", "budget", "save", "wallet", "portfolio"],
-    "RealEstate": ["home", "house", "realty", "estate", "broker", "property", "apartment", "condo", "land", "build", "mortgage", "rent", "lease", "keys", "door"],
-    "Health & Fitness": ["gym", "yoga", "fitness", "workout", "nutrition", "health", "wellness", "care", "med", "vital", "life", "cure", "therapy", "body", "fit", "active"],
-    "Gaming": ["game", "gamer", "loot", "rank", "arena", "dragon", "zombie", "quest", "pixel", "play", "esport", "stream", "guild", "clan", "boss", "level", "xp"],
-    "Travel": ["fly", "jet", "trip", "tour", "hotel", "voyage", "travel", "journey", "escape", "explore", "wander", "roam", "destination", "route", "nomad", "go"]
+    "💻 Tech": ["cloud", "data", "code", "dev", "api", "server", "stack", "hub", "lab", "tech", "soft", "app", "web", "net", "sys", "bot", "ai", "ml"],
+    "🤖 Artificial Intelligence": ["ai", "gpt", "llm", "neural", "chatbot", "copilot", "openai", "transformer", "algorithm", "model", "deep", "learn", "smart", "brain", "cognitive", "mind", "logic"],
+    "💰 Crypto": ["nft", "defi", "coin", "token", "blockchain", "bitcoin", "ethereum", "crypto", "chain", "hash", "mint", "swap", "dex", "yield", "stake", "vault", "ledger", "node"],
+    "💸 Finance": ["pay", "cash", "fund", "bank", "invest", "loan", "credit", "wealth", "trade", "capital", "finance", "money", "asset", "budget", "save", "wallet", "portfolio"],
+    "🏠 RealEstate": ["home", "house", "realty", "estate", "broker", "property", "apartment", "condo", "land", "build", "mortgage", "rent", "lease", "keys", "door"],
+    "👨‍⚕️ Health & Fitness": ["gym", "yoga", "fitness", "workout", "nutrition", "health", "wellness", "care", "med", "vital", "life", "cure", "therapy", "body", "fit", "active"],
+    "🎮 Gaming": ["game", "gamer", "loot", "rank", "arena", "dragon", "zombie", "quest", "pixel", "play", "esport", "stream", "guild", "clan", "boss", "level", "xp"],
+    "✈️ Travel": ["fly", "jet", "trip", "tour", "hotel", "voyage", "travel", "journey", "escape", "explore", "wander", "roam", "destination", "route", "nomad", "go"],
+    "🔴 Prefixes": ["go", "my", "top", "get", "try", "buy", "use", "fly", "run", "win", "see", "max", "pro", "neo", "new", "hot", "vip"],
+    "🔡 Suffixes": ["hub", "lab", "way", "den", "box", "kit", "set", "pod", "web", "net", "app", "bar", "inc", "bay", "spa"],
+    "🔵 Adjectives": ["big", "new", "top", "best", "fast", "easy", "epic", "free", "full", "good", "high", "keen", "mega", "next", "nice", "pure", "real", "rich", "safe", "smart"]
   }
 };
 

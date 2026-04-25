@@ -100,7 +100,7 @@ function switchTool(tool, updateHistory = true) {
   const resultsSection = $('#resultsSection');
   const resultsTitle = $('#resultsTitle');
   if (resultsSection) {
-    if (tool === 'home' || tool === 'emailtool') {
+    if (tool === 'home' || tool === 'emailtool' || tool === 'texttools') {
       resultsSection.classList.remove('visible');
     } else {
       resultsSection.classList.add('visible');
@@ -112,10 +112,6 @@ function switchTool(tool, updateHistory = true) {
           resultsTitle.textContent = 'Bulk Check Results';
         } else if (tool === 'extractor' || tool === 'emailextractor') {
           resultsTitle.textContent = tool === 'extractor' ? 'Extracted Domains' : 'Extracted Emails';
-        } else if (tool === 'emailtool') {
-          resultsTitle.textContent = 'Email Campaign';
-        } else if (tool === 'texttools') {
-          resultsTitle.textContent = 'Text Results';
         } else {
           resultsTitle.textContent = 'Generated Domains';
         }
@@ -603,6 +599,7 @@ function applyAnalyzerFilters() {
   else if (sort === 'age') filtered.sort((a, b) => (b.metrics?.age || 0) - (a.metrics?.age || 0));
   else if (analyzerData.mode === 'advanced') filtered.sort((a, b) => (b.scores?.final || 0) - (a.scores?.final || 0));
 
+  state.domains = filtered;
   window.analysisResults = filtered;
   localStorage.setItem('analysisResults', JSON.stringify(filtered));
 
@@ -610,6 +607,7 @@ function applyAnalyzerFilters() {
   
   if (window.updateExportButton) window.updateExportButton();
 }
+
 
 // ==================== TEXT TOOLS ====================
 function initTextTools() {
@@ -1533,8 +1531,6 @@ export async function initApp() {
     if (fileInfo) fileInfo.style.display = 'none';
     const indicator = $('#analyzerModeIndicator');
     if (indicator) indicator.style.display = 'none';
-    const results = $('#analyzerResults');
-    if (results) { results.style.display = 'none'; results.innerHTML = ''; }
     const filtersEl = $('#analyzerFilters');
     if (filtersEl) filtersEl.style.display = 'none';
   });
@@ -1552,8 +1548,6 @@ export async function initApp() {
     if (fileInput) fileInput.value = '';
     const indicator = $('#analyzerModeIndicator');
     if (indicator) indicator.style.display = 'none';
-    const results = $('#analyzerResults');
-    if (results) { results.style.display = 'none'; results.innerHTML = ''; }
     const filtersEl = $('#analyzerFilters');
     if (filtersEl) filtersEl.style.display = 'none';
   });
@@ -1593,8 +1587,6 @@ export async function initApp() {
     }
 
     // Reset previous results
-    const results = $('#analyzerResults');
-    if (results) { results.style.display = 'none'; results.innerHTML = ''; }
     const indicator = $('#analyzerModeIndicator');
     if (indicator) indicator.style.display = 'none';
     const filtersEl = $('#analyzerFilters');
@@ -1681,6 +1673,7 @@ export async function initApp() {
     if (savedAna) {
       window.analysisResults = JSON.parse(savedAna);
       if (savedTool === 'analyzer' && window.analysisResults && window.analysisResults.length) {
+        state.domains = window.analysisResults;
         renderAnalyzerResults(window.analysisResults);
       }
     }
@@ -1811,8 +1804,7 @@ export async function initApp() {
     btnExportAll.addEventListener('click', () => {
       exportMenu.style.display = 'none';
       const isAnalyzer = state.activeTool === 'analyzer';
-      const dataSource = isAnalyzer ? (window.analysisResults || []) : (state.domains || []);
-      exportDomainsCSV(dataSource, isAnalyzer ? 'analysis-results.csv' : 'domains-all-export.csv', isAnalyzer);
+      exportDomainsCSV(state.domains || [], isAnalyzer ? 'analysis-results.csv' : 'domains-all-export.csv', isAnalyzer);
     });
   }
 
@@ -1820,8 +1812,7 @@ export async function initApp() {
     btnExportAvail.addEventListener('click', () => {
       exportMenu.style.display = 'none';
       const isAnalyzer = state.activeTool === 'analyzer';
-      const dataSource = isAnalyzer ? (window.analysisResults || []) : (state.domains || []);
-      const available = dataSource.filter(d => d.available === true || d.status === 'available');
+      const available = (state.domains || []).filter(d => d.available === true || d.status === 'available');
       if (!available.length) {
         toast('No available domains found');
         return;
@@ -1832,9 +1823,7 @@ export async function initApp() {
 
   window.updateExportButton = function() {
     if (btnExportToggle) {
-      const isAnalyzer = state.activeTool === 'analyzer';
-      const dataSource = isAnalyzer ? (window.analysisResults || []) : (state.domains || []);
-      const count = dataSource.length;
+      const count = (state.domains || []).length;
       
       if (count === 0) {
         btnExportToggle.disabled = true;
@@ -1861,8 +1850,5 @@ export async function initApp() {
     exportObserver.observe(resultsGrid, { childList: true, subtree: true });
   }
   
-  const analyzerResultsGrid = $('#analyzerResults');
-  if (analyzerResultsGrid) {
-    exportObserver.observe(analyzerResultsGrid, { childList: true, subtree: true });
-  }
+
 }

@@ -311,7 +311,7 @@ export function updateResultsGridUI(resultsMap) {
  * Update analyzer domain cards/rows with real availability data.
  */
 export function updateAnalyzerUI(resultsMap) {
-  const container = document.getElementById('analyzerResults');
+  const container = document.getElementById('resultsGrid');
   if (!container) return;
 
   // Update row-style cards (advanced mode)
@@ -319,24 +319,24 @@ export function updateAnalyzerUI(resultsMap) {
     const nameEl = row.querySelector('.dc-name');
     if (!nameEl) return;
     const domain = nameEl.textContent.toLowerCase().trim();
-    const statusEl = row.querySelector('.dc-status');
+    const statusEl = row.querySelector('.dc-badge');
     if (!statusEl || !resultsMap.hasOwnProperty(domain)) return;
 
     const isAvail = resultsMap[domain];
     if (isAvail === true) {
-      statusEl.className = 'dc-status dc-avail';
-      statusEl.innerHTML = `<span class="dc-status-dot"></span>Available`;
+      statusEl.className = 'dc-badge dc-avail';
+      statusEl.innerHTML = `<span class="dc-badge-dot"></span>Available`;
       // Swap to continue button
       const slot = row.querySelector('.dc-continue-slot');
       if (slot && slot.innerHTML === '') {
         slot.appendChild(createContinueButton(domain));
       }
     } else if (isAvail === false) {
-      statusEl.className = 'dc-status dc-taken';
-      statusEl.innerHTML = `<span class="dc-status-dot"></span>Registered`;
+      statusEl.className = 'dc-badge dc-taken';
+      statusEl.innerHTML = `<span class="dc-badge-dot"></span>Registered`;
     } else {
-      statusEl.className = 'dc-status dc-taken';
-      statusEl.innerHTML = `<span class="dc-status-dot"></span>Unknown`;
+      statusEl.className = 'dc-badge dc-taken';
+      statusEl.innerHTML = `<span class="dc-badge-dot"></span>Unknown`;
     }
   });
 
