@@ -41,7 +41,8 @@ export async function loadData() {
   }
 }
 
-export function getData() {
+export function getData(smartMode = true) {
+  if (!smartMode) return FALLBACK;
   return cache || FALLBACK;
 }
 

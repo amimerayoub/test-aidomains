@@ -21,7 +21,7 @@ export function generateGeo({ keyword, custom, locationType, sortBy, limit, smar
   try {
     if (!keyword && !custom) return generateFallbackDomains('geo', limit);
     const niche = keyword || 'service';
-    const data = getData();
+    const data = getData(smartMode);
     let locations = [];
 
     if (custom) {
@@ -62,7 +62,7 @@ export function generateGeo({ keyword, custom, locationType, sortBy, limit, smar
 export function generateKeyword({ keywords, category, usePrefix, useSuffix, useCategoryKws, useCombine, limit, smartMode }) {
   try {
     if (!keywords || !keywords.length) return generateFallbackDomains('keyword', limit);
-    const data = getData();
+    const data = getData(smartMode);
     const domains = [];
     const seen = new Set();
 
@@ -201,7 +201,7 @@ export function generatePattern({ pattern, tld, limit, smartMode }) {
 // === BRANDABLE ===
 export function generateBrandable({ base, maxLen, usePrefix, useSuffix, useBoth, useRandom, limit, smartMode }) {
   try {
-    const data = getData();
+    const data = getData(smartMode);
     const prefixes = data.BRANDABLE_PREFIX || [];
     const suffixes = data.BRANDABLE_SUFFIX || [];
     const both = data.BRANDABLE_BOTH || [];

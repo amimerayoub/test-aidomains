@@ -30,9 +30,9 @@ export function calcSellability(name) {
   return Math.min(100, s + rand(-3, 8));
 }
 
-export function calcBrand(name) {
+export function calcBrand(name, smartMode = true) {
   let s = 40;
-  const data = getData();
+  const data = getData(smartMode);
   if (data.BRANDABLE_BOTH) {
     const both = data.BRANDABLE_BOTH;
     const low = name.toLowerCase();
