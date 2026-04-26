@@ -610,8 +610,20 @@ export function classifyDomain(score) {
 // MAIN PROCESS FUNCTION
 // ============================================================
 
-export function analyzeDomains(rawInput) {
-  const detection = detectMode(rawInput);
+export function analyzeDomains(rawInput, smartMode = true) {
+  let detection = detectMode(rawInput);
+  
+  // Strict mode enforcement
+  if (!smartMode) {
+    detection = { mode: 'basic', reason: 'Fast mode active' };
+  } else if (detection.mode === 'basic') {
+    // If SMART mode is requested but we only have basic list, we must simulate/allow SMART features 
+    // for scoring if the user wants "richer metrics" (from data.json).
+    // Note: If no metrics are provided in CSV, they will be 0, but we can still show the SMART UI.
+    detection.mode = 'advanced';
+    detection.headers = [];
+  }
+
   const parsed = parseInput(rawInput, detection);
   const parseStats = getParseStats();
 
@@ -624,7 +636,8 @@ export function analyzeDomains(rawInput) {
         mode: 'basic',
         domains: basicDomains.map(d => ({
           name: d.includes('.') ? d : d + '.com',
-          available: 'checking'
+          available: 'checking',
+          score: 50 // Basic score
         })),
         parseStats
       };
@@ -633,12 +646,13 @@ export function analyzeDomains(rawInput) {
   }
 
   if (detection.mode === 'basic') {
-    // Basic mode: just domains with availability
+    // Basic mode: just domains with availability and basic score
     return {
       mode: 'basic',
       domains: parsed.map(d => ({
         name: d.includes('.') ? d : d + '.com',
-        available: 'checking'
+        available: 'checking',
+        score: 50 // Basic score
       })),
       parseStats
     };

@@ -27,23 +27,33 @@ const FALLBACK = {
 
 let cache = null;
 
-export async function loadData() {
-  if (cache) return cache;
+export async function loadData(smartMode = true) {
+  if (!smartMode) {
+    // FAST MODE: strictly use fallback only
+    cache = FALLBACK;
+    return FALLBACK;
+  }
+  
+  // SMART MODE: strict requirement for JSON
+  if (cache && cache !== FALLBACK) return cache;
   try {
     const res = await fetch('assets/data/data.json');
     if (!res.ok) throw new Error('Network error');
     cache = await res.json();
     return cache;
   } catch (e) {
-    console.warn('dataLoader: using fallback data');
-    cache = FALLBACK;
-    return FALLBACK;
+    console.error('SMART Mode Error: Failed to load assets/data/data.json', e);
+    // Return null or throw so the UI can show an error
+    throw new Error('SMART mode requires data.json to be loaded successfully. Please ensure the file exists.');
   }
 }
 
 export function getData(smartMode = true) {
   if (!smartMode) return FALLBACK;
-  return cache || FALLBACK;
+  if (!cache || cache === FALLBACK) {
+     throw new Error('SMART mode data not loaded! Cannot use FALLBACK in SMART mode.');
+  }
+  return cache;
 }
 
 export function getCPCMap() {

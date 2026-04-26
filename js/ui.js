@@ -354,34 +354,119 @@ function renderAnalyzerTable(container, domains) {
     const c = d.classification;
     const favActive = isFavorite(d.name);
     const smartLabels = (d.smartLabels || []).slice(0, 3);
+    
+    // Professional SVG Icons
+    const icoClock = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dc-svg-ico"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+    const icoChart = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dc-svg-ico"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`;
+    const icoShield = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dc-svg-ico"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+    const icoDollar = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dc-svg-ico"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`;
+    const icoLink = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dc-svg-ico"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>`;
+    const icoText = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dc-svg-ico"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>`;
+
+    // Quality Icons
+    const icoElite = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="dc-class-svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L16.18 21 12 17.77 7.82 21 9 14.14l-5-4.87 5.91-1.01L12 2z"/></svg>`;
+    const icoBolt = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="dc-class-svg"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
+    const icoTrending = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="dc-class-svg"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`;
+    const icoAlert = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="dc-class-svg"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+
     const scoreColor = s.final >= 90 ? '#d97706' : s.final >= 75 ? '#16a34a' : s.final >= 60 ? '#3B82F6' : '#94a3b8';
+    const dashOffset = 226 - (226 * s.final) / 100;
 
     html += `<div class="domain-card-row" data-idx="${i}" style="animation-delay:${i * 0.025}s">
+      <!-- LEFT PANEL: ID & MAIN INFO -->
       <div class="dc-panel-left">
-        <p class="dc-name" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}'>${d.name}</p>
-        <span class="dc-badge ${d.available === true ? 'dc-avail' : d.available === 'checking' ? 'dc-checking' : 'dc-taken'}"><span class="dc-badge-dot"></span>${d.available === true ? 'Available' : d.available === 'checking' ? 'Checking...' : 'Registered'}</span>
-        <div class="dc-score-circle" style="border-color:${scoreColor}">
-          <span class="dc-score-num" style="color:${scoreColor}">${s.final}</span>
+        <div class="dc-main-top">
+          <p class="dc-name" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}'>${d.name}</p>
+          <span class="dc-badge ${d.available === true ? 'dc-avail' : d.available === 'checking' ? 'dc-checking' : 'dc-taken'}">
+            <span class="dc-badge-dot"></span>${d.available === true ? 'Available' : d.available === 'checking' ? 'Checking...' : 'Registered'}
+          </span>
         </div>
-        <span class="dc-score-lbl">SCORE</span>
-        <div class="dc-tags-row">${smartLabels.map(l => `<span class="dc-tag">${l}</span>`).join('')}</div>
+        
+        <div class="dc-score-wrap">
+          <svg class="dc-score-ring" viewBox="0 0 80 80">
+            <circle class="dc-ring-bg" cx="40" cy="40" r="36" />
+            <circle class="dc-ring-fg" cx="40" cy="40" r="36" style="stroke-dashoffset: ${dashOffset}; stroke: ${scoreColor}" />
+          </svg>
+          <div class="dc-score-content">
+            <span class="dc-score-val" style="color: ${scoreColor}">${s.final}</span>
+            <span class="dc-score-label">SCORE</span>
+          </div>
+        </div>
       </div>
-      <div class="dc-panel-right">
-        <div class="dc-metrics-bar">
-          <div class="dc-metric metric-age"><span class="dc-metric-ico">⏱</span><span class="dc-metric-val">${m.age ? m.age + 'y' : '—'}</span><span class="dc-metric-lbl">AGE</span></div>
-          <div class="dc-metric metric-dp"><span class="dc-metric-ico">📊</span><span class="dc-metric-val">${m.dp ? formatNum(m.dp) : '—'}</span><span class="dc-metric-lbl">DP</span></div>
-          <div class="dc-metric metric-tf"><span class="dc-metric-ico">🛡</span><span class="dc-metric-val">${m.tf || '—'}</span><span class="dc-metric-lbl">TF</span></div>
-          <div class="dc-metric metric-cpc"><span class="dc-metric-ico">💲</span><span class="dc-metric-val">${m.cpc ? '$' + m.cpc : '—'}</span><span class="dc-metric-lbl">CPC</span></div>
-          <div class="dc-metric metric-bl"><span class="dc-metric-ico">🔗</span><span class="dc-metric-val">${m.bl ? formatNum(m.bl) : '—'}</span><span class="dc-metric-lbl">BL</span></div>
-          <div class="dc-metric metric-le"><span class="dc-metric-ico">🔤</span><span class="dc-metric-val">${m.le || '—'}</span><span class="dc-metric-lbl">LE</span></div>
+
+      <!-- CENTER PANEL: QUALITY & TAGS -->
+      <div class="dc-panel-center">
+        <div class="dc-class-badge ${c.cls}">
+          <span class="dc-class-ico">
+            ${c.cls === 'class-elite' ? icoElite : c.cls === 'class-highvalue' ? icoTrending : c.cls === 'class-goodflip' ? icoBolt : icoAlert}
+          </span>
+          <span class="dc-class-label">${c.label}</span>
         </div>
-        <div class="dc-actions-bar">
-          <div class="dc-class-badge ${c.cls}"><span class="dc-class-emoji">${c.emoji}</span> <span class="dc-class-label">${c.label}</span></div>
-          <div class="dc-actions-spacer"></div>
-          <button class="dc-action-btn dc-fav${favActive ? ' active' : ''}" data-domain="${d.name}" title="Favorite"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87L16.18 21 12 17.77 7.82 21 9 14.14l-5-4.87 5.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-          <button class="dc-action-btn dc-copy" data-domain="${d.name}" title="Copy"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg></button>
-          <button class="dc-action-btn dc-analyse" data-action="analyse" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}' title="Analyse"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-          ${d.available === true ? `<div class="dc-continue-slot" data-continue-domain="${d.name}"></div>` : ''}
+        <div class="dc-tags-grid">
+          ${smartLabels.map(l => `<span class="dc-tag">${l}</span>`).join('')}
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: METRICS & ACTIONS -->
+      <div class="dc-panel-right">
+        <div class="dc-metrics-grid">
+          <div class="dc-metric-card" title="Domain Age">
+            <div class="dc-m-icon m-age">${icoClock}</div>
+            <div class="dc-m-info">
+              <span class="dc-m-val">${m.age ? m.age + 'y' : '—'}</span>
+              <span class="dc-m-lbl">AGE</span>
+            </div>
+          </div>
+          <div class="dc-metric-card" title="Domain Popularity">
+            <div class="dc-m-icon m-dp">${icoChart}</div>
+            <div class="dc-m-info">
+              <span class="dc-m-val">${m.dp ? formatNum(m.dp) : '—'}</span>
+              <span class="dc-m-lbl">DP</span>
+            </div>
+          </div>
+          <div class="dc-metric-card" title="Trust Flow">
+            <div class="dc-m-icon m-tf">${icoShield}</div>
+            <div class="dc-m-info">
+              <span class="dc-m-val">${m.tf || '—'}</span>
+              <span class="dc-m-lbl">TF</span>
+            </div>
+          </div>
+          <div class="dc-metric-card" title="Cost Per Click">
+            <div class="dc-m-icon m-cpc">${icoDollar}</div>
+            <div class="dc-m-info">
+              <span class="dc-m-val">${m.cpc ? '$' + m.cpc : '—'}</span>
+              <span class="dc-m-lbl">CPC</span>
+            </div>
+          </div>
+          <div class="dc-metric-card" title="Backlinks">
+            <div class="dc-m-icon m-bl">${icoLink}</div>
+            <div class="dc-m-info">
+              <span class="dc-m-val">${m.bl ? formatNum(m.bl) : '—'}</span>
+              <span class="dc-m-lbl">BL</span>
+            </div>
+          </div>
+          <div class="dc-metric-card" title="Letters count">
+            <div class="dc-m-icon m-le">${icoText}</div>
+            <div class="dc-m-info">
+              <span class="dc-m-val">${m.le || '—'}</span>
+              <span class="dc-m-lbl">LE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dc-footer">
+          <div class="dc-actions">
+            <button class="dc-btn-icon dc-fav${favActive ? ' active' : ''}" data-domain="${d.name}" title="Favorite">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87L16.18 21 12 17.77 7.82 21 9 14.14l-5-4.87 5.91-1.01L12 2z"/></svg>
+            </button>
+            <button class="dc-btn-icon dc-copy" data-domain="${d.name}" title="Copy Domain">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            </button>
+            <button class="dc-btn-icon dc-analyse" data-action="analyse" data-domain='${JSON.stringify(d).replace(/'/g, "&#39;")}' title="Deep Analysis">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </button>
+            ${d.available === true ? `<div class="dc-continue-slot" data-continue-domain="${d.name}"></div>` : ''}
+          </div>
         </div>
       </div>
     </div>`;

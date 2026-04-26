@@ -254,8 +254,14 @@ function handleGenerate(type) {
       runAvailabilityCheck(state.domains, updateResultsGridUI);
     } catch (e) {
       console.error('Generation error:', e);
-      toast('Generation failed — showing fallback');
-      renderResults([], titles[type] + ' Results', copyText);
+      if (e.message && e.message.includes('SMART mode requires')) {
+         toast('Error: ' + e.message);
+         // Fallback rendering
+         renderResults([], titles[type] + ' Results', copyText);
+      } else {
+         toast('Generation failed: ' + (e.message || 'Unknown error'));
+         renderResults([], titles[type] + ' Results', copyText);
+      }
     } finally {
       setButtonState(btn, false);
       showLoading(false);
@@ -523,7 +529,7 @@ function handleAnalyze() {
 
   setTimeout(() => {
     try {
-      const result = analyzeDomains(input);
+      const result = analyzeDomains(input, state.smartMode);
       analyzerData.mode = result.mode;
       analyzerData.domains = result.domains;
 
@@ -1294,7 +1300,27 @@ export async function initApp() {
   const loading = $('#loadingOverlay');
   if (loading) loading.classList.add('active');
 
-  await loadData();
+  // Load saved mode from localStorage
+  const savedMode = localStorage.getItem('domainMode');
+  state.smartMode = savedMode !== 'fast'; // Default to smart
+
+  // Sync UI mode buttons
+  $$('.mode-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === (state.smartMode ? 'smart' : 'fast'));
+  });
+
+  try {
+    await loadData(state.smartMode);
+  } catch (err) {
+    console.error("Init Data Load Error:", err);
+    // If SMART mode fails, fallback to FAST mode on load
+    state.smartMode = false;
+    localStorage.setItem('domainMode', 'fast');
+    $$('.mode-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.mode === 'fast');
+    });
+    await loadData(false);
+  }
 
   // Letter grids
   const cg = $('#consonantGrid');
@@ -1380,10 +1406,29 @@ export async function initApp() {
 
   // Mode toggle
   $$('.mode-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
+      if (btn.classList.contains('active')) return; // Already active
+
       $$('.mode-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      state.smartMode = btn.dataset.mode === 'smart';
+      const newMode = btn.dataset.mode === 'smart';
+      
+      state.smartMode = newMode;
+      localStorage.setItem('domainMode', newMode ? 'smart' : 'fast');
+
+      // 🔁 MODE SWITCHING RULES: clear previous results
+      const resDiv = $('#resultsContainer');
+      if (resDiv) resDiv.innerHTML = '';
+      state.lastResults = [];
+
+      // 🔁 MODE SWITCHING RULES: reload data source completely
+      try {
+        await loadData(state.smartMode);
+      } catch (err) {
+        if (resDiv) {
+          resDiv.innerHTML = `<div class="dc-error-msg">⚠️ ${err.message}</div>`;
+        }
+      }
     });
   });
 
