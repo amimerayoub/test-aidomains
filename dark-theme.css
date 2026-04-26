@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    AI Domain Generator â€” Premium Dual-Theme System
    Blue / Cyan Identity Â· Glass UI Â· Light + Dark
    ============================================================ */
@@ -1678,7 +1678,7 @@ input, select, textarea { font-family: inherit; color: var(--text-main); backgro
   .dc-continue-slot .btn-generate { width: 100%; }
 }
   .dc-panel-center { padding: 16px 24px; }
-}
+
 
 @media (max-width: 599px) {
   .dc-panel-left { padding: 16px; gap: 16px; }
