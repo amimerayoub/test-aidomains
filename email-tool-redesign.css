@@ -1,0 +1,1119 @@
+/* ============================================
+   Smart Email Tool - Premium SaaS Redesign
+   Light-mode, glassmorphism, modern dashboard
+   ============================================ */
+
+/* === EMAIL SECTION CONTAINERS === */
+.email-section {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04), 0 1px 4px rgba(15, 23, 42, 0.06);
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+}
+
+.email-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+/* === SECTION HEADERS === */
+.email-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.email-section-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1E293B;
+  letter-spacing: -0.01em;
+  flex: 1;
+}
+
+.email-section-header svg {
+  width: 18px;
+  height: 18px;
+  color: #3B82F6;
+  flex-shrink: 0;
+}
+
+/* === STEP NUMBERS === */
+.email-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* === TABS (Paste/Upload) === */
+.email-tabs {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: #F1F5F9;
+  border-radius: 12px;
+}
+
+.email-tabs .analyzer-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  flex: 1;
+  justify-content: center;
+}
+
+.email-tabs .analyzer-tab:hover {
+  color: #334155;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.email-tabs .analyzer-tab.active {
+  background: #ffffff;
+  color: #1E293B;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.email-tabs .analyzer-tab svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* === TEXTAREAS & INPUTS === */
+.analyzer-textarea,
+.email-var-field,
+.email-msg-field {
+  width: 100%;
+  padding: 14px 16px;
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  color: #1E293B;
+  outline: none;
+  transition: all 0.25s ease-in-out;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+.analyzer-textarea:hover,
+.email-var-field:hover,
+.email-msg-field:hover {
+  border-color: #CBD5E1;
+  background: #ffffff;
+}
+
+.analyzer-textarea:focus,
+.email-var-field:focus,
+.email-msg-field:focus {
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  background: #ffffff;
+}
+
+.analyzer-textarea::placeholder,
+.email-var-field::placeholder,
+.email-msg-field::placeholder {
+  color: #94A3B8;
+}
+
+.email-msg-field {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* === TEXTAREA ACTIONS === */
+.analyzer-textarea-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+/* === SMALL ACTION BUTTONS === */
+.btn-action-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748B;
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.btn-action-sm:hover {
+  background: #ffffff;
+  color: #334155;
+  border-color: #CBD5E1;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.btn-action-sm:active {
+  transform: scale(0.97);
+}
+
+.btn-action-sm svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* === VARIABLE CHIPS === */
+.email-var-chips {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.var-chip {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #7C3AED;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.var-chip:hover {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.25);
+  transform: translateY(-1px);
+}
+
+/* === EMAIL PREVIEW === */
+.email-preview {
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 14px;
+  padding: 20px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.email-preview-subject {
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+  color: #1E293B;
+}
+
+.email-preview-label {
+  color: #94A3B8;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 8px;
+}
+
+.email-preview-body {
+  color: #334155;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* === SETTINGS GRID === */
+.email-settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.email-setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.email-setting-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* === TOGGLE SWITCH === */
+.email-toggle {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.email-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.email-toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: #E2E8F0;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.email-toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  bottom: 3px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+}
+
+.email-toggle input:checked + .email-toggle-slider {
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+}
+
+.email-toggle input:checked + .email-toggle-slider::before {
+  transform: translateX(22px);
+}
+
+/* === TIMING BUTTONS === */
+.email-timing {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: #F1F5F9;
+  border-radius: 10px;
+}
+
+.timing-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.timing-btn:hover {
+  color: #334155;
+}
+
+.timing-btn.active {
+  background: #ffffff;
+  color: #3B82F6;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* === PRIMARY CTA BUTTONS === */
+.btn-generate {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+  letter-spacing: -0.01em;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-generate svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-generate:hover {
+  background: linear-gradient(135deg, #2563EB 0%, #0891B2 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
+}
+
+.btn-generate:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn-generate:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  pointer-events: none;
+}
+
+/* === CAMPAIGN CONTROLS === */
+.email-campaign-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.campaign-extra-btns {
+  display: flex;
+  gap: 8px;
+}
+
+/* === STATS BAR === */
+.email-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04), 0 1px 4px rgba(15, 23, 42, 0.06);
+}
+
+.email-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 56px;
+}
+
+.email-stat-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1E293B;
+  letter-spacing: -0.02em;
+}
+
+.email-stat-value.sent {
+  color: #16A34A;
+}
+
+.email-stat-value.pending {
+  color: #2563EB;
+}
+
+.email-stat-value.failed {
+  color: #DC2626;
+}
+
+.email-stat-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+/* === PROGRESS BAR === */
+.email-progress-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+}
+
+.email-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #F1F5F9;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.email-progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+  border-radius: 9999px;
+  transition: width 0.4s ease-in-out;
+}
+
+.email-progress-pct {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748B;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* === EMAIL TABLE === */
+.email-table-wrap {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04), 0 1px 4px rgba(15, 23, 42, 0.06);
+}
+
+.email-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.email-table thead th {
+  padding: 14px 16px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #64748B;
+  text-align: left;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+  background: #F8FAFC;
+}
+
+.email-table tbody tr {
+  transition: background 0.2s ease-in-out;
+}
+
+.email-table tbody tr:hover {
+  background: #F8FAFC;
+}
+
+.email-table tbody tr.sending {
+  background: rgba(37, 99, 235, 0.06);
+  border-left: 3px solid #3B82F6;
+}
+
+.email-table tbody td {
+  padding: 12px 16px;
+  font-size: 0.84rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.4);
+  vertical-align: middle;
+}
+
+.email-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.email-table .td-email {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: #334155;
+}
+
+.email-table .td-domain {
+  color: #94A3B8;
+  font-size: 0.76rem;
+}
+
+/* === STATUS BADGES === */
+.email-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.email-status-pending {
+  background: rgba(37, 99, 235, 0.08);
+  color: #2563EB;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+.email-status-sent {
+  background: rgba(22, 163, 74, 0.08);
+  color: #16A34A;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.email-status-failed {
+  background: rgba(220, 38, 38, 0.08);
+  color: #DC2626;
+  border: 1px solid rgba(220, 38, 38, 0.15);
+}
+
+/* === TABLE ACTION BUTTONS === */
+.email-table-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.email-tbl-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  padding: 0;
+}
+
+.email-tbl-btn svg {
+  width: 13px;
+  height: 13px;
+  color: #64748B;
+}
+
+.email-tbl-btn:hover {
+  background: #ffffff;
+  border-color: #CBD5E1;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+.email-tbl-btn.retry-btn:hover {
+  color: #2563EB;
+  border-color: rgba(37, 99, 235, 0.3);
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.email-tbl-btn.remove-btn:hover {
+  color: #DC2626;
+  border-color: rgba(220, 38, 38, 0.3);
+  background: rgba(220, 38, 38, 0.06);
+}
+
+/* === CONTACT SUMMARY === */
+.email-contact-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(22, 163, 74, 0.06);
+  border: 1px solid rgba(22, 163, 74, 0.15);
+  border-radius: 12px;
+  margin-top: 14px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #16A34A;
+}
+
+.email-contact-summary svg {
+  width: 16px;
+  height: 16px;
+  color: #16A34A;
+}
+
+/* === CAMPAIGN MANAGER SECTION === */
+.campaign-manager-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* === CUSTOM SELECT (Campaign Dropdown) === */
+.campaign-manager-actions .custom-select {
+  min-width: 220px;
+}
+
+.campaign-manager-actions .custom-select-trigger {
+  padding: 12px 16px;
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  color: #1E293B;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  font-family: 'Inter', sans-serif;
+}
+
+.campaign-manager-actions .custom-select-trigger:hover {
+  border-color: #CBD5E1;
+  background: #ffffff;
+}
+
+.campaign-manager-actions .custom-select.open .custom-select-trigger {
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  background: #ffffff;
+}
+
+/* === CAMPAIGN LIST PREVIEW === */
+.campaign-list-preview {
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.campaign-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.campaign-preview-header span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.campaign-count {
+  font-size: 0.72rem;
+  background: #F1F5F9;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  color: #64748B;
+  font-weight: 600;
+}
+
+/* === CAMPAIGN ITEM CARD === */
+.campaign-item-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  margin-bottom: 8px;
+}
+
+.campaign-item-card:last-child {
+  margin-bottom: 0;
+}
+
+.campaign-item-card:hover {
+  background: #ffffff;
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+.campaign-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.campaign-item-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #1E293B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campaign-item-domain {
+  font-size: 0.76rem;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+.campaign-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* === CAMPAIGN STATUS BADGES === */
+.campaign-status-badge {
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.campaign-status-draft {
+  background: rgba(100, 116, 139, 0.08);
+  color: #64748B;
+  border: 1px solid rgba(100, 116, 139, 0.15);
+}
+
+.campaign-status-active {
+  background: rgba(37, 99, 235, 0.08);
+  color: #2563EB;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+.campaign-status-sent {
+  background: rgba(22, 163, 74, 0.08);
+  color: #16A34A;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.campaign-status-completed {
+  background: rgba(139, 92, 246, 0.08);
+  color: #7C3AED;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+/* === MODAL OVERLAY === */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === MODAL CONTENT === */
+.modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 20px;
+  padding: 28px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15), 0 8px 24px rgba(15, 23, 42, 0.1);
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+}
+
+.modal-overlay.open .modal-content {
+  transform: translateY(0) scale(1);
+}
+
+/* === MODAL HEADER === */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.modal-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1E293B;
+  letter-spacing: -0.01em;
+}
+
+/* === GLASS UTILITY === */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 14px;
+}
+
+/* === CSV DROP ZONE === */
+.csv-drop-zone {
+  min-height: 140px;
+  padding: 28px;
+  border: 2px dashed rgba(226, 232, 240, 0.8);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  background: #F8FAFC;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.csv-drop-zone:hover,
+.csv-drop-zone.drag-over {
+  border-color: #3B82F6;
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.csv-drop-icon {
+  width: 36px;
+  height: 36px;
+  color: #94A3B8;
+}
+
+.csv-drop-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.csv-drop-subtitle {
+  font-size: 0.78rem;
+  color: #94A3B8;
+}
+
+/* === CSV FILE INFO === */
+.csv-file-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.csv-filename {
+  flex: 1;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #1E293B;
+  word-break: break-all;
+}
+
+.csv-row-count {
+  font-size: 0.72rem;
+  color: #64748B;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.csv-remove-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F8FAFC;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  padding: 0;
+}
+
+.csv-remove-btn:hover {
+  background: rgba(220, 38, 38, 0.06);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #DC2626;
+}
+
+.csv-remove-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* === TAB CONTENT === */
+.analyzer-tab-content {
+  display: none;
+}
+
+.analyzer-tab-content.active {
+  display: block;
+  animation: fadeInTab 0.25s ease-in-out;
+}
+
+@keyframes fadeInTab {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === PANEL HERO === */
+#emailtool-panel .panel-hero {
+  text-align: left;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+#emailtool-panel .panel-hero h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1E293B;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+#emailtool-panel .panel-hero p {
+  color: #64748B;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* === PANEL CONTAINER === */
+#emailtool-panel .panel-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px 32px;
+}
+
+/* === VARIATIONS LIST === */
+.email-variations {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email-var-input {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* === REMOVE VARIATION BUTTON === */
+.email-var-input .btn-action-sm {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  .email-section {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .email-stats-bar {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .email-stat-value {
+    font-size: 1.05rem;
+  }
+
+  #emailtool-panel .panel-container {
+    padding: 18px 16px;
+  }
+
+  #emailtool-panel .panel-hero h1 {
+    font-size: 1.25rem;
+  }
+
+  .email-campaign-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .campaign-extra-btns {
+    justify-content: center;
+  }
+
+  .email-timing {
+    flex-wrap: wrap;
+  }
+
+  .timing-btn {
+    flex: 1;
+    min-width: 70px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .email-section {
+    padding: 14px;
+  }
+
+  .email-section-header {
+    gap: 8px;
+  }
+
+  .email-section-header h3 {
+    font-size: 0.92rem;
+  }
+
+  .email-step-num {
+    width: 24px;
+    height: 24px;
+    font-size: 0.68rem;
+  }
+
+  .email-stats-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .email-progress-wrap {
+    width: 100%;
+  }
+
+  .campaign-manager-actions {
+    flex-direction: column;
+  }
+
+  .campaign-manager-actions .custom-select {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .btn-generate {
+    width: 100%;
+  }
+}

@@ -382,12 +382,8 @@ function renderAnalyzerTable(container, domains) {
           </span>
         </div>
         
-        <div class="dc-score-wrap">
-          <svg class="dc-score-ring" viewBox="0 0 80 80">
-            <circle class="dc-ring-bg" cx="40" cy="40" r="36" />
-            <circle class="dc-ring-fg" cx="40" cy="40" r="36" style="stroke-dashoffset: ${dashOffset}; stroke: ${scoreColor}" />
-          </svg>
-          <div class="dc-score-content">
+        <div class="dc-score-wrap" style="--score-color: ${scoreColor}; background: conic-gradient(var(--score-color) ${s.final}%, rgba(255,255,255,0.06) 0%);">
+          <div class="dc-score-inner">
             <span class="dc-score-val" style="color: ${scoreColor}">${s.final}</span>
             <span class="dc-score-label">SCORE</span>
           </div>
