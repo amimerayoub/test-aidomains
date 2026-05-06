@@ -34,19 +34,20 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f8fbff;
-      --bg-soft: #eef7ff;
-      --surface: rgba(255, 255, 255, 0.82);
+      --bg: #ffffff;
+      --bg-soft: #ffffff;
+      --surface: rgba(255, 255, 255, 0.86);
       --surface-strong: #ffffff;
-      --text: #0d1728;
-      --muted: #5b6b83;
-      --border: rgba(24, 119, 242, 0.13);
-      --primary: #1463ff;
-      --cyan: #05d5ff;
-      --green: #00b86b;
-      --amber: #f59e0b;
-      --shadow: 0 24px 70px rgba(16, 84, 185, 0.16);
-      --shadow-soft: 0 16px 44px rgba(10, 67, 150, 0.11);
+      --text: #050505;
+      --muted: rgba(5, 5, 5, 0.62);
+      --border: rgba(6, 182, 212, 0.22);
+      --primary: #06B6D4;
+      --cyan: #06B6D4;
+      --green: #06B6D4;
+      --amber: #050505;
+      --shadow: 0 24px 70px rgba(5, 5, 5, 0.12);
+      --shadow-soft: 0 16px 44px rgba(5, 5, 5, 0.08);
+      --cyan-glow: 0 0 0 1px rgba(6, 182, 212, 0.18), 0 18px 48px rgba(6, 182, 212, 0.16);
       --radius-xl: 30px;
       --radius-lg: 22px;
       --radius-md: 16px;
@@ -54,16 +55,16 @@
     }
 
     [data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #07111f;
-      --bg-soft: #0c1c33;
-      --surface: rgba(12, 27, 48, 0.78);
-      --surface-strong: #102139;
-      --text: #f3f8ff;
-      --muted: #aab9cd;
-      --border: rgba(116, 214, 255, 0.17);
-      --shadow: 0 26px 80px rgba(0, 0, 0, 0.35);
-      --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.25);
+      color-scheme: light;
+      --bg: #ffffff;
+      --bg-soft: #ffffff;
+      --surface: rgba(255, 255, 255, 0.90);
+      --surface-strong: #ffffff;
+      --text: #050505;
+      --muted: rgba(5, 5, 5, 0.62);
+      --border: rgba(6, 182, 212, 0.22);
+      --shadow: 0 24px 70px rgba(5, 5, 5, 0.12);
+      --shadow-soft: 0 16px 44px rgba(5, 5, 5, 0.08);
     }
 
     * { box-sizing: border-box; }
@@ -73,9 +74,9 @@
       min-height: 100vh;
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 10% 10%, rgba(5, 213, 255, 0.17), transparent 30rem),
-        radial-gradient(circle at 90% 0%, rgba(20, 99, 255, 0.18), transparent 34rem),
-        linear-gradient(180deg, var(--bg), var(--bg-soft));
+        radial-gradient(circle at 18% 8%, rgba(6, 182, 212, 0.12), transparent 28rem),
+        radial-gradient(circle at 86% 2%, rgba(6, 182, 212, 0.10), transparent 30rem),
+        #ffffff;
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -90,11 +91,11 @@
       left: 0;
       right: 0;
       z-index: 50;
-      transition: background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+      transition: background 220ms ease, box-shadow 220ms ease, backdrop-filter 220ms ease, transform 220ms ease;
     }
     .site-header.is-scrolled {
-      background: color-mix(in srgb, var(--surface-strong) 86%, transparent);
-      box-shadow: 0 10px 35px rgba(18, 79, 155, 0.12);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 10px 35px rgba(5, 5, 5, 0.08), 0 0 0 1px rgba(6, 182, 212, 0.12);
       backdrop-filter: blur(18px);
     }
     .nav-wrap { display: flex; align-items: center; justify-content: space-between; min-height: 78px; gap: 20px; }
@@ -103,38 +104,46 @@
       width: 42px; height: 42px; border-radius: 14px;
       display: grid; place-items: center;
       background: linear-gradient(135deg, var(--primary), var(--cyan));
-      color: #fff; box-shadow: 0 14px 34px rgba(20, 99, 255, 0.34);
+      color: #ffffff; box-shadow: 0 14px 34px rgba(6, 182, 212, 0.34);
     }
     .desktop-nav { display: flex; align-items: center; gap: 6px; }
     .desktop-nav a, .nav-menu-trigger, .mobile-panel a, .mobile-accordion-trigger {
-      padding: 11px 14px; border-radius: 999px; color: var(--muted); font-weight: 700; font-size: 0.95rem;
-      transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+      position: relative; padding: 11px 14px; border-radius: 999px; color: var(--muted); font-weight: 700; font-size: 0.95rem;
+      transition: color 180ms ease, background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
     }
     .nav-menu-trigger, .mobile-accordion-trigger {
       border: 0; background: transparent; font-family: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
     }
-    .desktop-nav a:hover, .nav-menu-trigger:hover, .nav-menu-trigger.active, .mobile-panel a:hover, .mobile-accordion-trigger:hover, .mobile-accordion-trigger.active { color: var(--primary); background: rgba(20, 99, 255, 0.08); transform: translateY(-1px); }
+    .desktop-nav a::after, .nav-menu-trigger::after {
+      content: ""; position: absolute; left: 14px; right: 14px; bottom: 5px; height: 2px; border-radius: 999px;
+      background: var(--cyan); opacity: 0; transform: scaleX(0.45); transition: opacity 180ms ease, transform 180ms ease;
+    }
+    .desktop-nav a:hover, .nav-menu-trigger:hover, .nav-menu-trigger.active, .mobile-panel a:hover, .mobile-accordion-trigger:hover, .mobile-accordion-trigger.active { color: var(--primary); background: rgba(6, 182, 212, 0.08); transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.10); }
+    .desktop-nav a:hover::after, .nav-menu-trigger:hover::after, .nav-menu-trigger.active::after { opacity: 1; transform: scaleX(1); }
     .nav-chevron { width: 14px; height: 14px; transition: transform 180ms ease; }
     .nav-menu-trigger.active .nav-chevron, .mobile-accordion-trigger.active .nav-chevron { transform: rotate(180deg); }
     .mega-menu {
-      position: fixed; top: 68px; left: var(--mega-left, 50%); width: min(760px, calc(100vw - 32px)); z-index: 60;
-      padding: 14px; border: 1px solid rgba(20, 99, 255, 0.12); border-radius: 12px;
-      background: #ffffff; color: #0d1728; box-shadow: 0 24px 70px rgba(15, 63, 128, 0.18);
-      opacity: 0; pointer-events: none; transform: translate(-50%, 10px); transition: opacity 200ms ease, transform 200ms ease;
+      position: fixed; top: 68px; left: var(--mega-left, 50%); width: min(520px, calc(100vw - 32px)); z-index: 60;
+      padding: 14px; border: 1px solid rgba(6, 182, 212, 0.26); border-radius: 14px;
+      background: rgba(255, 255, 255, 0.94); color: #050505; box-shadow: 0 22px 60px rgba(5, 5, 5, 0.12), 0 0 34px rgba(6, 182, 212, 0.14);
+      backdrop-filter: blur(16px); opacity: 0; pointer-events: none; transform: translate(-50%, 10px); transition: opacity 200ms ease, transform 200ms ease;
     }
     .mega-menu.open { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
-    .mega-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .mega-section { padding: 4px 10px 4px 4px; }
-    .mega-section:not(:last-child) { border-right: 1px solid rgba(20, 99, 255, 0.10); }
-    .mega-label { margin: 4px 6px 9px; color: #1463ff; font-size: 0.72rem; font-weight: 900; letter-spacing: 0.12em; }
+    .mega-panel { display: none; }
+    .mega-panel.active { display: block; }
+    .mega-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .mega-grid.compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mega-label { margin: 2px 4px 10px; padding-bottom: 9px; border-bottom: 1px solid rgba(6, 182, 212, 0.18); color: #06B6D4; font-size: 0.72rem; font-weight: 900; letter-spacing: 0.14em; }
     .mega-link {
-      display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: center; padding: 10px; border-radius: 10px;
-      color: #20304a; transition: background 180ms ease, transform 180ms ease, color 180ms ease;
+      display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: center; min-height: 68px; padding: 10px; border-radius: 12px;
+      color: #050505; transition: background 180ms ease, transform 180ms ease, color 180ms ease, box-shadow 180ms ease;
     }
-    .mega-link:hover { background: #eef7ff; color: #1463ff; transform: translateX(3px); }
-    .mega-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: linear-gradient(135deg, rgba(20, 99, 255, 0.10), rgba(5, 213, 255, 0.16)); color: #1463ff; }
+    .mega-link:hover, .mega-link:focus-visible { background: rgba(6, 182, 212, 0.08); color: #050505; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(6, 182, 212, 0.14); outline: none; }
+    .mega-icon { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: #ffffff; color: #06B6D4; border: 1px solid rgba(6, 182, 212, 0.28); font-size: 0; }
+    .mega-icon::before { content: ""; width: 13px; height: 13px; border: 2px solid currentColor; border-radius: 5px; transform: rotate(45deg); }
+    .mega-icon::after { content: ""; position: absolute; width: 8px; height: 2px; border-radius: 999px; background: currentColor; transform: translate(7px, 8px); }
     .mega-title { display: block; font-size: 0.91rem; font-weight: 900; line-height: 1.15; }
-    .mega-desc { display: block; margin-top: 3px; color: #68758a; font-size: 0.76rem; line-height: 1.35; }
+    .mega-desc { display: block; margin-top: 3px; color: rgba(5, 5, 5, 0.62); font-size: 0.76rem; line-height: 1.35; }
     .nav-actions { display: flex; align-items: center; gap: 10px; }
     .theme-toggle, .menu-toggle {
       border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px;
@@ -145,8 +154,8 @@
     .menu-toggle { display: none; }
     .menu-toggle span { width: 18px; height: 2px; background: currentColor; display: block; margin: 3px 0; border-radius: 4px; transition: transform 180ms ease, opacity 180ms ease; }
     .mobile-panel {
-      position: fixed; top: 78px; right: 16px; width: min(360px, calc(100vw - 32px)); max-height: calc(100vh - 96px); overflow: auto; padding: 14px;
-      border: 1px solid var(--border); border-radius: 24px; background: var(--surface-strong); box-shadow: var(--shadow);
+      position: fixed; top: 78px; right: 16px; z-index: 45; width: min(360px, calc(100vw - 32px)); max-height: calc(100vh - 96px); overflow: auto; padding: 14px;
+      border: 1px solid var(--border); border-radius: 24px; background: #ffffff; box-shadow: var(--shadow);
       transform: translateX(120%); opacity: 0; pointer-events: none; transition: transform 240ms ease, opacity 240ms ease;
     }
     .mobile-panel.open { transform: translateX(0); opacity: 1; pointer-events: auto; }
@@ -158,8 +167,9 @@
     .mobile-accordion-panel.open { grid-template-rows: 1fr; }
     .mobile-accordion-content { overflow: hidden; padding: 0 4px; }
     .mobile-tool-link { display: grid !important; grid-template-columns: 30px 1fr; gap: 9px; align-items: center; margin: 5px 0; padding: 9px 10px !important; border-radius: 12px !important; }
-    .mobile-tool-link:hover { background: rgba(20, 99, 255, 0.08); }
+    .mobile-tool-link:hover { background: rgba(6, 182, 212, 0.08); }
     .mobile-tool-link .mega-icon { width: 30px; height: 30px; border-radius: 9px; }
+    .mobile-tool-link .mega-icon::before { width: 11px; height: 11px; }
     .mobile-tool-link .mega-desc { color: var(--muted); }
 
     main { padding-top: 92px; }
@@ -182,16 +192,16 @@
     }
     .domain-form { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
     .input-shell { display: flex; align-items: center; gap: 10px; min-height: 62px; padding: 0 18px; border-radius: 20px; background: color-mix(in srgb, var(--surface-strong) 86%, transparent); border: 1px solid transparent; transition: border 180ms ease, box-shadow 180ms ease; }
-    .input-shell:focus-within { border-color: rgba(5, 213, 255, 0.65); box-shadow: 0 0 0 6px rgba(5, 213, 255, 0.12); }
+    .input-shell:focus-within { border-color: rgba(6, 182, 212, 0.65); box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.12); }
     .domain-input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--text); font-size: 1.05rem; font-weight: 700; }
     .domain-input::placeholder { color: color-mix(in srgb, var(--muted) 78%, transparent); }
     .btn {
       border: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      min-height: 56px; padding: 0 24px; border-radius: 18px; font-weight: 900; color: #fff;
-      background: linear-gradient(135deg, var(--primary), var(--cyan)); box-shadow: 0 18px 38px rgba(20, 99, 255, 0.30);
+      min-height: 56px; padding: 0 24px; border-radius: 18px; font-weight: 900; color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--cyan)); box-shadow: 0 18px 38px rgba(6, 182, 212, 0.30);
       transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
     }
-    .btn:hover { transform: translateY(-3px); box-shadow: 0 24px 48px rgba(5, 165, 255, 0.38); filter: saturate(1.1); }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 24px 48px rgba(6, 182, 212, 0.38); filter: saturate(1.1); }
     .btn.secondary { background: var(--surface-strong); color: var(--primary); border: 1px solid var(--border); box-shadow: var(--shadow-soft); }
     .hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
 
@@ -200,10 +210,10 @@
     .result-main { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px; flex-wrap: wrap; }
     .domain-name { font-weight: 900; font-size: 1.15rem; }
     .status-badge { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: 999px; font-size: 0.86rem; font-weight: 900; }
-    .status-available { background: rgba(0, 184, 107, 0.13); color: var(--green); }
-    .status-taken { background: rgba(245, 158, 11, 0.14); color: var(--amber); }
+    .status-available { background: rgba(6, 182, 212, 0.13); color: var(--green); }
+    .status-taken { background: rgba(5, 5, 5, 0.14); color: var(--amber); }
     .alternatives { padding: 0 18px 18px; display: grid; gap: 10px; }
-    .alt-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: rgba(20, 99, 255, 0.06); }
+    .alt-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: rgba(6, 182, 212, 0.06); }
     .alt-row a { color: var(--primary); font-weight: 900; }
 
     .trust-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 44px; }
@@ -214,7 +224,7 @@
     .stat { padding: 18px; text-align: left; }
     .stat strong { display: block; font-size: 1.55rem; letter-spacing: -0.04em; }
     .stat span { color: var(--muted); font-weight: 700; font-size: 0.9rem; }
-    .feature-card:hover, .seo-card:hover, .pricing-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); border-color: rgba(5, 213, 255, 0.35); }
+    .feature-card:hover, .seo-card:hover, .pricing-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); border-color: rgba(6, 182, 212, 0.35); }
 
     section { padding: 70px 0; }
     .section-header { max-width: 760px; margin: 0 auto 34px; text-align: center; }
@@ -222,7 +232,8 @@
     .section-header p { color: var(--muted); line-height: 1.75; font-size: 1.05rem; }
     .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .feature-card { padding: 24px; min-height: 220px; }
-    .icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 18px; background: linear-gradient(135deg, rgba(20, 99, 255, 0.14), rgba(5, 213, 255, 0.18)); color: var(--primary); margin-bottom: 20px; }
+    .icon { position: relative; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 18px; background: linear-gradient(135deg, rgba(6, 182, 212, 0.14), rgba(6, 182, 212, 0.18)); color: var(--primary); margin-bottom: 20px; font-size: 0; }
+    .icon::before { content: ""; width: 18px; height: 18px; border: 2px solid currentColor; border-radius: 7px; transform: rotate(45deg); }
     .feature-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
     .feature-card p, .seo-card p { color: var(--muted); line-height: 1.72; margin: 0; }
 
@@ -231,17 +242,17 @@
     .seo-card.wide { grid-column: 1 / -1; }
     .seo-card h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px; }
     .internal-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-    .text-link { color: var(--primary); font-weight: 900; border-bottom: 2px solid rgba(5, 213, 255, 0.45); }
+    .text-link { color: var(--primary); font-weight: 900; border-bottom: 2px solid rgba(6, 182, 212, 0.45); }
 
     .cta { padding-bottom: 90px; }
-    .cta-box { position: relative; overflow: hidden; text-align: center; padding: clamp(36px, 7vw, 72px); border-radius: var(--radius-xl); border: 1px solid var(--border); background: linear-gradient(135deg, rgba(20, 99, 255, 0.14), rgba(5, 213, 255, 0.11)), var(--surface); box-shadow: var(--shadow); }
+    .cta-box { position: relative; overflow: hidden; text-align: center; padding: clamp(36px, 7vw, 72px); border-radius: var(--radius-xl); border: 1px solid var(--border); background: linear-gradient(135deg, rgba(6, 182, 212, 0.14), rgba(6, 182, 212, 0.11)), var(--surface); box-shadow: var(--shadow); }
     .cta-box p { color: var(--muted); line-height: 1.8; max-width: 650px; margin: 16px auto 24px; }
     footer { padding: 28px 0 42px; color: var(--muted); text-align: center; }
 
     .float { position: absolute; border-radius: 999px; pointer-events: none; filter: blur(0.2px); animation: float 7s ease-in-out infinite; }
-    .float.one { width: 150px; height: 150px; top: 18%; left: 5%; background: rgba(5, 213, 255, 0.13); }
-    .float.two { width: 92px; height: 92px; right: 9%; top: 28%; background: rgba(20, 99, 255, 0.15); animation-delay: -2s; }
-    .float.three { width: 70px; height: 70px; right: 18%; bottom: 10%; background: rgba(0, 184, 107, 0.12); animation-delay: -4s; }
+    .float.one { width: 150px; height: 150px; top: 18%; left: 5%; background: rgba(6, 182, 212, 0.13); }
+    .float.two { width: 92px; height: 92px; right: 9%; top: 28%; background: rgba(6, 182, 212, 0.15); animation-delay: -2s; }
+    .float.three { width: 70px; height: 70px; right: 18%; bottom: 10%; background: rgba(6, 182, 212, 0.12); animation-delay: -4s; }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 600ms ease, transform 600ms ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -249,21 +260,19 @@
     @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 1024px) {
-      .mega-menu { width: min(640px, calc(100vw - 32px)); }
-      .mega-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .mega-section:not(:last-child) { border-right: 0; }
-      .mega-section:nth-child(odd) { border-right: 1px solid rgba(20, 99, 255, 0.10); }
+      .mega-menu { width: min(500px, calc(100vw - 32px)); }
     }
     @media (max-width: 900px) {
       .desktop-nav, .mega-menu { display: none; }
       .menu-toggle { display: inline-grid; }
+      .mobile-panel { top: 0; right: 0; width: 100vw; height: 100vh; max-height: none; padding: 92px 18px 28px; border-radius: 0; transform: translateX(100%); }
       .features-grid, .seo-grid, .trust-strip { grid-template-columns: 1fr 1fr; }
       .seo-card.wide { grid-column: auto; }
     }
     @media (max-width: 640px) {
       .container { width: min(100% - 24px, var(--container)); }
       .nav-wrap { min-height: 68px; }
-      .mobile-panel { top: 68px; }
+      .mobile-panel { padding-top: 84px; }
       main { padding-top: 78px; }
       .hero { padding-top: 44px; }
       .domain-form { grid-template-columns: 1fr; }
@@ -290,39 +299,53 @@
 
       <nav class="desktop-nav" aria-label="Primary navigation">
         <a href="landing.html">Home</a>
-        <button class="nav-menu-trigger" type="button" data-mega-trigger aria-expanded="false" aria-controls="toolsMegaMenu">Tools<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button class="nav-menu-trigger" type="button" data-mega-trigger aria-expanded="false" aria-controls="toolsMegaMenu">Generator<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button class="nav-menu-trigger" type="button" data-mega-trigger aria-expanded="false" aria-controls="toolsMegaMenu">Analyzer<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button class="nav-menu-trigger" type="button" data-mega-trigger aria-expanded="false" aria-controls="toolsMegaMenu">Smart Email<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="nav-menu-trigger" type="button" data-mega-trigger="tools" aria-expanded="false" aria-controls="toolsMegaMenu">Tools<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="nav-menu-trigger" type="button" data-mega-trigger="generator" aria-expanded="false" aria-controls="toolsMegaMenu">Generator<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="nav-menu-trigger" type="button" data-mega-trigger="analyzer" aria-expanded="false" aria-controls="toolsMegaMenu">Analyzer<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="nav-menu-trigger" type="button" data-mega-trigger="email" aria-expanded="false" aria-controls="toolsMegaMenu">Smart Email<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <a href="#pricing">Pricing</a>
       </nav>
 
       <div class="nav-actions">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">☾</button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle subtle contrast mode">◐</button>
         <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
-    <div class="mega-menu" id="toolsMegaMenu" role="menu" aria-label="All domain tools">
-      <div class="mega-grid">
-        <div class="mega-section">
-          <div class="mega-label">GENERATORS</div>
-          <a class="mega-link" href="index.html?tool=geo"><span class="mega-icon">🌍</span><span><span class="mega-title">Geo Domain Generator</span><span class="mega-desc">Local city + keyword ideas</span></span></a>
-          <a class="mega-link" href="index.html?tool=keyword"><span class="mega-icon">🔎</span><span><span class="mega-title">Keyword Generator</span><span class="mega-desc">Prefix, suffix, and niche names</span></span></a>
-          <a class="mega-link" href="index.html?tool=brandable"><span class="mega-icon">✨</span><span><span class="mega-title">Brandable Domains</span><span class="mega-desc">Startup-ready name concepts</span></span></a>
-          <a class="mega-link" href="index.html?tool=newsdomain"><span class="mega-icon">⏳</span><span><span class="mega-title">Expired Domains</span><span class="mega-desc">Opportunity discovery workflow</span></span></a>
+    <div class="mega-menu" id="toolsMegaMenu" role="menu" aria-label="Domain tools menu">
+      <div class="mega-panel" data-mega-panel="tools">
+        <div class="mega-label">TOOLS</div>
+        <div class="mega-grid compact">
+          <a class="mega-link" href="index.html?tool=bulkcheck"><span class="mega-icon"></span><span><span class="mega-title">Bulk Checker</span><span class="mega-desc">Check domain lists across TLDs</span></span></a>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Whois Lookup</span><span class="mega-desc">Review ownership and registration data</span></span></a>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">DNS History</span><span class="mega-desc">Research records and infrastructure clues</span></span></a>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Archive Lookup</span><span class="mega-desc">Investigate historic domain usage</span></span></a>
         </div>
-        <div class="mega-section">
-          <div class="mega-label">ANALYZER</div>
-          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon">🧠</span><span><span class="mega-title">Domain Analyzer</span><span class="mega-desc">Quality, fit, and SEO scoring</span></span></a>
-          <a class="mega-link" href="index.html?tool=bulkcheck"><span class="mega-icon">📦</span><span><span class="mega-title">Bulk Checker</span><span class="mega-desc">Check lists across TLDs</span></span></a>
-          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon">🛰️</span><span><span class="mega-title">DNS Lookup</span><span class="mega-desc">Review records and signals</span></span></a>
-          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon">📄</span><span><span class="mega-title">WHOIS Checker</span><span class="mega-desc">Ownership and registration data</span></span></a>
+      </div>
+      <div class="mega-panel" data-mega-panel="generator">
+        <div class="mega-label">GENERATOR</div>
+        <div class="mega-grid compact">
+          <a class="mega-link" href="index.html?tool=geo"><span class="mega-icon"></span><span><span class="mega-title">Geo Domain Generator</span><span class="mega-desc">Local city + service domain ideas</span></span></a>
+          <a class="mega-link" href="index.html?tool=suggestor"><span class="mega-icon"></span><span><span class="mega-title">AI Generator</span><span class="mega-desc">AI-assisted naming suggestions</span></span></a>
+          <a class="mega-link" href="index.html?tool=keyword"><span class="mega-icon"></span><span><span class="mega-title">Keyword Domains</span><span class="mega-desc">Prefix, suffix, and niche combinations</span></span></a>
+          <a class="mega-link" href="index.html?tool=brandable"><span class="mega-icon"></span><span><span class="mega-title">Brand Generator</span><span class="mega-desc">Short premium startup-style names</span></span></a>
         </div>
-        <div class="mega-section">
-          <div class="mega-label">EMAIL TOOLS</div>
-          <a class="mega-link" href="index.html?tool=emailtool"><span class="mega-icon">✉️</span><span><span class="mega-title">Smart Email</span><span class="mega-desc">Personalized outreach sender</span></span></a>
-          <a class="mega-link" href="index.html?tool=emailtool"><span class="mega-icon">📣</span><span><span class="mega-title">Campaign Manager</span><span class="mega-desc">Track domain outreach flows</span></span></a>
-          <a class="mega-link" href="index.html?tool=emailextractor"><span class="mega-icon">🧲</span><span><span class="mega-title">Email Finder</span><span class="mega-desc">Extract emails from lists</span></span></a>
+      </div>
+      <div class="mega-panel" data-mega-panel="analyzer">
+        <div class="mega-label">ANALYZER</div>
+        <div class="mega-grid compact">
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Smart Analyzer</span><span class="mega-desc">AI domain quality and fit review</span></span></a>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">SEO Checker</span><span class="mega-desc">Search intent and keyword clarity</span></span></a>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Domain Score</span><span class="mega-desc">Brandability, length, and memorability</span></span></a>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Backlink Analysis</span><span class="mega-desc">Authority and link signal research</span></span></a>
+        </div>
+      </div>
+      <div class="mega-panel" data-mega-panel="email">
+        <div class="mega-label">SMART EMAIL</div>
+        <div class="mega-grid compact">
+          <a class="mega-link" href="index.html?tool=emailtool"><span class="mega-icon"></span><span><span class="mega-title">Campaign Manager</span><span class="mega-desc">Organize outreach workflows</span></span></a>
+          <a class="mega-link" href="index.html?tool=emailextractor"><span class="mega-icon"></span><span><span class="mega-title">Lead Finder</span><span class="mega-desc">Find and extract prospect contacts</span></span></a>
+          <a class="mega-link" href="index.html?tool=emailtool"><span class="mega-icon"></span><span><span class="mega-title">Email Templates</span><span class="mega-desc">Reusable acquisition messages</span></span></a>
+          <a class="mega-link" href="index.html?tool=emailtool"><span class="mega-icon"></span><span><span class="mega-title">Gmail Sender</span><span class="mega-desc">Launch personalized Gmail drafts</span></span></a>
         </div>
       </div>
     </div>
@@ -330,29 +353,39 @@
     <nav class="mobile-panel" id="mobilePanel" aria-label="Mobile navigation">
       <a href="landing.html">Home</a>
       <div class="mobile-accordion">
-        <button class="mobile-accordion-trigger active" type="button" aria-expanded="true">Generators<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="mobile-accordion-trigger active" type="button" aria-expanded="true">Tools<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="mobile-accordion-panel open"><div class="mobile-accordion-content">
-          <a class="mobile-tool-link" href="index.html?tool=geo"><span class="mega-icon">🌍</span><span><span class="mega-title">Geo Domain Generator</span><span class="mega-desc">City + keyword ideas</span></span></a>
-          <a class="mobile-tool-link" href="index.html?tool=keyword"><span class="mega-icon">🔎</span><span><span class="mega-title">Keyword Generator</span><span class="mega-desc">Niche domain combinations</span></span></a>
-          <a class="mobile-tool-link" href="index.html?tool=brandable"><span class="mega-icon">✨</span><span><span class="mega-title">Brandable Domains</span><span class="mega-desc">Startup-ready ideas</span></span></a>
-          <a class="mobile-tool-link" href="index.html?tool=newsdomain"><span class="mega-icon">⏳</span><span><span class="mega-title">Expired Domains</span><span class="mega-desc">Find opportunities</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=bulkcheck"><span class="mega-icon"></span><span><span class="mega-title">Bulk Checker</span><span class="mega-desc">Check domain lists</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Whois Lookup</span><span class="mega-desc">Registration data</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">DNS History</span><span class="mega-desc">Record research</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Archive Lookup</span><span class="mega-desc">Historic usage</span></span></a>
+        </div></div>
+      </div>
+      <div class="mobile-accordion">
+        <button class="mobile-accordion-trigger" type="button" aria-expanded="false">Generator<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mobile-accordion-panel"><div class="mobile-accordion-content">
+          <a class="mobile-tool-link" href="index.html?tool=geo"><span class="mega-icon"></span><span><span class="mega-title">Geo Domain Generator</span><span class="mega-desc">Local name ideas</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=suggestor"><span class="mega-icon"></span><span><span class="mega-title">AI Generator</span><span class="mega-desc">AI suggestions</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=keyword"><span class="mega-icon"></span><span><span class="mega-title">Keyword Domains</span><span class="mega-desc">Niche combinations</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=brandable"><span class="mega-icon"></span><span><span class="mega-title">Brand Generator</span><span class="mega-desc">Premium startup names</span></span></a>
         </div></div>
       </div>
       <div class="mobile-accordion">
         <button class="mobile-accordion-trigger" type="button" aria-expanded="false">Analyzer<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="mobile-accordion-panel"><div class="mobile-accordion-content">
-          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon">🧠</span><span><span class="mega-title">Domain Analyzer</span><span class="mega-desc">Score domain quality</span></span></a>
-          <a class="mobile-tool-link" href="index.html?tool=bulkcheck"><span class="mega-icon">📦</span><span><span class="mega-title">Bulk Checker</span><span class="mega-desc">Check many domains</span></span></a>
-          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon">🛰️</span><span><span class="mega-title">DNS Lookup</span><span class="mega-desc">Review domain records</span></span></a>
-          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon">📄</span><span><span class="mega-title">WHOIS Checker</span><span class="mega-desc">Registration insights</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Smart Analyzer</span><span class="mega-desc">AI quality review</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">SEO Checker</span><span class="mega-desc">Search intent fit</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Domain Score</span><span class="mega-desc">Brandability scoring</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon"></span><span><span class="mega-title">Backlink Analysis</span><span class="mega-desc">Authority signals</span></span></a>
         </div></div>
       </div>
       <div class="mobile-accordion">
-        <button class="mobile-accordion-trigger" type="button" aria-expanded="false">Email Tools<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="mobile-accordion-trigger" type="button" aria-expanded="false">Smart Email<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="mobile-accordion-panel"><div class="mobile-accordion-content">
-          <a class="mobile-tool-link" href="index.html?tool=emailtool"><span class="mega-icon">✉️</span><span><span class="mega-title">Smart Email</span><span class="mega-desc">Personalized outreach</span></span></a>
-          <a class="mobile-tool-link" href="index.html?tool=emailtool"><span class="mega-icon">📣</span><span><span class="mega-title">Campaign Manager</span><span class="mega-desc">Track outreach flows</span></span></a>
-          <a class="mobile-tool-link" href="index.html?tool=emailextractor"><span class="mega-icon">🧲</span><span><span class="mega-title">Email Finder</span><span class="mega-desc">Extract contact data</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=emailtool"><span class="mega-icon"></span><span><span class="mega-title">Campaign Manager</span><span class="mega-desc">Outreach workflows</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=emailextractor"><span class="mega-icon"></span><span><span class="mega-title">Lead Finder</span><span class="mega-desc">Prospect contacts</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=emailtool"><span class="mega-icon"></span><span><span class="mega-title">Email Templates</span><span class="mega-desc">Reusable messages</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=emailtool"><span class="mega-icon"></span><span><span class="mega-title">Gmail Sender</span><span class="mega-desc">Open Gmail drafts</span></span></a>
         </div></div>
       </div>
       <a href="#pricing">Pricing</a>
@@ -364,7 +397,7 @@
       <span class="float one"></span><span class="float two"></span><span class="float three"></span>
       <div class="container hero-grid reveal visible">
         <div>
-          <p class="eyebrow">⚡ AI-powered domain search for founders</p>
+          <p class="eyebrow">AI-powered domain search for founders</p>
           <h1>Find the Best Domain Names <span class="gradient-text">Instantly</span></h1>
           <p class="hero-subtitle">Search, generate and analyze domain names with AI-powered tools built for startups, domain investors, agencies, and SEO teams.</p>
 
@@ -475,6 +508,7 @@
     const mobilePanel = document.getElementById('mobilePanel');
     const megaMenu = document.getElementById('toolsMegaMenu');
     const megaTriggers = document.querySelectorAll('[data-mega-trigger]');
+    const megaPanels = document.querySelectorAll('[data-mega-panel]');
     let megaCloseTimer;
 
     const closeMegaMenu = () => {
@@ -487,7 +521,7 @@
 
     const positionMegaMenu = (trigger) => {
       const rect = trigger.getBoundingClientRect();
-      const menuWidth = Math.min(760, window.innerWidth - 32);
+      const menuWidth = Math.min(520, window.innerWidth - 32);
       const half = menuWidth / 2;
       const center = rect.left + rect.width / 2;
       const clamped = Math.max(16 + half, Math.min(window.innerWidth - 16 - half, center));
@@ -497,6 +531,9 @@
     const openMegaMenu = (trigger) => {
       clearTimeout(megaCloseTimer);
       positionMegaMenu(trigger);
+      const activePanel = trigger.dataset.megaTrigger;
+      megaPanels.forEach(panel => panel.classList.toggle('active', panel.dataset.megaPanel === activePanel));
+      megaMenu.setAttribute('aria-label', `${trigger.textContent.trim()} tools menu`);
       megaMenu.classList.add('open');
       megaTriggers.forEach(item => {
         const active = item === trigger;
@@ -523,6 +560,9 @@
     megaMenu.addEventListener('mouseenter', () => clearTimeout(megaCloseTimer));
     megaMenu.addEventListener('mouseleave', scheduleMegaClose);
     megaMenu.addEventListener('click', (event) => event.stopPropagation());
+    megaMenu.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMegaMenu();
+    });
 
     menuToggle.addEventListener('click', (event) => {
       event.stopPropagation();
@@ -531,7 +571,7 @@
       menuToggle.setAttribute('aria-expanded', String(open));
     });
     mobilePanel.addEventListener('click', (event) => {
-      if (event.target.closest('a')) {
+      if (event.target === mobilePanel || event.target.closest('a')) {
         mobilePanel.classList.remove('open');
         menuToggle.setAttribute('aria-expanded', 'false');
       }
@@ -552,6 +592,13 @@
       }
     });
     window.addEventListener('resize', closeMegaMenu);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeMegaMenu();
+        mobilePanel.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -584,17 +631,17 @@
 
     const renderLoading = () => {
       resultBox.className = 'search-result visible';
-      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">Checking availability…</div><div style="color:var(--muted);margin-top:6px;">Searching connected API in real time.</div></div><span class="status-badge">⏳ Checking</span></div>`;
+      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">Checking availability…</div><div style="color:var(--muted);margin-top:6px;">Searching connected API in real time.</div></div><span class="status-badge">Checking</span></div>`;
     };
 
     const renderAvailable = (domain, available) => {
       resultBox.className = 'search-result visible';
-      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">${domain}</div><div style="color:var(--muted);margin-top:6px;">Great choice — this domain appears ready to register.</div></div><span class="status-badge status-available">● Available</span><a class="btn" href="${available.register_url || registerUrl(domain)}" target="_blank" rel="noopener">Register Domain</a></div>`;
+      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">${domain}</div><div style="color:var(--muted);margin-top:6px;">Great choice — this domain appears ready to register.</div></div><span class="status-badge status-available">Available</span><a class="btn" href="${available.register_url || registerUrl(domain)}" target="_blank" rel="noopener">Register Domain</a></div>`;
     };
 
     const renderTaken = async (domain, name) => {
       resultBox.className = 'search-result visible';
-      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">${domain}</div><div style="color:var(--muted);margin-top:6px;">This domain looks taken. Finding available alternatives…</div></div><span class="status-badge status-taken">● Taken</span></div>`;
+      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">${domain}</div><div style="color:var(--muted);margin-top:6px;">This domain looks taken. Finding available alternatives…</div></div><span class="status-badge status-taken">Taken</span></div>`;
       try {
         const altNames = ideasFor(name).join(',');
         const response = await fetch(`/api/bulk-check?names=${encodeURIComponent(altNames)}&tlds=com,ai,io,co&include-registered=false`);
