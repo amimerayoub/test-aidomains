@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Domains | Find the Best Domain Names Instantly</title>
+  <meta name="description" content="Search, generate, analyze, and check domain availability instantly with AI-powered domain tools for startups, investors, and online businesses." />
+  <meta name="keywords" content="domain name generator, check domain availability, buy domain online, AI domain tools, domain analyzer, bulk domain checker" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="/landing.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Find the Best Domain Names Instantly" />
+  <meta property="og:description" content="Use AI domain tools to search availability, generate brandable domains, analyze SEO metrics, and find high-value domain names." />
+  <meta property="og:image" content="android-chrome-512x512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AI Domains",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "AI-powered domain availability search, domain name generator, domain analyzer, and bulk checker platform.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f8fbff;
+      --bg-soft: #eef7ff;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-strong: #ffffff;
+      --text: #0d1728;
+      --muted: #5b6b83;
+      --border: rgba(24, 119, 242, 0.13);
+      --primary: #1463ff;
+      --cyan: #05d5ff;
+      --green: #00b86b;
+      --amber: #f59e0b;
+      --shadow: 0 24px 70px rgba(16, 84, 185, 0.16);
+      --shadow-soft: 0 16px 44px rgba(10, 67, 150, 0.11);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --container: 1180px;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #07111f;
+      --bg-soft: #0c1c33;
+      --surface: rgba(12, 27, 48, 0.78);
+      --surface-strong: #102139;
+      --text: #f3f8ff;
+      --muted: #aab9cd;
+      --border: rgba(116, 214, 255, 0.17);
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.35);
+      --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.25);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(5, 213, 255, 0.17), transparent 30rem),
+        radial-gradient(circle at 90% 0%, rgba(20, 99, 255, 0.18), transparent 34rem),
+        linear-gradient(180deg, var(--bg), var(--bg-soft));
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(100% - 32px, var(--container)); margin: 0 auto; }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      transition: background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    }
+    .site-header.is-scrolled {
+      background: color-mix(in srgb, var(--surface-strong) 86%, transparent);
+      box-shadow: 0 10px 35px rgba(18, 79, 155, 0.12);
+      backdrop-filter: blur(18px);
+    }
+    .nav-wrap { display: flex; align-items: center; justify-content: space-between; min-height: 78px; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -0.03em; }
+    .logo-mark {
+      width: 42px; height: 42px; border-radius: 14px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      color: #fff; box-shadow: 0 14px 34px rgba(20, 99, 255, 0.34);
+    }
+    .desktop-nav { display: flex; align-items: center; gap: 6px; }
+    .desktop-nav a, .nav-menu-trigger, .mobile-panel a, .mobile-accordion-trigger {
+      padding: 11px 14px; border-radius: 999px; color: var(--muted); font-weight: 700; font-size: 0.95rem;
+      transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+    .nav-menu-trigger, .mobile-accordion-trigger {
+      border: 0; background: transparent; font-family: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+    }
+    .desktop-nav a:hover, .nav-menu-trigger:hover, .nav-menu-trigger.active, .mobile-panel a:hover, .mobile-accordion-trigger:hover, .mobile-accordion-trigger.active { color: var(--primary); background: rgba(20, 99, 255, 0.08); transform: translateY(-1px); }
+    .nav-chevron { width: 14px; height: 14px; transition: transform 180ms ease; }
+    .nav-menu-trigger.active .nav-chevron, .mobile-accordion-trigger.active .nav-chevron { transform: rotate(180deg); }
+    .mega-menu {
+      position: fixed; top: 68px; left: var(--mega-left, 50%); width: min(760px, calc(100vw - 32px)); z-index: 60;
+      padding: 14px; border: 1px solid rgba(20, 99, 255, 0.12); border-radius: 12px;
+      background: #ffffff; color: #0d1728; box-shadow: 0 24px 70px rgba(15, 63, 128, 0.18);
+      opacity: 0; pointer-events: none; transform: translate(-50%, 10px); transition: opacity 200ms ease, transform 200ms ease;
+    }
+    .mega-menu.open { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+    .mega-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .mega-section { padding: 4px 10px 4px 4px; }
+    .mega-section:not(:last-child) { border-right: 1px solid rgba(20, 99, 255, 0.10); }
+    .mega-label { margin: 4px 6px 9px; color: #1463ff; font-size: 0.72rem; font-weight: 900; letter-spacing: 0.12em; }
+    .mega-link {
+      display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: center; padding: 10px; border-radius: 10px;
+      color: #20304a; transition: background 180ms ease, transform 180ms ease, color 180ms ease;
+    }
+    .mega-link:hover { background: #eef7ff; color: #1463ff; transform: translateX(3px); }
+    .mega-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: linear-gradient(135deg, rgba(20, 99, 255, 0.10), rgba(5, 213, 255, 0.16)); color: #1463ff; }
+    .mega-title { display: block; font-size: 0.91rem; font-weight: 900; line-height: 1.15; }
+    .mega-desc { display: block; margin-top: 3px; color: #68758a; font-size: 0.76rem; line-height: 1.35; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .theme-toggle, .menu-toggle {
+      border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px;
+      min-width: 44px; height: 44px; cursor: pointer; display: inline-grid; place-items: center;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .theme-toggle:hover, .menu-toggle:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+    .menu-toggle { display: none; }
+    .menu-toggle span { width: 18px; height: 2px; background: currentColor; display: block; margin: 3px 0; border-radius: 4px; transition: transform 180ms ease, opacity 180ms ease; }
+    .mobile-panel {
+      position: fixed; top: 78px; right: 16px; width: min(360px, calc(100vw - 32px)); max-height: calc(100vh - 96px); overflow: auto; padding: 14px;
+      border: 1px solid var(--border); border-radius: 24px; background: var(--surface-strong); box-shadow: var(--shadow);
+      transform: translateX(120%); opacity: 0; pointer-events: none; transition: transform 240ms ease, opacity 240ms ease;
+    }
+    .mobile-panel.open { transform: translateX(0); opacity: 1; pointer-events: auto; }
+    .mobile-panel a { display: block; border-radius: 14px; }
+    .mobile-accordion { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
+    .mobile-accordion:first-of-type { border-top: 0; margin-top: 0; padding-top: 0; }
+    .mobile-accordion-trigger { width: 100%; justify-content: space-between; border-radius: 14px; }
+    .mobile-accordion-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 200ms ease; }
+    .mobile-accordion-panel.open { grid-template-rows: 1fr; }
+    .mobile-accordion-content { overflow: hidden; padding: 0 4px; }
+    .mobile-tool-link { display: grid !important; grid-template-columns: 30px 1fr; gap: 9px; align-items: center; margin: 5px 0; padding: 9px 10px !important; border-radius: 12px !important; }
+    .mobile-tool-link:hover { background: rgba(20, 99, 255, 0.08); }
+    .mobile-tool-link .mega-icon { width: 30px; height: 30px; border-radius: 9px; }
+    .mobile-tool-link .mega-desc { color: var(--muted); }
+
+    main { padding-top: 92px; }
+    .hero { position: relative; padding: 72px 0 58px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr; text-align: center; align-items: center; gap: 38px; }
+    .eyebrow {
+      margin: 0 auto 20px; width: fit-content; display: flex; align-items: center; gap: 8px;
+      padding: 9px 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface);
+      color: var(--primary); font-weight: 800; font-size: 0.9rem; box-shadow: var(--shadow-soft);
+    }
+    h1, h2, h3 { margin: 0; letter-spacing: -0.045em; line-height: 1.02; }
+    h1 { font-family: "DM Serif Display", Georgia, serif; font-size: clamp(3rem, 8vw, 6.8rem); font-weight: 400; max-width: 970px; margin-inline: auto; }
+    .gradient-text { background: linear-gradient(90deg, var(--primary), var(--cyan)); -webkit-background-clip: text; color: transparent; }
+    .hero-subtitle { max-width: 720px; margin: 22px auto 0; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.35rem); line-height: 1.7; }
+
+    .search-card {
+      position: relative; max-width: 850px; margin: 34px auto 0; padding: 10px;
+      border: 1px solid var(--border); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow);
+      backdrop-filter: blur(22px); transform-style: preserve-3d;
+    }
+    .domain-form { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
+    .input-shell { display: flex; align-items: center; gap: 10px; min-height: 62px; padding: 0 18px; border-radius: 20px; background: color-mix(in srgb, var(--surface-strong) 86%, transparent); border: 1px solid transparent; transition: border 180ms ease, box-shadow 180ms ease; }
+    .input-shell:focus-within { border-color: rgba(5, 213, 255, 0.65); box-shadow: 0 0 0 6px rgba(5, 213, 255, 0.12); }
+    .domain-input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--text); font-size: 1.05rem; font-weight: 700; }
+    .domain-input::placeholder { color: color-mix(in srgb, var(--muted) 78%, transparent); }
+    .btn {
+      border: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 56px; padding: 0 24px; border-radius: 18px; font-weight: 900; color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--cyan)); box-shadow: 0 18px 38px rgba(20, 99, 255, 0.30);
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 24px 48px rgba(5, 165, 255, 0.38); filter: saturate(1.1); }
+    .btn.secondary { background: var(--surface-strong); color: var(--primary); border: 1px solid var(--border); box-shadow: var(--shadow-soft); }
+    .hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
+
+    .search-result { margin-top: 16px; display: none; text-align: left; border-radius: 22px; border: 1px solid var(--border); background: color-mix(in srgb, var(--surface-strong) 88%, transparent); overflow: hidden; }
+    .search-result.visible { display: block; animation: rise 280ms ease both; }
+    .result-main { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px; flex-wrap: wrap; }
+    .domain-name { font-weight: 900; font-size: 1.15rem; }
+    .status-badge { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: 999px; font-size: 0.86rem; font-weight: 900; }
+    .status-available { background: rgba(0, 184, 107, 0.13); color: var(--green); }
+    .status-taken { background: rgba(245, 158, 11, 0.14); color: var(--amber); }
+    .alternatives { padding: 0 18px 18px; display: grid; gap: 10px; }
+    .alt-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: rgba(20, 99, 255, 0.06); }
+    .alt-row a { color: var(--primary); font-weight: 900; }
+
+    .trust-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 44px; }
+    .stat, .feature-card, .seo-card, .pricing-card {
+      border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow-soft); backdrop-filter: blur(18px);
+      border-radius: var(--radius-lg); transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .stat { padding: 18px; text-align: left; }
+    .stat strong { display: block; font-size: 1.55rem; letter-spacing: -0.04em; }
+    .stat span { color: var(--muted); font-weight: 700; font-size: 0.9rem; }
+    .feature-card:hover, .seo-card:hover, .pricing-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); border-color: rgba(5, 213, 255, 0.35); }
+
+    section { padding: 70px 0; }
+    .section-header { max-width: 760px; margin: 0 auto 34px; text-align: center; }
+    h2 { font-family: "DM Serif Display", Georgia, serif; font-size: clamp(2.35rem, 5vw, 4rem); font-weight: 400; }
+    .section-header p { color: var(--muted); line-height: 1.75; font-size: 1.05rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature-card { padding: 24px; min-height: 220px; }
+    .icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 18px; background: linear-gradient(135deg, rgba(20, 99, 255, 0.14), rgba(5, 213, 255, 0.18)); color: var(--primary); margin-bottom: 20px; }
+    .feature-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+    .feature-card p, .seo-card p { color: var(--muted); line-height: 1.72; margin: 0; }
+
+    .seo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: stretch; }
+    .seo-card { padding: 28px; }
+    .seo-card.wide { grid-column: 1 / -1; }
+    .seo-card h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px; }
+    .internal-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+    .text-link { color: var(--primary); font-weight: 900; border-bottom: 2px solid rgba(5, 213, 255, 0.45); }
+
+    .cta { padding-bottom: 90px; }
+    .cta-box { position: relative; overflow: hidden; text-align: center; padding: clamp(36px, 7vw, 72px); border-radius: var(--radius-xl); border: 1px solid var(--border); background: linear-gradient(135deg, rgba(20, 99, 255, 0.14), rgba(5, 213, 255, 0.11)), var(--surface); box-shadow: var(--shadow); }
+    .cta-box p { color: var(--muted); line-height: 1.8; max-width: 650px; margin: 16px auto 24px; }
+    footer { padding: 28px 0 42px; color: var(--muted); text-align: center; }
+
+    .float { position: absolute; border-radius: 999px; pointer-events: none; filter: blur(0.2px); animation: float 7s ease-in-out infinite; }
+    .float.one { width: 150px; height: 150px; top: 18%; left: 5%; background: rgba(5, 213, 255, 0.13); }
+    .float.two { width: 92px; height: 92px; right: 9%; top: 28%; background: rgba(20, 99, 255, 0.15); animation-delay: -2s; }
+    .float.three { width: 70px; height: 70px; right: 18%; bottom: 10%; background: rgba(0, 184, 107, 0.12); animation-delay: -4s; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 600ms ease, transform 600ms ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -18px, 0) scale(1.04); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 1024px) {
+      .mega-menu { width: min(640px, calc(100vw - 32px)); }
+      .mega-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .mega-section:not(:last-child) { border-right: 0; }
+      .mega-section:nth-child(odd) { border-right: 1px solid rgba(20, 99, 255, 0.10); }
+    }
+    @media (max-width: 900px) {
+      .desktop-nav, .mega-menu { display: none; }
+      .menu-toggle { display: inline-grid; }
+      .features-grid, .seo-grid, .trust-strip { grid-template-columns: 1fr 1fr; }
+      .seo-card.wide { grid-column: auto; }
+    }
+    @media (max-width: 640px) {
+      .container { width: min(100% - 24px, var(--container)); }
+      .nav-wrap { min-height: 68px; }
+      .mobile-panel { top: 68px; }
+      main { padding-top: 78px; }
+      .hero { padding-top: 44px; }
+      .domain-form { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+      .trust-strip, .features-grid, .seo-grid { grid-template-columns: 1fr; }
+      .stat { text-align: center; }
+      .hero-actions { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-wrap">
+      <a class="logo" href="landing.html" aria-label="AI Domains home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h11M4 17h7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M16 15.5l2 2 3.5-4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span>AI Domains</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="landing.html">Home</a>
+        <button class="nav-menu-trigger" type="button" data-mega-trigger aria-expanded="false" aria-controls="toolsMegaMenu">Tools<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="nav-menu-trigger" type="button" data-mega-trigger aria-expanded="false" aria-controls="toolsMegaMenu">Generator<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="nav-menu-trigger" type="button" data-mega-trigger aria-expanded="false" aria-controls="toolsMegaMenu">Analyzer<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="nav-menu-trigger" type="button" data-mega-trigger aria-expanded="false" aria-controls="toolsMegaMenu">Smart Email<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <a href="#pricing">Pricing</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">☾</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="mega-menu" id="toolsMegaMenu" role="menu" aria-label="All domain tools">
+      <div class="mega-grid">
+        <div class="mega-section">
+          <div class="mega-label">GENERATORS</div>
+          <a class="mega-link" href="index.html?tool=geo"><span class="mega-icon">🌍</span><span><span class="mega-title">Geo Domain Generator</span><span class="mega-desc">Local city + keyword ideas</span></span></a>
+          <a class="mega-link" href="index.html?tool=keyword"><span class="mega-icon">🔎</span><span><span class="mega-title">Keyword Generator</span><span class="mega-desc">Prefix, suffix, and niche names</span></span></a>
+          <a class="mega-link" href="index.html?tool=brandable"><span class="mega-icon">✨</span><span><span class="mega-title">Brandable Domains</span><span class="mega-desc">Startup-ready name concepts</span></span></a>
+          <a class="mega-link" href="index.html?tool=newsdomain"><span class="mega-icon">⏳</span><span><span class="mega-title">Expired Domains</span><span class="mega-desc">Opportunity discovery workflow</span></span></a>
+        </div>
+        <div class="mega-section">
+          <div class="mega-label">ANALYZER</div>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon">🧠</span><span><span class="mega-title">Domain Analyzer</span><span class="mega-desc">Quality, fit, and SEO scoring</span></span></a>
+          <a class="mega-link" href="index.html?tool=bulkcheck"><span class="mega-icon">📦</span><span><span class="mega-title">Bulk Checker</span><span class="mega-desc">Check lists across TLDs</span></span></a>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon">🛰️</span><span><span class="mega-title">DNS Lookup</span><span class="mega-desc">Review records and signals</span></span></a>
+          <a class="mega-link" href="index.html?tool=analyzer"><span class="mega-icon">📄</span><span><span class="mega-title">WHOIS Checker</span><span class="mega-desc">Ownership and registration data</span></span></a>
+        </div>
+        <div class="mega-section">
+          <div class="mega-label">EMAIL TOOLS</div>
+          <a class="mega-link" href="index.html?tool=emailtool"><span class="mega-icon">✉️</span><span><span class="mega-title">Smart Email</span><span class="mega-desc">Personalized outreach sender</span></span></a>
+          <a class="mega-link" href="index.html?tool=emailtool"><span class="mega-icon">📣</span><span><span class="mega-title">Campaign Manager</span><span class="mega-desc">Track domain outreach flows</span></span></a>
+          <a class="mega-link" href="index.html?tool=emailextractor"><span class="mega-icon">🧲</span><span><span class="mega-title">Email Finder</span><span class="mega-desc">Extract emails from lists</span></span></a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="mobile-panel" id="mobilePanel" aria-label="Mobile navigation">
+      <a href="landing.html">Home</a>
+      <div class="mobile-accordion">
+        <button class="mobile-accordion-trigger active" type="button" aria-expanded="true">Generators<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mobile-accordion-panel open"><div class="mobile-accordion-content">
+          <a class="mobile-tool-link" href="index.html?tool=geo"><span class="mega-icon">🌍</span><span><span class="mega-title">Geo Domain Generator</span><span class="mega-desc">City + keyword ideas</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=keyword"><span class="mega-icon">🔎</span><span><span class="mega-title">Keyword Generator</span><span class="mega-desc">Niche domain combinations</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=brandable"><span class="mega-icon">✨</span><span><span class="mega-title">Brandable Domains</span><span class="mega-desc">Startup-ready ideas</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=newsdomain"><span class="mega-icon">⏳</span><span><span class="mega-title">Expired Domains</span><span class="mega-desc">Find opportunities</span></span></a>
+        </div></div>
+      </div>
+      <div class="mobile-accordion">
+        <button class="mobile-accordion-trigger" type="button" aria-expanded="false">Analyzer<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mobile-accordion-panel"><div class="mobile-accordion-content">
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon">🧠</span><span><span class="mega-title">Domain Analyzer</span><span class="mega-desc">Score domain quality</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=bulkcheck"><span class="mega-icon">📦</span><span><span class="mega-title">Bulk Checker</span><span class="mega-desc">Check many domains</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon">🛰️</span><span><span class="mega-title">DNS Lookup</span><span class="mega-desc">Review domain records</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=analyzer"><span class="mega-icon">📄</span><span><span class="mega-title">WHOIS Checker</span><span class="mega-desc">Registration insights</span></span></a>
+        </div></div>
+      </div>
+      <div class="mobile-accordion">
+        <button class="mobile-accordion-trigger" type="button" aria-expanded="false">Email Tools<svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mobile-accordion-panel"><div class="mobile-accordion-content">
+          <a class="mobile-tool-link" href="index.html?tool=emailtool"><span class="mega-icon">✉️</span><span><span class="mega-title">Smart Email</span><span class="mega-desc">Personalized outreach</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=emailtool"><span class="mega-icon">📣</span><span><span class="mega-title">Campaign Manager</span><span class="mega-desc">Track outreach flows</span></span></a>
+          <a class="mobile-tool-link" href="index.html?tool=emailextractor"><span class="mega-icon">🧲</span><span><span class="mega-title">Email Finder</span><span class="mega-desc">Extract contact data</span></span></a>
+        </div></div>
+      </div>
+      <a href="#pricing">Pricing</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <span class="float one"></span><span class="float two"></span><span class="float three"></span>
+      <div class="container hero-grid reveal visible">
+        <div>
+          <p class="eyebrow">⚡ AI-powered domain search for founders</p>
+          <h1>Find the Best Domain Names <span class="gradient-text">Instantly</span></h1>
+          <p class="hero-subtitle">Search, generate and analyze domain names with AI-powered tools built for startups, domain investors, agencies, and SEO teams.</p>
+
+          <div class="search-card" id="searchCard">
+            <form class="domain-form" id="domainForm">
+              <label class="input-shell" for="domainInput">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <input class="domain-input" id="domainInput" type="text" placeholder="Enter domain name" autocomplete="off" inputmode="url" aria-describedby="searchHelp" />
+              </label>
+              <button class="btn" type="submit" id="searchButton">Search</button>
+            </form>
+            <p id="searchHelp" style="margin:10px 12px 0;color:var(--muted);font-size:.9rem;">Try a brand, keyword, or full domain like <strong>brightforge.com</strong>.</p>
+            <div class="search-result" id="searchResult" aria-live="polite"></div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn" href="index.html?tool=geo">Generate Domains</a>
+            <a class="btn secondary" href="index.html?tool=analyzer">Analyze Domain</a>
+          </div>
+        </div>
+
+        <div class="trust-strip" aria-label="Platform highlights">
+          <div class="stat"><strong>&lt;1s</strong><span>Fast availability flow</span></div>
+          <div class="stat"><strong>10+</strong><span>Domain TLD checks</span></div>
+          <div class="stat"><strong>AI</strong><span>Name ideas and analysis</span></div>
+          <div class="stat"><strong>SEO</strong><span>Value-focused insights</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>Everything You Need to Find Better Domains</h2>
+          <p>Move from idea to validated domain faster with generation, availability checks, SEO analysis, and acquisition-ready workflows.</p>
+        </div>
+        <div class="features-grid">
+          <article class="feature-card reveal"><div class="icon">✨</div><h3>Domain Generator</h3><p>Create brandable names, keyword combinations, geo domains, and startup-style ideas in seconds.</p></article>
+          <article class="feature-card reveal"><div class="icon">🧠</div><h3>Domain Analyzer</h3><p>Score domain quality using length, clarity, brandability, market fit, and acquisition potential.</p></article>
+          <article class="feature-card reveal"><div class="icon">📦</div><h3>Bulk Checker</h3><p>Check domain availability across multiple names and TLDs without slowing down your workflow.</p></article>
+          <article class="feature-card reveal"><div class="icon">📈</div><h3>SEO Metrics</h3><p>Prioritize names that support search visibility, memorability, topical relevance, and conversion.</p></article>
+          <article class="feature-card reveal"><div class="icon">⏳</div><h3>Expired Domains</h3><p>Research high-value opportunities and identify domains with stronger resale or business potential.</p></article>
+          <article class="feature-card reveal"><div class="icon">✉️</div><h3>Smart Email</h3><p>Organize domain outreach and acquisition messages with integrated Smart Email tooling.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="seo-content">
+      <div class="container seo-grid">
+        <article class="seo-card wide reveal">
+          <h2>Best Domain Name Generator Tool</h2>
+          <p>AI Domains is a fast domain name generator for entrepreneurs who need to check domain availability, buy domain online, and evaluate naming ideas with AI domain tools. Generate memorable options, compare extensions, and move quickly when a valuable domain is available.</p>
+          <div class="internal-links">
+            <a class="text-link" href="index.html?tool=geo">Generate Domain Names</a>
+            <a class="text-link" href="index.html?tool=analyzer">Try Domain Analyzer</a>
+          </div>
+        </article>
+        <article class="seo-card reveal">
+          <h2>Check Domain Availability Instantly</h2>
+          <p>Use the centered search experience to validate a name before you invest in branding, design, or marketing. When a domain is taken, the landing page suggests practical alternatives and routes you to the complete bulk checker workflow.</p>
+        </article>
+        <article class="seo-card reveal">
+          <h2>Find High-Value Domains for Your Business</h2>
+          <p>Strong domains are short, clear, memorable, and aligned with search intent. Our platform helps founders and domain buyers compare options for brand potential, SEO relevance, and acquisition readiness.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta" id="pricing">
+      <div class="container">
+        <div class="cta-box reveal">
+          <h2>Start With Free AI Domain Tools</h2>
+          <p>Search availability, generate name ideas, analyze domains, and organize outreach from one professional SaaS-style platform.</p>
+          <div class="hero-actions">
+            <a class="btn" href="index.html">Open All Tools</a>
+            <a class="btn secondary" href="index.html?tool=bulkcheck">Try Bulk Checker</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> AI Domains. Built for fast domain discovery and SEO-focused naming.</div>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const storedTheme = localStorage.getItem('landing-theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = storedTheme || (systemDark ? 'dark' : 'light');
+
+    const themeToggle = document.getElementById('themeToggle');
+    const setThemeIcon = () => { themeToggle.textContent = root.dataset.theme === 'dark' ? '☀' : '☾'; };
+    setThemeIcon();
+    themeToggle.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('landing-theme', root.dataset.theme);
+      setThemeIcon();
+    });
+
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const mobilePanel = document.getElementById('mobilePanel');
+    const megaMenu = document.getElementById('toolsMegaMenu');
+    const megaTriggers = document.querySelectorAll('[data-mega-trigger]');
+    let megaCloseTimer;
+
+    const closeMegaMenu = () => {
+      megaMenu.classList.remove('open');
+      megaTriggers.forEach(trigger => {
+        trigger.classList.remove('active');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    const positionMegaMenu = (trigger) => {
+      const rect = trigger.getBoundingClientRect();
+      const menuWidth = Math.min(760, window.innerWidth - 32);
+      const half = menuWidth / 2;
+      const center = rect.left + rect.width / 2;
+      const clamped = Math.max(16 + half, Math.min(window.innerWidth - 16 - half, center));
+      megaMenu.style.setProperty('--mega-left', `${clamped}px`);
+    };
+
+    const openMegaMenu = (trigger) => {
+      clearTimeout(megaCloseTimer);
+      positionMegaMenu(trigger);
+      megaMenu.classList.add('open');
+      megaTriggers.forEach(item => {
+        const active = item === trigger;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-expanded', String(active));
+      });
+    };
+
+    const scheduleMegaClose = () => {
+      clearTimeout(megaCloseTimer);
+      megaCloseTimer = setTimeout(closeMegaMenu, 180);
+    };
+
+    megaTriggers.forEach(trigger => {
+      trigger.addEventListener('mouseenter', () => openMegaMenu(trigger));
+      trigger.addEventListener('focus', () => openMegaMenu(trigger));
+      trigger.addEventListener('mouseleave', scheduleMegaClose);
+      trigger.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (megaMenu.classList.contains('open') && trigger.classList.contains('active')) closeMegaMenu();
+        else openMegaMenu(trigger);
+      });
+    });
+    megaMenu.addEventListener('mouseenter', () => clearTimeout(megaCloseTimer));
+    megaMenu.addEventListener('mouseleave', scheduleMegaClose);
+    megaMenu.addEventListener('click', (event) => event.stopPropagation());
+
+    menuToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      closeMegaMenu();
+      const open = mobilePanel.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+    });
+    mobilePanel.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        mobilePanel.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.querySelectorAll('.mobile-accordion-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const panel = trigger.nextElementSibling;
+        const isOpen = panel.classList.toggle('open');
+        trigger.classList.toggle('active', isOpen);
+        trigger.setAttribute('aria-expanded', String(isOpen));
+      });
+    });
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.site-header')) {
+        closeMegaMenu();
+        mobilePanel.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    window.addEventListener('resize', closeMegaMenu);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const form = document.getElementById('domainForm');
+    const input = document.getElementById('domainInput');
+    const resultBox = document.getElementById('searchResult');
+    const button = document.getElementById('searchButton');
+
+    const cleanDomainInput = (value) => value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '').replace(/[^a-z0-9.-]/g, '');
+    const splitDomain = (value) => {
+      const cleaned = cleanDomainInput(value);
+      const parts = cleaned.split('.').filter(Boolean);
+      if (parts.length > 1) return { name: parts[0], tlds: [parts.slice(1).join('.')] };
+      return { name: cleaned.replace(/\./g, ''), tlds: ['com', 'ai', 'io', 'co', 'net'] };
+    };
+    const registerUrl = (domain) => `https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(domain)}`;
+    const ideasFor = (name) => [...new Set([
+      `${name}hq`, `get${name}`, `${name}ai`, `${name}labs`, `try${name}`, `${name}app`, `use${name}`, `${name}ly`
+    ].filter(item => item.length >= 3).slice(0, 8))];
+
+    const renderLoading = () => {
+      resultBox.className = 'search-result visible';
+      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">Checking availability…</div><div style="color:var(--muted);margin-top:6px;">Searching connected API in real time.</div></div><span class="status-badge">⏳ Checking</span></div>`;
+    };
+
+    const renderAvailable = (domain, available) => {
+      resultBox.className = 'search-result visible';
+      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">${domain}</div><div style="color:var(--muted);margin-top:6px;">Great choice — this domain appears ready to register.</div></div><span class="status-badge status-available">● Available</span><a class="btn" href="${available.register_url || registerUrl(domain)}" target="_blank" rel="noopener">Register Domain</a></div>`;
+    };
+
+    const renderTaken = async (domain, name) => {
+      resultBox.className = 'search-result visible';
+      resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">${domain}</div><div style="color:var(--muted);margin-top:6px;">This domain looks taken. Finding available alternatives…</div></div><span class="status-badge status-taken">● Taken</span></div>`;
+      try {
+        const altNames = ideasFor(name).join(',');
+        const response = await fetch(`/api/bulk-check?names=${encodeURIComponent(altNames)}&tlds=com,ai,io,co&include-registered=false`);
+        const data = await response.json();
+        const alternatives = (data.results?.available || data.results?.all?.filter(item => item.available) || []).slice(0, 5);
+        const rows = alternatives.length
+          ? alternatives.map(item => `<div class="alt-row"><strong>${item.domain}</strong><a href="${item.register_url || registerUrl(item.domain)}" target="_blank" rel="noopener">Register</a></div>`).join('')
+          : `<div class="alt-row"><strong>${name}hq.com</strong><a href="index.html?tool=geo">Generate more</a></div>`;
+        resultBox.innerHTML += `<div class="alternatives"><strong>Available alternatives</strong>${rows}</div>`;
+      } catch (error) {
+        resultBox.innerHTML += `<div class="alternatives"><div class="alt-row"><strong>Alternative suggestions are temporarily unavailable.</strong><a href="index.html?tool=geo">Generate more</a></div></div>`;
+      }
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const { name, tlds } = splitDomain(input.value);
+      if (!name || name.length < 2) {
+        resultBox.className = 'search-result visible';
+        resultBox.innerHTML = `<div class="result-main"><div class="domain-name">Enter at least 2 characters to search.</div><span class="status-badge status-taken">Required</span></div>`;
+        return;
+      }
+      renderLoading();
+      button.disabled = true;
+      button.textContent = 'Searching…';
+      try {
+        const response = await fetch(`/api/bulk-check?names=${encodeURIComponent(name)}&tlds=${encodeURIComponent(tlds.join(','))}`);
+        const data = await response.json();
+        if (!response.ok || data.success === false) throw new Error(data.error || 'Domain check failed');
+        const all = data.results?.all || [];
+        const available = (data.results?.available || []).find(item => item.domain === `${name}.${tlds[0]}`) || data.results?.available?.[0];
+        const target = `${name}.${tlds[0]}`;
+        const targetRecord = all.find(item => item.domain === target) || all[0];
+        if (available && (!targetRecord || targetRecord.available || available.domain === target)) renderAvailable(available.domain, available);
+        else renderTaken(targetRecord?.domain || target, name);
+      } catch (error) {
+        resultBox.className = 'search-result visible';
+        resultBox.innerHTML = `<div class="result-main"><div><div class="domain-name">We could not complete the search.</div><div style="color:var(--muted);margin-top:6px;">Please try again or open the full toolset.</div></div><a class="btn secondary" href="index.html?tool=bulkcheck">Use Bulk Checker</a></div>`;
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Search';
+      }
+    });
+  </script>
+</body>
+</html>
